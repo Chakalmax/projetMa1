@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import KnowledgeBase.Attribute.Type;
 /**
  * An KnowledgeBase(KB) is a group of samples and contain the Attribute associated at these samples.
  * It alse have a name and some others informations. It provides several usefull fonction.
@@ -173,7 +172,6 @@ public class KnowledgeBase {
 	 */
 	private ArrayList<Integer> count(ArrayList<String> possibleValue, ArrayList<Integer> counter) {
 		int index = getIndexClass();
-		System.out.println("possible Value(count function)" + possibleValue);
 		for(Sample samp: samples){
 			String val = samp.get(index).getValue().toString();
 			for(int i=0;i<possibleValue.size();i++){
@@ -225,9 +223,7 @@ public class KnowledgeBase {
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)
 			counter.add(0);
-		System.out.println("AllSameClass : possibleValue: " + possibleValue + "  counter  " + counter);
 		counter = count(possibleValue,counter);
-		System.out.println("Counter : " + counter);
 		int max = Collections.max(counter);
 		int numberElem = samples.size();
 		return (numberElem - ((error/100)*numberElem) <= max);

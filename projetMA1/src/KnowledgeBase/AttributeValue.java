@@ -13,6 +13,7 @@ public class AttributeValue<T> {
 		this.setValue(value);
 	}
 
+
 	/**
 	 * @return the value fo the AttributeValue.
 	 */

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import KnowledgeBase.*;
-import KnowledgeBase.Attribute.Type;
 
 public class ParseurTxt {
 

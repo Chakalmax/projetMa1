@@ -7,7 +7,6 @@ public class Attribute {
 	private String name;
 	private boolean classe;
 	private ArrayList<String> possibleValue;
-	public enum Type {Numerical , Boolean, Nominal}
 	private Type type;
 	
 	public Attribute(String name, boolean classe){
