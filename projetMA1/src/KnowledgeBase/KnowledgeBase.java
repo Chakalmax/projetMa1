@@ -206,6 +206,20 @@ public class KnowledgeBase {
 		return -1;
 	}
 	/**
+	 * Return the index of the parameter Attribute in the attributeList
+	 * @param attribute
+	 * @return index of the attribute in the attributeList
+	 */
+	public int getIndexOfAttribute(Attribute attribute){
+		int count =0;
+			for(Attribute att: attributeList)
+				if(att.getName().compareToIgnoreCase(attribute.getName())==0)
+					return count;
+				else
+					count++;
+		return count;
+	}
+	/**
 	 * This function return true if the KB is empty, i.e if there is 0 samples
 	 * @return true if no samples
 	 */

@@ -2,8 +2,9 @@ package DecisionTree;
 
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
+import KnowledgeBase.Sample;
 
-public class Leaf extends Node{
+public class Leaf extends DecisionTree{
 
 	AttributeValue<?> classe;
 	public Leaf(KnowledgeBase kb, AttributeValue<?> classe) {
@@ -12,7 +13,7 @@ public class Leaf extends Node{
 	}
 
 	@Override
-	public AttributeValue<?> getDecision() {
+	public AttributeValue<?> getDecision(Sample samp) {
 		return classe;
 	}
 

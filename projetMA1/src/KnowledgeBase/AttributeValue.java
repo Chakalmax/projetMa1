@@ -33,4 +33,9 @@ public class AttributeValue<T> {
 	public String toString(){
 		return value.toString();
 	}
+	
+	@Override
+	public boolean equals(Object ob){
+		return ob instanceof AttributeValue && ((AttributeValue)ob).getValue().equals(value);
+	}
 }

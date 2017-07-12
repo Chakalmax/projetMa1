@@ -2,15 +2,16 @@ package DecisionTree;
 
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
+import KnowledgeBase.Sample;
 /**
  * Node of the Tree. Abstract because you need to be Leaf or innerNode
  * @author maxim
  *
  */
-public abstract class Node {
+public abstract class DecisionTree {
 	KnowledgeBase kb;
 	
-	public Node(KnowledgeBase kb){
+	public DecisionTree(KnowledgeBase kb){
 		this.kb = kb;
 	}
 	
@@ -32,7 +33,9 @@ public abstract class Node {
 	 * Get the Decision, i.e Classification based on the current Tree Node
 	 * @return the class;
 	 */
-	public abstract AttributeValue<?> getDecision();
+	public abstract AttributeValue<?> getDecision(Sample samp);
+
+	
 	
 	
 }
