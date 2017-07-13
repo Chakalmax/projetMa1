@@ -36,6 +36,8 @@ public class AttributeValue<T> {
 	
 	@Override
 	public boolean equals(Object ob){
-		return ob instanceof AttributeValue && ((AttributeValue)ob).getValue().equals(value) && ((AttributeValue)ob).getValue().toString()==value.toString();
+		return ob instanceof AttributeValue &&
+				((AttributeValue)ob).getValue().equals(value) &&
+				((AttributeValue)ob).getValue().toString()==value.toString();
 	}
 }
