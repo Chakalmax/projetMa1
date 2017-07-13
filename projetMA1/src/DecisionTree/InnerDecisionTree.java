@@ -22,6 +22,12 @@ public class InnerDecisionTree extends DecisionTree {
 		this.attribute= attribute;
 		this.arrows = arrows;
 	}
+	
+	public InnerDecisionTree(KnowledgeBase kb,Attribute attribute,float gain) {
+		super(kb);
+		this.gain = gain;
+		this.attribute= attribute;
+	}
 
 	/**
 	 * @return the attribute

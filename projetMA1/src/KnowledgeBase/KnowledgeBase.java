@@ -244,5 +244,15 @@ public class KnowledgeBase {
 		}
 		return false;
 	}
+	/**
+	 * This function split the current knowledgeBase to get a knowledgeBase where Attribute "a" get the value "attValstr" 
+	 * @param attIndex index of the attribute
+	 * @param attValstr attributeValue as str
+	 * @return a KB where Attribute with index attIndex as the value attValStr
+	 */
+	public KnowledgeBase Split(int attIndex, String attValstr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
