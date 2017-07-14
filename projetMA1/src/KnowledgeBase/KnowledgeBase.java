@@ -123,7 +123,7 @@ public class KnowledgeBase {
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)
 			counter.add(0);
-		counter = count(possibleValue,counter);
+		counter = countClass(possibleValue,counter);
 		// trouver le max
 		int bestValue = counter.get(0);
 		ArrayList<Integer> bestIndex = new ArrayList<Integer>();
@@ -170,8 +170,17 @@ public class KnowledgeBase {
 	 * @param counter
 	 * @return
 	 */
-	private ArrayList<Integer> count(ArrayList<String> possibleValue, ArrayList<Integer> counter) {
-		int index = getIndexClass();
+	public ArrayList<Integer> countClass(ArrayList<String> possibleValue, ArrayList<Integer> counter) {
+		return count(possibleValue,counter,getIndexClass());
+	}
+	
+	/**
+	 * This function is able to count iteration of values for the class.
+	 * @param possibleValue
+	 * @param counter
+	 * @return
+	 */
+	public ArrayList<Integer> count(ArrayList<String> possibleValue, ArrayList<Integer> counter, int index) {
 		for(Sample samp: samples){
 			String val = samp.get(index).getValue().toString();
 			for(int i=0;i<possibleValue.size();i++){
@@ -237,7 +246,7 @@ public class KnowledgeBase {
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)
 			counter.add(0);
-		counter = count(possibleValue,counter);
+		counter = countClass(possibleValue,counter);
 		int max = Collections.max(counter);
 		int numberElem = samples.size();
 		return (numberElem - ((error/100)*numberElem) <= max);
