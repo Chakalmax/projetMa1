@@ -29,4 +29,12 @@ public class KnowledgeBaseTest {
 	public void getDominanteClass(){
 		assertTrue((boolean)kb.getDominantClass().getValue());
 	}
+	
+	@Test public void SplitTest(){
+		KnowledgeBase kb2 = kb.Split(0, new AttributeValue<Boolean>(true));
+		assertEquals(kb2.getSamples().size(),8);
+		for(Sample samp: kb2.getSamples())
+			assertTrue((boolean)samp.get(0).getValue());
+		
+	}
 }

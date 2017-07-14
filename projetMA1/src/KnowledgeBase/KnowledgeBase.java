@@ -155,7 +155,7 @@ public class KnowledgeBase {
 	 * @param strval
 	 * @return AttributeValue
 	 */
-	private AttributeValue<?> createRigthAttributeValue(Type typeLabel, String strval) {
+	public static AttributeValue<?> createRigthAttributeValue(Type typeLabel, String strval) {
 		if(typeLabel == Type.Numerical)
 			return new AttributeValue<Float>(Float.parseFloat(strval));		
 		else if(typeLabel == Type.Boolean)
@@ -253,6 +253,14 @@ public class KnowledgeBase {
 	public KnowledgeBase Split(int attIndex, String attValstr) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public KnowledgeBase Split(int attIndex, AttributeValue<?> attVal){
+		ArrayList <Sample> newSamples = new ArrayList<Sample>();
+		for(Sample samp: samples)
+			if(samp.get(attIndex).equals(attVal))
+				newSamples.add(samp);
+		return new KnowledgeBase(name, newSamples, attributeList);
 	}
 	
 }

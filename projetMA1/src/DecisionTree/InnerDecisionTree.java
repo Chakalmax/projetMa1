@@ -70,6 +70,10 @@ public class InnerDecisionTree extends DecisionTree {
 	public void setArrows(ArrayList<Arrow> arrows) {
 		this.arrows = arrows;
 	}
+	
+	public void addArrow(Arrow arrow){
+		this.arrows.add(arrow);
+	}
 
 	@Override
 	public AttributeValue<?> getDecision(Sample samp) {

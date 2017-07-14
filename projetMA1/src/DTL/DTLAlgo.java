@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
 import KnowledgeBase.KnowledgeBase;
+import KnowledgeBase.Type;
 
 public class DTLAlgo {
 
@@ -29,9 +30,13 @@ public class DTLAlgo {
 			else
 				gainList.set(i,(float) 0);
 		int A = max(gainList);
-		DecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
-		for(String attValstr : kb.getAttributeList().get(A).getPossibleValue()){
-			KnowledgeBase kbFils = kb.Split(A,attValstr);}
+		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
+		for(String attVal : kb.getAttributeList().get(A).getPossibleValue()){
+			Type type = kb.getAttributeList().get(A).getType();
+			KnowledgeBase kbChild = kb.Split(A,attVal);
+			attIndex.add(A);
+			DecisionTree child = DTL_algo(kbChild,attIndex,kb,error,strat);
+			tree.addArrow(new Arrow(KnowledgeBase.createRigthAttributeValue(type, attVal),child));}
 		
 	}
 
