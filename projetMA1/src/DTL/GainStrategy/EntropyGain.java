@@ -20,12 +20,18 @@ public class EntropyGain implements GainStrategy {
 			kb.countClass(kb.getClassAttribute().getPossibleValue(), counter2);
 			kb.count(attVal, counter2, attIndex);
 			float entropyClasse = calculEntropy(kb,kb.getIndexClass(),counter);
+			float entropyAttribute = calculEntropyTwoAttribute(kb,kb.getIndexClass(),attIndex);
 			return calculGain(kb,attIndex,entropyClasse,counter2);
 		
 		}else{
 			
 		}
 		return gain;
+	}
+
+	private float calculEntropyTwoAttribute(KnowledgeBase kb, int indexClass, int attIndex) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public float calculGain(KnowledgeBase kb, int attIndex, float entropyClasse, ArrayList<Integer> counter2) {
@@ -42,10 +48,6 @@ public class EntropyGain implements GainStrategy {
 		return - entropy;
 	}
 	
-/*	public float calculB(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, AttributeValue<?> attval){
-		float q =(0/kb.getSamples().size());
-		return (float) -(q*(Math.log(q)/Math.log(2))+(1-q)*(Math.log(1-q)/Math.log(2)));
-		
-	}*/
+
 
 }

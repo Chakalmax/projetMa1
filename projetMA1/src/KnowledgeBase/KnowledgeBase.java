@@ -191,6 +191,56 @@ public class KnowledgeBase {
 		}	
 		return counter;
 	}
+	
+	public ArrayList<ArrayList<Integer>> count2D(ArrayList<AttributeValue<?>> possibleValue, int index,
+			ArrayList<AttributeValue<?>> possibleValueClass, int indexClass){
+		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
+		init2D(counter,possibleValue.size(),possibleValueClass.size());
+		for(Sample samp: samples){
+			AttributeValue<?> val = samp.get(index);
+			AttributeValue<?> valClass = samp.get(indexClass);
+			if(this.attributeList.get(index).getType()!=Type.Numerical)
+				incrementNonNumerical(counter,val,valClass,possibleValue,possibleValueClass);
+			else
+				incrementNumerical();
+		}
+		return counter;
+	}
+	
+	private void incrementNumerical() {
+		// TODO Auto-generated method stub
+		// TODO change code for Integer first.
+	}
+
+	private void incrementNonNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> val, AttributeValue<?> valClass,
+			ArrayList<AttributeValue<?>> possibleValue, ArrayList<AttributeValue<?>> possibleValueClass) {
+		for(int i=0;i<possibleValue.size();i++)
+			for(int j=0;j<possibleValueClass.size();j++)
+				if(val.equals(possibleValue.get(i))&& valClass.equals(possibleValueClass.get(j)))
+				{
+					ArrayList<Integer> tmp = counter.get(i);
+					tmp.set(j, tmp.get(j)+1);
+					counter.set(i,tmp);
+					return;
+				}
+					
+	}
+
+	/**
+	 * Initialize the counter2D(empty) with 0 and the size is size1*size2
+	 * @param counter
+	 * @param size1
+	 * @param size2
+	 */
+	private void init2D(ArrayList<ArrayList<Integer>> counter, int size1, int size2) {
+		for(int i=0;i<size1;i++){
+			ArrayList<Integer> inArray = new ArrayList<Integer>();
+			for(int j=0;j<size2;j++)
+				inArray.add(0);
+			counter.add(inArray);
+		}
+	}
+
 	/**
 	 * This function return the Attribute who's a classe/label
 	 * @return the classe(Attribute)
