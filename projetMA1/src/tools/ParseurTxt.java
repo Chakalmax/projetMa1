@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import KnowledgeBase.*;
-
+/**
+ * This class gives a function to read txt file to load a KnowledgeBase @see KnowledgeBase
+ * @author mvh
+ * @version 1.0
+ */
 public class ParseurTxt {
 
 	private static String line;
@@ -74,7 +78,8 @@ public class ParseurTxt {
 			ArrayList<String> attList = new ArrayList<String>(Arrays.asList(line2.split("\\s+")));
 			//System.out.println("size : " + attList.size()+ "list : " + attList);
 			attType.add(attList.get(1));
-			Attribute att = (new Attribute(attList.get(0), first=="@"? false : true));
+			//System.out.println(first.compareTo("@")==0? false : true);
+			Attribute att = (new Attribute(attList.get(0), first.compareTo("@")==0? false : true));
 			
 			if(attList.get(1).compareToIgnoreCase("nominal")==0){
 				for(int i=3;i<attList.size();i++){

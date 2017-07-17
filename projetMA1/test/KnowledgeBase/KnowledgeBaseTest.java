@@ -54,6 +54,10 @@ public class KnowledgeBaseTest {
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		kb.countClass(counter);
 	}
+	@Test
+	public void getIndexClass(){
+		assertEquals(kb.getIndexClass(),5);
+	}
 	
 	
 }

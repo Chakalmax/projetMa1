@@ -7,6 +7,7 @@ import java.io.File;
 import org.junit.Test;
 
 import KnowledgeBase.KnowledgeBase;
+import KnowledgeBase.Type;
 
 public class ParseurTxtTest {
 
@@ -21,6 +22,7 @@ public class ParseurTxtTest {
 		assertEquals(kb.getSamples().size(),15);
 		assertEquals(kb.getAttributeList().size(),6);
 		assertTrue(kb.getAttributeList().get(4).isClasse());
+		assertEquals(kb.getClassAttribute().getType(),Type.Boolean);
 	}
 	
 	
