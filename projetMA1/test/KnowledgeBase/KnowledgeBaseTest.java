@@ -51,7 +51,8 @@ public class KnowledgeBaseTest {
 			for(int j=0;j<2;j++)
 				count = count + arr.get(i).get(j);
 		assertEquals(count,15);
-
+		ArrayList<Integer> counter = new ArrayList<Integer>();
+		kb.countClass(counter);
 	}
 	
 	
