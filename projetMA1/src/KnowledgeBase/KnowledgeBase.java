@@ -123,7 +123,7 @@ public class KnowledgeBase {
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)
 			counter.add(0);
-		counter = countClass(possibleValue,counter);
+		counter = countClass(counter);
 		// trouver le max
 		int bestValue = counter.get(0);
 		ArrayList<Integer> bestIndex = new ArrayList<Integer>();
@@ -148,20 +148,20 @@ public class KnowledgeBase {
 		
 		return null;
 	}
-	/**
-	 * This function creates an AttributeValue knowing a Type and a string value
-	 * @param typeLabel
-	 * @param strval
-	 * @return AttributeValue
-	 */
-	public static AttributeValue<?> createRigthAttributeValue(Type typeLabel, String strval) {
-		if(typeLabel == Type.Numerical)
-			return new AttributeValue<Float>(Float.parseFloat(strval));		
-		else if(typeLabel == Type.Boolean)
-			return new AttributeValue<Boolean>(Boolean.parseBoolean(strval));
-		else 
-			return new AttributeValue<String>(strval);
-	}
+//	/**
+//	 * This function creates an AttributeValue knowing a Type and a string value
+//	 * @param typeLabel
+//	 * @param strval
+//	 * @return AttributeValue
+//	 */
+//	public static AttributeValue<?> createRigthAttributeValue(Type typeLabel, String strval) {
+//		if(typeLabel == Type.Numerical)
+//			return new AttributeValue<Float>(Float.parseFloat(strval));		
+//		else if(typeLabel == Type.Boolean)
+//			return new AttributeValue<Boolean>(Boolean.parseBoolean(strval));
+//		else 
+//			return new AttributeValue<String>(strval);
+//	}
 
 	/**
 	 * This function is able to count iteration of values for the class.
@@ -169,8 +169,8 @@ public class KnowledgeBase {
 	 * @param counter
 	 * @return
 	 */
-	public ArrayList<Integer> countClass(ArrayList<AttributeValue<?>> possibleValue, ArrayList<Integer> counter) {
-		return count(possibleValue,counter,getIndexClass());
+	public ArrayList<Integer> countClass(ArrayList<Integer> counter) {
+		return count(counter,getIndexClass());
 	}
 	
 	/**
@@ -179,7 +179,8 @@ public class KnowledgeBase {
 	 * @param counter
 	 * @return
 	 */
-	public ArrayList<Integer> count(ArrayList<AttributeValue<?>> possibleValue, ArrayList<Integer> counter, int index) {
+	public ArrayList<Integer> count(ArrayList<Integer> counter, int index) {
+		ArrayList<AttributeValue<?>>possibleValue = attributeList.get(index).getPossibleAttributeValue();
 		for(Sample samp: samples){
 			AttributeValue<?> val = samp.get(index);
 			for(int i=0;i<possibleValue.size();i++)
@@ -308,7 +309,7 @@ public class KnowledgeBase {
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)
 			counter.add(0);
-		counter = countClass(possibleValue,counter);
+		counter = countClass(counter);
 		int max = Collections.max(counter);
 		int numberElem = samples.size();
 		return (numberElem - ((error/100)*numberElem) <= max);

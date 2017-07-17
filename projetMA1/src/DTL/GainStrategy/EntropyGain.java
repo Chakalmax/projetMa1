@@ -7,25 +7,26 @@ public class EntropyGain implements GainStrategy {
 
 	@Override
 	public float getGain(KnowledgeBase kb, int attIndex) {
-		Attribute att = kb.getAttributeList().get(attIndex);
-		float gain=0;
-		if(att.getType()!= Type.Numerical){
-			ArrayList <AttributeValue<?>> attVal = att.getPossibleAttributeValue();
-			ArrayList<Integer> counter = new ArrayList<Integer>();
-			ArrayList<Integer> counter2 = new ArrayList<Integer>();
-			for(int i=0;i<attVal.size();i++){
-				counter.add(0);
-				counter2.add(0);
-				}
-			kb.countClass(kb.getClassAttribute().getPossibleAttributeValue(), counter2);
-			kb.count(attVal, counter2, attIndex);
-			float entropyClasse = calculEntropy(kb,kb.getIndexClass(),counter);
-			float entropyAttribute = calculEntropyTwoAttribute(kb,kb.getIndexClass(),attIndex);
-			return calculGain(kb,attIndex,entropyClasse,counter2);
-		
-		}else{
-			
-		}
+		float gain =0;
+//		Attribute att = kb.getAttributeList().get(attIndex);
+//		float gain=0;
+//		if(att.getType()!= Type.Numerical){
+//			ArrayList <AttributeValue<?>> attVal = att.getPossibleAttributeValue();
+//			ArrayList<Integer> counter = new ArrayList<Integer>();
+//			ArrayList<Integer> counter2 = new ArrayList<Integer>();
+//			for(int i=0;i<attVal.size();i++){
+//				counter.add(0);
+//				counter2.add(0);
+//				}
+//			kb.countClass(kb.getClassAttribute().getPossibleAttributeValue(), counter2);
+//			kb.count(attVal, counter2, attIndex);
+//			float entropyClasse = calculEntropy(kb,kb.getIndexClass(),counter);
+//			float entropyAttribute = calculEntropyTwoAttribute(kb,kb.getIndexClass(),attIndex);
+//			return calculGain(kb,attIndex,entropyClasse,counter2);
+//		
+//		}else{
+//			
+//		}
 		return gain;
 	}
 
