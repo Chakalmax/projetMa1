@@ -191,20 +191,34 @@ public class KnowledgeBase {
 		}	
 		return counter;
 	}
-	
+	/**
+	 * This function is able to count iteration of values for the class depending on the value of another class.
+	 * So this make a Two dimensionnal table of counter.
+	 * @param possibleValue for
+	 * @param index
+	 * @param possibleValueClass
+	 * @param indexClass
+	 * @return
+	 */
 	public ArrayList<ArrayList<Integer>> count2D(ArrayList<AttributeValue<?>> possibleValue, int index,
 			ArrayList<AttributeValue<?>> possibleValueClass, int indexClass){
 		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
-		init2D(counter,possibleValue.size(),possibleValueClass.size());
-		for(Sample samp: samples){
-			AttributeValue<?> val = samp.get(index);
-			AttributeValue<?> valClass = samp.get(indexClass);
-			if(this.attributeList.get(index).getType()!=Type.Numerical)
+		if(this.attributeList.get(index).getType()!=Type.Numerical){
+			init2D(counter,possibleValue.size(),possibleValueClass.size());
+			for(Sample samp: samples){
+				AttributeValue<?> val = samp.get(index);
+				AttributeValue<?> valClass = samp.get(indexClass);
 				incrementNonNumerical(counter,val,valClass,possibleValue,possibleValueClass);
-			else
-				incrementNumerical();
+				}
+		}else{// this.attributeList.get(index).getType() == Type.Numerical
+			init2D(counter,2,possibleValueClass.size());
+			//TODO INTEGER PROBLEM.
 		}
 		return counter;
+	}
+	
+	public ArrayList<ArrayList<Integer>> count2D(int index, int indexClass){
+		return count2D(attributeList.get(index).getPossibleAttributeValue(),index,attributeList.get(indexClass).getPossibleAttributeValue(),indexClass);
 	}
 	
 	private void incrementNumerical() {
@@ -232,7 +246,7 @@ public class KnowledgeBase {
 	 * @param size1
 	 * @param size2
 	 */
-	private void init2D(ArrayList<ArrayList<Integer>> counter, int size1, int size2) {
+	public void init2D(ArrayList<ArrayList<Integer>> counter, int size1, int size2) {
 		for(int i=0;i<size1;i++){
 			ArrayList<Integer> inArray = new ArrayList<Integer>();
 			for(int j=0;j<size2;j++)

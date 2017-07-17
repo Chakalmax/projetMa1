@@ -2,6 +2,7 @@ package KnowledgeBase;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +31,22 @@ public class KnowledgeBaseTest {
 		assertTrue((boolean)kb.getDominantClass().getValue());
 	}
 	
-	@Test public void SplitTest(){
+	@Test 
+	public void SplitTest(){
 		KnowledgeBase kb2 = kb.Split(0, new AttributeValue<Boolean>(true));
 		assertEquals(kb2.getSamples().size(),8);
 		for(Sample samp: kb2.getSamples())
-			assertTrue((boolean)samp.get(0).getValue());
-		
+			assertTrue((boolean)samp.get(0).getValue());	
 	}
+	@Test
+	public void count2DTest(){
+		System.out.println(kb.count2D(0,5));
+		ArrayList<ArrayList<Integer>> arr = new ArrayList<ArrayList<Integer>>();
+		kb.init2D(arr,kb.getAttributeList().get(0).getPossibleAttributeValue().size(), kb.getAttributeList().get(5).getPossibleAttributeValue().size());
+		System.out.println(kb.getAttributeList().get(0).getPossibleAttributeValue().size());
+		System.out.println(arr);
+	
+	}
+	
+	
 }
