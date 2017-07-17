@@ -34,7 +34,7 @@ public class EntropyGain implements GainStrategy {
 	 * @return the gain of the attribute(index : attIndex) in the kb
 	 */
 	private float calculGainNonNumerical(KnowledgeBase kb, int attIndex) {
-		ArrayList<Integer> counter1D = kb.count(attIndex);
+		ArrayList<Integer> counter1D = kb.count(kb.getIndexClass());
 		float entropyClass = calculEntropy(kb,kb.getIndexClass(),counter1D);
 		ArrayList<ArrayList<Integer>> counter2D = kb.count2D(attIndex, kb.getIndexClass());
 		float entropy2D = calculEntropy2D(kb,attIndex,counter2D);

@@ -36,10 +36,15 @@ public class AttributeValue<T> {
 	
 	@Override
 	public boolean equals(Object ob){
-		if(!(this.value instanceof Float))
+		if((this.value instanceof Boolean))
 				return ob instanceof AttributeValue &&
 						((AttributeValue)ob).getValue().equals(value) &&
 						((AttributeValue)ob).getValue().toString()==value.toString();
+		else if(this.value instanceof String){
+			return ob instanceof AttributeValue &&
+					((AttributeValue) ob).getValue() instanceof String &&
+					((String)((AttributeValue)ob).getValue()).compareTo((String)value)==0;
+		}
 		else{ //si numerique, alors on doit faire gaffe aux représentation virgule flottante
 			float epsilon = (float) 0.000001;
 				return (ob instanceof AttributeValue) &&  ((AttributeValue)ob).getValue() instanceof Float

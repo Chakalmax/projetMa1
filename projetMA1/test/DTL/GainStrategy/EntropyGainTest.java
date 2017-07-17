@@ -46,8 +46,7 @@ public class EntropyGainTest {
 		}
 		
 
-		System.out.println((7.0/15.0)*Math.log((7.0/15.0)) / Math.log(2));
-		System.out.println(kb.getIndexClass());
+		System.out.println((3.0/8.0)*Math.log((3.0/8.0)) / Math.log(2));
 	}
 
 	private boolean nearlyEquals(float entropyAttribute, double d) {
