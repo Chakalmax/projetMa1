@@ -121,8 +121,6 @@ public class KnowledgeBase {
 		if(label != null){
 		ArrayList<AttributeValue<?>> possibleValue = getClassAttribute().getPossibleAttributeValue();
 		ArrayList<Integer> counter = new ArrayList<Integer>();
-		for(int i=0;i<possibleValue.size();i++)
-			counter.add(0);
 		counter = countClass(counter);
 		// trouver le max
 		int bestValue = counter.get(0);
@@ -170,7 +168,7 @@ public class KnowledgeBase {
 	 * @return
 	 */
 	public ArrayList<Integer> countClass(ArrayList<Integer> counter) {
-		return count(counter,getIndexClass());
+		return count(getIndexClass());
 	}
 	
 	/**
@@ -179,8 +177,9 @@ public class KnowledgeBase {
 	 * @param counter
 	 * @return
 	 */
-	public ArrayList<Integer> count(ArrayList<Integer> counter, int index) {
+	public ArrayList<Integer> count(int index) {
 		ArrayList<AttributeValue<?>>possibleValue = attributeList.get(index).getPossibleAttributeValue();
+		ArrayList<Integer> counter = init1D(possibleValue);
 		for(Sample samp: samples){
 			AttributeValue<?> val = samp.get(index);
 			for(int i=0;i<possibleValue.size();i++)
@@ -190,6 +189,15 @@ public class KnowledgeBase {
 		}	
 		return counter;
 	}
+	
+	
+	private  ArrayList<Integer> init1D(ArrayList<AttributeValue<?>> possibleValue) {
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		for(int i=0;i<possibleValue.size();i++)
+			arr.add(0);
+		return arr;
+	}
+
 	/**
 	 * This function is able to count iteration of values for the class depending on the value of another class.
 	 * So this make a Two dimensionnal table of counter.
@@ -225,7 +233,7 @@ public class KnowledgeBase {
 		// TODO change code for Integer first.
 	}
 
-	private void incrementNonNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> val, AttributeValue<?> valClass,
+	private  ArrayList<ArrayList<Integer>> incrementNonNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> val, AttributeValue<?> valClass,
 			ArrayList<AttributeValue<?>> possibleValue, ArrayList<AttributeValue<?>> possibleValueClass) {
 		for(int i=0;i<possibleValue.size();i++)
 			for(int j=0;j<possibleValueClass.size();j++)
@@ -234,9 +242,9 @@ public class KnowledgeBase {
 					ArrayList<Integer> tmp = counter.get(i);
 					tmp.set(j, tmp.get(j)+1);
 					counter.set(i,tmp);
-					return;
+					return counter;
 				}
-					
+		return counter;	
 	}
 
 	/**
@@ -307,8 +315,6 @@ public class KnowledgeBase {
 		if(label != null){
 		ArrayList<AttributeValue<?>> possibleValue = getClassAttribute().getPossibleAttributeValue();
 		ArrayList<Integer> counter = new ArrayList<Integer>();
-		for(int i=0;i<possibleValue.size();i++)
-			counter.add(0);
 		counter = countClass(counter);
 		int max = Collections.max(counter);
 		int numberElem = samples.size();
