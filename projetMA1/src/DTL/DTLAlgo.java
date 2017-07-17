@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
+import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
 import KnowledgeBase.Type;
 
@@ -31,12 +32,11 @@ public class DTLAlgo {
 				gainList.set(i,(float) 0);
 		int A = max(gainList);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
-		for(String attVal : kb.getAttributeList().get(A).getPossibleValue()){
-			Type type = kb.getAttributeList().get(A).getType();
+		for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
 			KnowledgeBase kbChild = kb.Split(A,attVal);
 			attIndex.add(A);
 			DecisionTree child = DTL_algo(kbChild,attIndex,kb,error,strat);
-			tree.addArrow(new Arrow(KnowledgeBase.createRigthAttributeValue(type, attVal),child));}
+			tree.addArrow(new Arrow(attVal,child));}
 		
 	}
 

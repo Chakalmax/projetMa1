@@ -6,14 +6,12 @@ public class Attribute {
 	
 	private String name;
 	private boolean classe;
-	private ArrayList<String> possibleValue;
 	private ArrayList<AttributeValue<?>> possibleAttributeValue;
 	private Type type;
 	
 	public Attribute(String name, boolean classe){
 		this.name = name;
 		this.classe = classe;
-		possibleValue = new ArrayList<String>();
 		possibleAttributeValue = new ArrayList<AttributeValue<?>>();
 	}
 	public Attribute(String name){
@@ -31,25 +29,6 @@ public class Attribute {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-	/**
-	 * @return the possibleValue
-	 */
-	public ArrayList<String> getPossibleValue() {
-		return possibleValue;
-	}
-	/**
-	 * @param possibleValue the possibleValue to set
-	 */
-	public void setPossibleValue(ArrayList<String> possibleValue) {
-		this.possibleValue = possibleValue;
-	}
-	/**
-	 * Add an value(string value)
-	 * @param value
-	 */
-	public void addValue(String value){
-		possibleValue.add(value);
 	}
 	
 	/**
@@ -87,6 +66,10 @@ public class Attribute {
 	 */
 	public void setPossibleAttributeValue(ArrayList<AttributeValue<?>> possibleAttributeValue) {
 		this.possibleAttributeValue = possibleAttributeValue;
+	}
+	
+	public void addPossibleAttributeValue(AttributeValue<?> attval){
+		this.possibleAttributeValue.add(attval);
 	}
 	/**
 	 * Add an AttributeValue to the list of possibleValue

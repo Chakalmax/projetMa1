@@ -40,12 +40,18 @@ public class KnowledgeBaseTest {
 	}
 	@Test
 	public void count2DTest(){
-		System.out.println(kb.count2D(0,5));
 		ArrayList<ArrayList<Integer>> arr = new ArrayList<ArrayList<Integer>>();
-		kb.init2D(arr,kb.getAttributeList().get(0).getPossibleAttributeValue().size(), kb.getAttributeList().get(5).getPossibleAttributeValue().size());
-		System.out.println(kb.getAttributeList().get(0).getPossibleAttributeValue().size());
-		System.out.println(arr);
-	
+		arr = kb.count2D(0,5);
+		assertTrue(arr.get(0).get(0) == 3);
+		assertTrue(arr.get(0).get(1) == 5);
+		assertTrue(arr.get(1).get(0) == 5);
+		assertTrue(arr.get(1).get(1) == 2);
+		int count =0;
+		for(int i=0;i<2;i++)
+			for(int j=0;j<2;j++)
+				count = count + arr.get(i).get(j);
+		assertEquals(count,15);
+
 	}
 	
 	

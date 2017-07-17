@@ -119,7 +119,7 @@ public class KnowledgeBase {
 	public AttributeValue<?> getDominantClass(){
 		Attribute label = getClassAttribute();
 		if(label != null){
-		ArrayList<String> possibleValue = getClassAttribute().getPossibleValue();
+		ArrayList<AttributeValue<?>> possibleValue = getClassAttribute().getPossibleAttributeValue();
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)
 			counter.add(0);
@@ -141,9 +141,8 @@ public class KnowledgeBase {
 		
 			Random rand = new Random();
 			int nombreAleatoire = rand.nextInt(bestIndex.size());
-			String strval = possibleValue.get(nombreAleatoire);
-			Type typeLabel = label.getType();
-			return createRigthAttributeValue(typeLabel,strval);
+			AttributeValue<?> val = possibleValue.get(nombreAleatoire);
+			return val;
 		
 		}
 		
@@ -170,7 +169,7 @@ public class KnowledgeBase {
 	 * @param counter
 	 * @return
 	 */
-	public ArrayList<Integer> countClass(ArrayList<String> possibleValue, ArrayList<Integer> counter) {
+	public ArrayList<Integer> countClass(ArrayList<AttributeValue<?>> possibleValue, ArrayList<Integer> counter) {
 		return count(possibleValue,counter,getIndexClass());
 	}
 	
@@ -180,14 +179,13 @@ public class KnowledgeBase {
 	 * @param counter
 	 * @return
 	 */
-	public ArrayList<Integer> count(ArrayList<String> possibleValue, ArrayList<Integer> counter, int index) {
+	public ArrayList<Integer> count(ArrayList<AttributeValue<?>> possibleValue, ArrayList<Integer> counter, int index) {
 		for(Sample samp: samples){
-			String val = samp.get(index).getValue().toString();
-			for(int i=0;i<possibleValue.size();i++){
-				String str = possibleValue.get(i);
-				if(str.equalsIgnoreCase(val))
+			AttributeValue<?> val = samp.get(index);
+			for(int i=0;i<possibleValue.size();i++)
+				if(val.equals(possibleValue.get(i)))
 					counter.set(i,counter.get(i)+1);
-			}
+			
 		}	
 		return counter;
 	}
@@ -306,7 +304,7 @@ public class KnowledgeBase {
 	public boolean AllSameClass(float error){// error rate as %
 		Attribute label = getClassAttribute();
 		if(label != null){
-		ArrayList<String> possibleValue = getClassAttribute().getPossibleValue();
+		ArrayList<AttributeValue<?>> possibleValue = getClassAttribute().getPossibleAttributeValue();
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)
 			counter.add(0);
