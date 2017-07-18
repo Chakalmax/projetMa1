@@ -56,11 +56,11 @@ public class EntropyGain implements GainStrategy {
 				float entropyLine = calculEntropyForValue(kb,attIndex,counter2d.get(i),i);
 				entropy = entropy + pv*entropyLine;
 			}
-		return - entropy;
+		return  entropy;
 	}
 	
 	public float calculEntropyForValue(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i) {
-		AttributeValue attVal = kb.getAttributeList().get(attIndex).getPossibleAttributeValue().get(i);
+		AttributeValue<?> attVal = kb.getAttributeList().get(attIndex).getPossibleAttributeValue().get(i);
 		KnowledgeBase kb2 = kb.Split(attIndex, attVal);
 		return calculEntropy(kb2,attIndex,counter);
 	}
