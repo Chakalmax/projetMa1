@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import KnowledgeBase.Attribute;
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
+import KnowledgeBase.Sample;
 import KnowledgeBase.Type;
 
 public class GiniGain implements GainStrategy {
@@ -37,7 +38,13 @@ public class GiniGain implements GainStrategy {
 
 
 	private float calculGainNumerical(KnowledgeBase kb, int attIndex) {
-		// TODO Auto-generated method stub
+		ArrayList<AttributeValue<?>> possibleValue = new ArrayList<AttributeValue<?>>();
+		for(Sample samp: kb.getSamples())
+		{
+			if(!possibleValue.contains(samp.get(attIndex)))
+				possibleValue.add(samp.get(attIndex));
+		}
+		ArrayList<ArrayList<Integer>> Multiple_counters = new ArrayList<ArrayList<Integer>>();
 		return 0;
 	}
 	

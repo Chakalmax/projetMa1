@@ -179,6 +179,10 @@ public class KnowledgeBase {
 	 */
 	public ArrayList<Integer> count(int index) {
 		ArrayList<AttributeValue<?>>possibleValue = attributeList.get(index).getPossibleAttributeValue();
+		return count(index,possibleValue);
+	}
+	
+	public ArrayList<Integer> count(int index,ArrayList<AttributeValue<?>>possibleValue){
 		ArrayList<Integer> counter = init1D(possibleValue);
 		for(Sample samp: samples){
 			AttributeValue<?> val = samp.get(index);
