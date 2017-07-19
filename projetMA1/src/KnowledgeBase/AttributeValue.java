@@ -52,4 +52,23 @@ public class AttributeValue<T> {
 						&& (float)((AttributeValue)ob).getValue() > (float)this.getValue() - epsilon;
 		}
 	}
+
+
+	public int compareTo(AttributeValue<?> attributeValue) {
+		if(value instanceof Float&& attributeValue.getValue() instanceof Float){
+			float val = (float) attributeValue.getValue();
+			float epsilon = (float) 0.000000000001;
+			if((float)value < val+epsilon && (float)value > val-epsilon)
+				return 0;
+			if((float)value > val+epsilon)
+				return 1;
+			else
+				return 0;
+		}else{
+			if(this.equals(attributeValue))
+				return 0;
+			else
+				return 1;
+		}
+	}
 }
