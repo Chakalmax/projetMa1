@@ -1,5 +1,7 @@
 package DTL.GainStrategy;
 
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
 
 import KnowledgeBase.Attribute;
@@ -50,13 +52,36 @@ public class GiniGain implements GainStrategy {
 			if(!possibleValue.contains(samp.get(attIndex)))
 				possibleValue.add(samp.get(attIndex));
 		}
-		ArrayList<ArrayList<Integer>> Multiple_counters = new ArrayList<ArrayList<Integer>>();
-		for(int i=0;i<possibleValue.size();i++)
-			Multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
+		ArrayList<ArrayList<Integer>> multiple_counters = new ArrayList<ArrayList<Integer>>();
+		for(int i=0;i<possibleValue.size()-1;i++)
+			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
+		Point2D.Float bestSplit;
+		bestSplit = find_bestSplit(kb,attIndex,multiple_counters);
+		float gini1D = (float) bestSplit.getX();
+		int indexBestSplit = (int) bestSplit.getY();
+		///
+		ArrayList<ArrayList<Integer>> counter2D = kb.count2DNumeric(attIndex, kb.getIndexClass(),possibleValue.get(indexBestSplit));
+		float gini2D = calculGini2D(kb,attIndex,counter2D);
+		
 		return 0;
 	}
 	
 
+
+	private Float find_bestSplit(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> multiple_counters) {
+		float best_Gini = 0;
+		int index_Best_Gini =0;
+		float tmp_gini;
+		for(int i=0;i<multiple_counters.size();i++){
+			tmp_gini = calculGini(kb,attIndex,multiple_counters.get(i));
+			if(tmp_gini>best_Gini){
+				best_Gini = tmp_gini;
+				index_Best_Gini = i;
+			}
+		}
+		return new Point2D.Float(best_Gini,index_Best_Gini);
+		
+	}
 
 	private float calculGini2D(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> counter2d) {
 		float gini=0;

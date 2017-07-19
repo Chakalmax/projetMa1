@@ -239,10 +239,6 @@ public class KnowledgeBase {
 		return count2D(attributeList.get(index).getPossibleAttributeValue(),index,attributeList.get(indexClass).getPossibleAttributeValue(),indexClass);
 	}
 	
-	private void incrementNumerical() {
-		// TODO Auto-generated method stub
-		// TODO change code for Integer first.
-	}
 
 	private  ArrayList<ArrayList<Integer>> incrementNonNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> val, AttributeValue<?> valClass,
 			ArrayList<AttributeValue<?>> possibleValue, ArrayList<AttributeValue<?>> possibleValueClass) {
@@ -365,6 +361,39 @@ public class KnowledgeBase {
 		}	
 		return counter;
 	}
+
+	public ArrayList<ArrayList<Integer>> count2DNumeric(int attIndex, int indexClass,
+			AttributeValue<?> attributeValue) {
+		ArrayList<AttributeValue<?>> possibleValueClass = attributeList.get(indexClass).getPossibleAttributeValue();
+		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
+		init2D(counter,2,possibleValueClass.size());
+		for(Sample samp: samples){
+			AttributeValue<?> valClass = samp.get(indexClass);
+			incrementNumerical(counter,attributeValue,valClass,possibleValueClass);
+		}
+		return null;
+	}
 	
+	private void incrementNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> attributeValue,
+			AttributeValue<?> valClass, ArrayList<AttributeValue<?>> possibleValueClass) {
+		// TODO Auto-generated method stub
+		// TODO change code for Integer first.
+	}
+
 	
+
+//	private  ArrayList<ArrayList<Integer>> incrementNonNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> val, AttributeValue<?> valClass,
+//			ArrayList<AttributeValue<?>> possibleValue, ArrayList<AttributeValue<?>> possibleValueClass) {
+//		for(int i=0;i<possibleValue.size();i++)
+//			for(int j=0;j<possibleValueClass.size();j++)
+//				if(val.equals(possibleValue.get(i))&& valClass.equals(possibleValueClass.get(j)))
+//				{
+//					ArrayList<Integer> tmp = counter.get(i);
+//					tmp.set(j, tmp.get(j)+1);
+//					counter.set(i,tmp);
+//					return counter;
+//				}
+//		return counter;	
+//	}
+
 }
