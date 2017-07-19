@@ -37,6 +37,12 @@ public class GiniGain implements GainStrategy {
 	}
 
 
+	/**
+	 * Compute the gain for Numerical Attribute
+	 * @param kb
+	 * @param attIndex
+	 * @return the gain
+	 */
 	private float calculGainNumerical(KnowledgeBase kb, int attIndex) {
 		ArrayList<AttributeValue<?>> possibleValue = new ArrayList<AttributeValue<?>>();
 		for(Sample samp: kb.getSamples())
@@ -45,9 +51,13 @@ public class GiniGain implements GainStrategy {
 				possibleValue.add(samp.get(attIndex));
 		}
 		ArrayList<ArrayList<Integer>> Multiple_counters = new ArrayList<ArrayList<Integer>>();
+		for(int i=0;i<possibleValue.size();i++)
+			Multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
 		return 0;
 	}
 	
+
+
 	private float calculGini2D(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> counter2d) {
 		float gini=0;
 		for(int i=0;i<counter2d.size();i++){

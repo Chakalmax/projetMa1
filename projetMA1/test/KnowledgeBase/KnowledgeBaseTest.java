@@ -59,5 +59,15 @@ public class KnowledgeBaseTest {
 		assertEquals(kb.getIndexClass(),5);
 	}
 	
+	@Test
+	public void testNumericalThings(){
+		String filePath = new File("").getAbsolutePath();
+		String fileName = filePath.concat("/test/ressources/test2.txt");
+		this.kb = ParseurTxt.readFile(fileName);
+		KnowledgeBase kb2 = kb.Split(2, new AttributeValue<Float>((float) 2.0));
+		assertEquals(kb2.getSamples().size(),2);
+		assertEquals(kb2.getDominantClass(),new AttributeValue<Boolean>(true));
+	}
+	
 	
 }

@@ -55,7 +55,7 @@ public class ParseurTxt {
 							att.add(new AttributeValue<Boolean>(false));
 					if(attType.get(i).compareToIgnoreCase("Nominal")==0)
 						att.add(new AttributeValue<String>(linesplit.get(i)));
-					if(attType.get(i).compareTo("Numerical")==0)
+					if(attType.get(i).compareToIgnoreCase("Numerical")==0)
 						att.add(new AttributeValue<Float>(Float.parseFloat(linesplit.get(i))));
 				}
 				//System.out.println(att);

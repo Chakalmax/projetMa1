@@ -201,6 +201,13 @@ public class KnowledgeBase {
 			arr.add(0);
 		return arr;
 	}
+	
+	private  ArrayList<Integer> init1D(int size) {
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		for(int i=0;i<size;i++)
+			arr.add(0);
+		return arr;
+	}
 
 	/**
 	 * This function is able to count iteration of values for the class depending on the value of another class.
@@ -317,7 +324,6 @@ public class KnowledgeBase {
 	public boolean AllSameClass(float error){// error rate as %
 		Attribute label = getClassAttribute();
 		if(label != null){
-		ArrayList<AttributeValue<?>> possibleValue = getClassAttribute().getPossibleAttributeValue();
 		ArrayList<Integer> counter = new ArrayList<Integer>();
 		counter = countClass(counter);
 		int max = Collections.max(counter);
@@ -326,17 +332,13 @@ public class KnowledgeBase {
 		}
 		return false;
 	}
-	/**
-	 * This function split the current knowledgeBase to get a knowledgeBase where Attribute "a" get the value "attValstr" 
-	 * @param attIndex index of the attribute
-	 * @param attValstr attributeValue as str
-	 * @return a KB where Attribute with index attIndex as the value attValStr
-	 */
-	public KnowledgeBase Split(int attIndex, String attValstr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+	/**
+	 * This function split the current knowledgeBase to get a knowledgeBase where Attribute "a" get the value "attVal" 
+	 * @param attIndex index of the attribute
+	 * @param attVal attributeValue 
+	 * @return a KB where Attribute with index attIndex as the value attVal
+	 */
 	public KnowledgeBase Split(int attIndex, AttributeValue<?> attVal){
 		ArrayList <Sample> newSamples = new ArrayList<Sample>();
 		for(Sample samp: samples)
@@ -344,5 +346,25 @@ public class KnowledgeBase {
 				newSamples.add(samp);
 		return new KnowledgeBase(name, newSamples, attributeList);
 	}
+
+	/**
+	 * Same as count but for NumericalAttribute
+	 * @param attributeValue
+	 * @param attIndex 
+	 * @return
+	 */
+	public ArrayList<Integer> countNumerical(AttributeValue<?> attributeValue, int index) {
+		ArrayList<Integer> counter = init1D(2);
+		for(Sample samp: samples){
+			AttributeValue<?> val = samp.get(index);
+			if(samp.get(index).compareTo(attributeValue)!=1)
+				counter.set(0,counter.get(0)+1);
+			else
+				counter.set(1,counter.get(1)+1);
+			
+		}	
+		return counter;
+	}
+	
 	
 }
