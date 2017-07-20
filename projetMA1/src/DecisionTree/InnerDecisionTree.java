@@ -27,6 +27,7 @@ public class InnerDecisionTree extends DecisionTree {
 		super(kb);
 		this.gain = gain;
 		this.attribute= attribute;
+		arrows = new ArrayList<Arrow>();
 	}
 
 	/**
@@ -77,6 +78,10 @@ public class InnerDecisionTree extends DecisionTree {
 
 	@Override
 	public AttributeValue<?> getDecision(Sample samp) {
+//		System.out.println("Ceci est un InnerDecisionTree");
+//		System.out.println("Kb : ");
+//		for(Sample sample: kb.getSamples())
+//			System.out.println(sample);
 		Arrow arr = findGoodArrow(samp);
 		return arr.getTarget().getDecision(samp);
 	}
