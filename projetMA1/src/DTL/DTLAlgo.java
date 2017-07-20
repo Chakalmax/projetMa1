@@ -10,6 +10,15 @@ import KnowledgeBase.Type;
 
 public class DTLAlgo {
 
+	/**
+	 * DecisionTreeLearning Algorithm to create a decision Tree. Be very careful with initialization.
+	 * @param kb the KnowledgeBase on which we create the DecisionTree
+	 * @param attIndex must contains the index of the class
+	 * @param parent_kb the KnowledgeBase of the parent(=kb on init)
+	 * @param error the error needed for the allSameClass function @see KnowledgeBase.allSameClass()
+	 * @param strat the strategy to choose the best attribute @see DTL.GainStrategy
+	 * @return A DecisionTree
+	 */
 	public static DecisionTree DTL_algo(KnowledgeBase kb, ArrayList<Integer> attIndex,
 			KnowledgeBase parent_kb, float error, GainStrategy strat){
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error))
@@ -20,7 +29,15 @@ public class DTLAlgo {
 			return createInnerTree(kb,attIndex,parent_kb,error, strat);
 		
 	}
-
+/**
+ * Create an InnerTree (see the DTL algo pseudo-code)
+ * @param kb
+ * @param attIndex
+ * @param parent_kb
+ * @param error
+ * @param strat
+ * @return
+ */
 	private static DecisionTree createInnerTree(KnowledgeBase kb, ArrayList<Integer> attIndex,
 			KnowledgeBase parent_kb, float error, GainStrategy strat) {
 		ArrayList<Float> gainList = new ArrayList<Float>();

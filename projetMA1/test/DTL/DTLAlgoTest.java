@@ -41,8 +41,7 @@ public class DTLAlgoTest {
 		samp.add(faute);
 		samp.add(taille_text);
 		samp.add(piece_jointe);
-		System.out.println(DT.getKb().getSamples());
-		System.out.println(DT.getDecision(samp));
+		assertTrue((boolean)DT.getDecision(samp).getValue());
 	}
 	
 }
