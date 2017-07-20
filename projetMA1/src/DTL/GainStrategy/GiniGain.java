@@ -61,9 +61,9 @@ public class GiniGain implements GainStrategy {
 		int indexBestSplit = (int) bestSplit.getY();
 		///
 		ArrayList<ArrayList<Integer>> counter2D = kb.count2DNumeric(attIndex, kb.getIndexClass(),possibleValue.get(indexBestSplit));
-		float gini2D = calculGini2D(kb,attIndex,counter2D);
+		float gini2D = calculGini2DForNumerical(kb,attIndex,counter2D);
 		
-		return 0;
+		return gini1D - gini2D;
 	}
 	
 
@@ -93,12 +93,28 @@ public class GiniGain implements GainStrategy {
 	return  gini;
 	}
 
+	private float calculGini2DForNumerical(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> counter2d) {
+		
+		float pv1 = (float)sumList(counter2d.get(0))/kb.getSamples().size();
+		float giniLine1 = calculGiniForValueNumerical(kb,attIndex,counter2d.get(0),0,true);
+		float pv2 = (float)sumList(counter2d.get(1))/kb.getSamples().size();
+		float giniLine2 = calculGiniForValueNumerical(kb,attIndex,counter2d.get(0),0,false);
+		
+		return  pv1*giniLine1 +pv2*giniLine2;
+	}
+
 	private float calculGiniForValue(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i) {
 		AttributeValue<?> attVal = kb.getAttributeList().get(attIndex).getPossibleAttributeValue().get(i);
 		KnowledgeBase kb2 = kb.Split(attIndex, attVal);
 		return calculGini(kb2,attIndex,counter);
 	}
 
+	private float calculGiniForValueNumerical(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i,boolean lower) {
+		AttributeValue<?> attVal = kb.getAttributeList().get(attIndex).getPossibleAttributeValue().get(i);
+		KnowledgeBase kb2 = kb.SplitNumerical(attIndex, attVal,lower);
+		return calculGini(kb2,attIndex,counter);
+	}
+	
 	public float calculGini(KnowledgeBase kb, int indexClass, ArrayList<Integer> counter) {
 		float giniIndex = 0;
 //		System.out.println("Counter : " + counter);

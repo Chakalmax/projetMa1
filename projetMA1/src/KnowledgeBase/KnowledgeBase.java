@@ -146,20 +146,7 @@ public class KnowledgeBase {
 		
 		return null;
 	}
-//	/**
-//	 * This function creates an AttributeValue knowing a Type and a string value
-//	 * @param typeLabel
-//	 * @param strval
-//	 * @return AttributeValue
-//	 */
-//	public static AttributeValue<?> createRigthAttributeValue(Type typeLabel, String strval) {
-//		if(typeLabel == Type.Numerical)
-//			return new AttributeValue<Float>(Float.parseFloat(strval));		
-//		else if(typeLabel == Type.Boolean)
-//			return new AttributeValue<Boolean>(Boolean.parseBoolean(strval));
-//		else 
-//			return new AttributeValue<String>(strval);
-//	}
+
 
 	/**
 	 * This function is able to count iteration of values for the class.
@@ -228,9 +215,6 @@ public class KnowledgeBase {
 				AttributeValue<?> valClass = samp.get(indexClass);
 				incrementNonNumerical(counter,val,valClass,possibleValue,possibleValueClass);
 				}
-		}else{// this.attributeList.get(index).getType() == Type.Numerical
-			init2D(counter,2,possibleValueClass.size());
-			//TODO INTEGER PROBLEM.
 		}
 		return counter;
 	}
@@ -363,37 +347,46 @@ public class KnowledgeBase {
 	}
 
 	public ArrayList<ArrayList<Integer>> count2DNumeric(int attIndex, int indexClass,
-			AttributeValue<?> attributeValue) {
+			AttributeValue<?> attributeValueSplit) {
 		ArrayList<AttributeValue<?>> possibleValueClass = attributeList.get(indexClass).getPossibleAttributeValue();
 		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
 		init2D(counter,2,possibleValueClass.size());
 		for(Sample samp: samples){
 			AttributeValue<?> valClass = samp.get(indexClass);
-			incrementNumerical(counter,attributeValue,valClass,possibleValueClass);
+			AttributeValue<?> attval = samp.get(attIndex);
+			counter = incrementNumerical(counter,attributeValueSplit,attval,valClass,possibleValueClass);
 		}
 		return null;
 	}
 	
-	private void incrementNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> attributeValue,
-			AttributeValue<?> valClass, ArrayList<AttributeValue<?>> possibleValueClass) {
-		// TODO Auto-generated method stub
-		// TODO change code for Integer first.
+	private ArrayList<ArrayList<Integer>> incrementNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> attributeValueSplit,
+			AttributeValue<?> attVal, AttributeValue<?> valClass, ArrayList<AttributeValue<?>> possibleValueClass) {
+		for(int i=0;i<possibleValueClass.size();i++){
+			if(possibleValueClass.get(i).equals(valClass)){
+				if(attVal.compareTo(attributeValueSplit)==1){
+					ArrayList<Integer> tmp = counter.get(1);
+					tmp.set(i, tmp.get(i)+1);
+					counter.set(1,tmp);
+				}else{
+					ArrayList<Integer> tmp = counter.get(0);
+					tmp.set(i, tmp.get(i)+1);
+					counter.set(0,tmp);
+				}
+				return counter;	}
+					
+			}
+		return counter;
+				
 	}
 
-	
-
-//	private  ArrayList<ArrayList<Integer>> incrementNonNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> val, AttributeValue<?> valClass,
-//			ArrayList<AttributeValue<?>> possibleValue, ArrayList<AttributeValue<?>> possibleValueClass) {
-//		for(int i=0;i<possibleValue.size();i++)
-//			for(int j=0;j<possibleValueClass.size();j++)
-//				if(val.equals(possibleValue.get(i))&& valClass.equals(possibleValueClass.get(j)))
-//				{
-//					ArrayList<Integer> tmp = counter.get(i);
-//					tmp.set(j, tmp.get(j)+1);
-//					counter.set(i,tmp);
-//					return counter;
-//				}
-//		return counter;	
-//	}
+	public KnowledgeBase SplitNumerical(int attIndex, AttributeValue<?> attVal, boolean lower) {
+		ArrayList<Sample> newSamples = new ArrayList<Sample>();
+		for(Sample samp:samples)
+			if(samp.get(attIndex).compareTo(attVal)==1 && !lower)
+				newSamples.add(samp);
+			else if(samp.get(attIndex).compareTo(attVal)!=1 && lower)
+				newSamples.add(samp);
+		return new KnowledgeBase(name, newSamples, attributeList);
+	}
 
 }
