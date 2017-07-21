@@ -14,27 +14,32 @@ import tools.ParseurTxt;
 public class GiniGainTest {
 
 	KnowledgeBase kb;
+	KnowledgeBase kb2;
 	
 	@Before
 	public void init(){
 		String filePath = new File("").getAbsolutePath();
 		String fileName = filePath.concat("/test/ressources/test1.txt");
 		this.kb = ParseurTxt.readFile(fileName);
+		
+		filePath = new File("").getAbsolutePath();
+		fileName = filePath.concat("/test/ressources/test2.txt");
+		this.kb2 = ParseurTxt.readFile(fileName);
 	}
 	
 	@Test
 	public void getGainTest(){
 		
 		GainStrategy strat = new GiniGain();
-		//
-		for(int i=0;i<6;i++){
-		ArrayList<Integer> counter = kb.count(i);
-		System.out.println(counter);
-		float gini = ((GiniGain) strat).calculGini(kb,i,counter);
-		System.out.println("gini : "+ gini);
-		float gain = strat.getGain(kb, i);
-		System.out.println("gain : " +gain);
-		}
+		// 0 Numerical
+//		for(int i=0;i<6;i++){
+//		ArrayList<Integer> counter = kb.count(i);
+//		System.out.println(counter);
+//		float gini = ((GiniGain) strat).calculGini(kb,i,counter);
+//		System.out.println("gini : "+ gini);
+//		float gain = strat.getGain(kb, i);
+//		System.out.println("gain : " +gain);
+//		}
 		ArrayList<Integer> counter = kb.count(1);
 		float gini1 = ((GiniGain) strat).calculGini(kb,1,counter);
 		assertTrue(nearlyEquals(gini1,0.49));
@@ -44,7 +49,18 @@ public class GiniGainTest {
 		
 		float gain2 = ((GiniGain) strat).getGain(kb, 3);
 		assertTrue(nearlyEquals(gain2,0.07));
-		
+		// Numerical
+		float gain1Num = ((GiniGain)strat).getGain(kb2,2);
+		assertTrue(nearlyEquals(gain1Num,0.268));
+//		System.out.println(gain1Num);
+//		ArrayList<Integer> counter1D = kb.count(kb.getIndexClass());
+//		System.out.println(((GiniGain)strat).calculGini(kb,kb.getIndexClass(),counter1D));
+//		System.out.println("_________");
+//		for(int i=0;i<6;i++)
+//			System.out.println(" gain for i :" + ((GiniGain)strat).getGain(kb2,i));
+//		System.out.println("_________");
+//		for(int i=0;i<6;i++)
+//			System.out.println(" gain for i :" + ((GiniGain)strat).getGain(kb,i));
 	}
 	
 	/**

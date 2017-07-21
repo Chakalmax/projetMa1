@@ -55,31 +55,29 @@ public class GiniGain implements GainStrategy {
 		ArrayList<ArrayList<Integer>> multiple_counters = new ArrayList<ArrayList<Integer>>();
 		for(int i=0;i<possibleValue.size()-1;i++)
 			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
-		Point2D.Float bestSplit;
-		bestSplit = find_bestSplit(kb,attIndex,multiple_counters);
-		float gini1D = (float) bestSplit.getX();
-		int indexBestSplit = (int) bestSplit.getY();
+		ArrayList<Integer> counter1D = kb.count(kb.getIndexClass());
+		float gini1D = calculGini(kb,kb.getIndexClass(),counter1D);
+		int indexBestSplit = find_bestSplit(kb,attIndex,multiple_counters);
 		///
 		ArrayList<ArrayList<Integer>> counter2D = kb.count2DNumeric(attIndex, kb.getIndexClass(),possibleValue.get(indexBestSplit));
-		float gini2D = calculGini2DForNumerical(kb,attIndex,counter2D);
-		
+		float gini2D = calculGini2DForNumerical(kb,attIndex,counter2D,possibleValue.get(indexBestSplit));
 		return gini1D - gini2D;
 	}
 	
 
 
-	private Float find_bestSplit(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> multiple_counters) {
-		float best_Gini = 0;
+	private int find_bestSplit(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> multiple_counters) {
+		float best_Gini = 0; // it's a minimum!!
 		int index_Best_Gini =0;
 		float tmp_gini;
 		for(int i=0;i<multiple_counters.size();i++){
 			tmp_gini = calculGini(kb,attIndex,multiple_counters.get(i));
-			if(tmp_gini>best_Gini){
+			if(tmp_gini<best_Gini){
 				best_Gini = tmp_gini;
 				index_Best_Gini = i;
 			}
 		}
-		return new Point2D.Float(best_Gini,index_Best_Gini);
+		return index_Best_Gini;
 		
 	}
 
@@ -93,14 +91,13 @@ public class GiniGain implements GainStrategy {
 	return  gini;
 	}
 
-	private float calculGini2DForNumerical(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> counter2d) {
-		
+	private float calculGini2DForNumerical(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> counter2d, AttributeValue<?> attributeValue) {
 		float pv1 = (float)sumList(counter2d.get(0))/kb.getSamples().size();
-		float giniLine1 = calculGiniForValueNumerical(kb,attIndex,counter2d.get(0),0,true);
+		float giniLine1 = calculGiniForValueNumerical(kb,attIndex,counter2d.get(0),0,attributeValue,true);
 		float pv2 = (float)sumList(counter2d.get(1))/kb.getSamples().size();
-		float giniLine2 = calculGiniForValueNumerical(kb,attIndex,counter2d.get(0),0,false);
-		
-		return  pv1*giniLine1 +pv2*giniLine2;
+		float giniLine2 = calculGiniForValueNumerical(kb,attIndex,counter2d.get(1),1,attributeValue,false);
+		float tmp = pv1*giniLine1 +pv2*giniLine2;
+		return pv1*giniLine1 +pv2*giniLine2;
 	}
 
 	private float calculGiniForValue(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i) {
@@ -109,19 +106,16 @@ public class GiniGain implements GainStrategy {
 		return calculGini(kb2,attIndex,counter);
 	}
 
-	private float calculGiniForValueNumerical(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i,boolean lower) {
-		AttributeValue<?> attVal = kb.getAttributeList().get(attIndex).getPossibleAttributeValue().get(i);
-		KnowledgeBase kb2 = kb.SplitNumerical(attIndex, attVal,lower);
+	private float calculGiniForValueNumerical(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i,
+			AttributeValue<?> attributeValue, boolean lower) {
+		KnowledgeBase kb2 = kb.SplitNumerical(attIndex, attributeValue,lower);
 		return calculGini(kb2,attIndex,counter);
 	}
 	
 	public float calculGini(KnowledgeBase kb, int indexClass, ArrayList<Integer> counter) {
 		float giniIndex = 0;
-//		System.out.println("Counter : " + counter);
-//		System.out.println("Indes class: " + indexClass);
 		for(int i=0;i<counter.size();i++){
 			float pv = ((float)counter.get(i)/kb.getSamples().size());
-			//System.out.println("i = " + i +" pv : " + pv);
 			if(notZero(pv))
 				giniIndex = (float) (giniIndex + Math.pow(pv,2));
 			else
@@ -129,8 +123,12 @@ public class GiniGain implements GainStrategy {
 		}
 		return 1 - giniIndex;
 	}
-	
-	public int sumList(ArrayList<Integer> list){
+	/**
+	 * Sum the element of the list
+	 * @param list
+	 * @return
+	 */
+	private int sumList(ArrayList<Integer> list){
 		int result =0;
 		for(int i: list){
 			result = result + i;

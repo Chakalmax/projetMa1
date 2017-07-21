@@ -41,7 +41,6 @@ public class ParseurTxt {
 	private static ArrayList<Sample> readSample(BufferedReader br) {
 		ArrayList<Sample> samples= new ArrayList<Sample>();
 		try {		
-			line = br.readLine();
 			while(line!=null){
 				//System.out.println("Fct readSample (line): "+line);
 				ArrayList<String> linesplit = new ArrayList<String>(Arrays.asList(line.split("\\s+")));
@@ -89,6 +88,8 @@ public class ParseurTxt {
 				att.addValue(new AttributeValue<Boolean>(true));
 				att.addValue(new AttributeValue<Boolean>(false));
 				att.setType(Type.Boolean);
+			} else if(attList.get(1).compareToIgnoreCase("numerical")==0){
+				att.setType(Type.Numerical);
 			}
 			attribute.add(att);
 			try {
@@ -107,7 +108,9 @@ public class ParseurTxt {
  */
 	private static String readDescription(BufferedReader br) {
 		String description = "";
+		boolean isDescrip = false;
 		while(line.startsWith("%")){
+			isDescrip = true;
 			//System.out.println("fct readDescription(line): " + line);
 			description = description + line.substring(2); //extract "% " !!space
 			try {
@@ -117,7 +120,10 @@ public class ParseurTxt {
 			}
 		}
 		//System.out.println("Exit readDescription");
-		return description;
+		if(isDescrip)
+			return description;
+		else
+			return "No description on the file";
 	}
 	/**
 	 * This function print and track an IO error

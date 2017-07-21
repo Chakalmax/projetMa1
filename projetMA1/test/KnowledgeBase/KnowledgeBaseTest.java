@@ -13,11 +13,13 @@ import tools.ParseurTxt;
 public class KnowledgeBaseTest {
 
 	KnowledgeBase kb;
+	
 	@Before
 	public void init(){
 		String filePath = new File("").getAbsolutePath();
 		String fileName = filePath.concat("/test/ressources/test1.txt");
 		this.kb = ParseurTxt.readFile(fileName);
+
 	}
 	
 	@Test
@@ -68,6 +70,8 @@ public class KnowledgeBaseTest {
 		assertEquals(kb2.getSamples().size(),2);
 		assertEquals(kb2.getDominantClass(),new AttributeValue<Boolean>(true));
 	}
+	
+
 	
 	
 }

@@ -209,7 +209,7 @@ public class KnowledgeBase {
 			ArrayList<AttributeValue<?>> possibleValueClass, int indexClass){
 		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
 		if(this.attributeList.get(index).getType()!=Type.Numerical){
-			init2D(counter,possibleValue.size(),possibleValueClass.size());
+			counter = init2D(possibleValue.size(),possibleValueClass.size());
 			for(Sample samp: samples){
 				AttributeValue<?> val = samp.get(index);
 				AttributeValue<?> valClass = samp.get(indexClass);
@@ -244,13 +244,15 @@ public class KnowledgeBase {
 	 * @param size1
 	 * @param size2
 	 */
-	public void init2D(ArrayList<ArrayList<Integer>> counter, int size1, int size2) {
+	public  ArrayList<ArrayList<Integer>> init2D(int size1, int size2) {
+		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
 		for(int i=0;i<size1;i++){
 			ArrayList<Integer> inArray = new ArrayList<Integer>();
 			for(int j=0;j<size2;j++)
 				inArray.add(0);
 			counter.add(inArray);
 		}
+		return counter;
 	}
 
 	/**
@@ -350,14 +352,16 @@ public class KnowledgeBase {
 			AttributeValue<?> attributeValueSplit) {
 		ArrayList<AttributeValue<?>> possibleValueClass = attributeList.get(indexClass).getPossibleAttributeValue();
 		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
-		init2D(counter,2,possibleValueClass.size());
+		counter = init2D(2,possibleValueClass.size());
 		for(Sample samp: samples){
 			AttributeValue<?> valClass = samp.get(indexClass);
 			AttributeValue<?> attval = samp.get(attIndex);
 			counter = incrementNumerical(counter,attributeValueSplit,attval,valClass,possibleValueClass);
 		}
-		return null;
+		return counter;
 	}
+	
+	
 	
 	private ArrayList<ArrayList<Integer>> incrementNumerical(ArrayList<ArrayList<Integer>> counter, AttributeValue<?> attributeValueSplit,
 			AttributeValue<?> attVal, AttributeValue<?> valClass, ArrayList<AttributeValue<?>> possibleValueClass) {
