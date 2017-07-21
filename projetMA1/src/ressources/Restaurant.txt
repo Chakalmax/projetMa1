@@ -1,0 +1,25 @@
+% Cette KB est tirée de l'exemple du cours d'intelligence artificielle
+% Cette KB ne contient que des attributs booléen ou nominaux.
+@ Alter boolean
+@ Bar boolean
+@ Friday_Or_Saturday boolean
+@ Hungry boolean
+@ Patrons nominal : some full none
+@ Price nominal : high low medium
+@ Rain boolean
+@ Reserved boolean
+@ Type boolean
+@ Estimation nominal : 0-10 10-30 30-60 >60
+# wait boolean
+true  false false true  some high   false true  French 0-10 true
+true  false false true  full low    false false Thai   30-60 false
+false true  false false some low    false false Burger 0-10 true
+true  false true  true  full low    false false Thai   10-30 true
+true  false true  false full high   false true  French >60 false 
+false true  false true  some medium true  true  Italian 0-10 true 
+false true  false false none low    true  false Burger  0-10 false
+false false false true  some medium true  true  Thai   0-10   true
+false true  true  false full low    true  false Burger >60    false
+true  true  true  true  full high   false true  Italian 10-30 false
+false false false false none low    false false Thai    0-10 false
+true  true  true  true  full low    false false Burger 30-60 true

@@ -1,13 +1,20 @@
 % Fichier spam
 % Test line
-% blablablabla
+% Respectez bien la structure du fichier. 
+% % pour les commentaires
+% @ pour les attributs non classe
+% # pour la classe
+% les attributs nominaux doivent être suivi de " : valeur_possible1 valeur_possible2 ... valeur_possibleN"
+% Ne pas oublier de valeur pour les nominaux sinon aucune branche de l'arbre ne pourra porter cette valeur
+% Ajoutez des valeurs fictives (i.e des valeurs de nominaux qui ne sont pas dans la KB) menèrait 
+% à la création de branche inutile
+% Evitez les lignes de commentaires trop longues (pour l'affichage)
 @ addresse_connue boolean
 @ money boolean
 @ faute boolean
 @ taille_text nominal : aucun court moyen long
 @ piece_jointe boolean
 # spam boolean
->Data start
 true false false court false false
 false true false court false false
 false true true court false true
