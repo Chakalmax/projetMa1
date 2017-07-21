@@ -23,10 +23,55 @@ public class EntropyGain implements GainStrategy {
 	 * @return the gain of the attribute(index : attIndex) in the kb
 	 */
 	private float calculGainNumerical(KnowledgeBase kb, int attIndex) {
-		// TODO Auto-generated method stub
-		return 0;
+		ArrayList<AttributeValue<?>> possibleValue = new ArrayList<AttributeValue<?>>();
+		for(Sample samp: kb.getSamples())
+		{
+			if(!possibleValue.contains(samp.get(attIndex)))
+				possibleValue.add(samp.get(attIndex));
+		}
+		ArrayList<ArrayList<Integer>> multiple_counters = new ArrayList<ArrayList<Integer>>();
+		for(int i=0;i<possibleValue.size()-1;i++)
+			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
+		ArrayList<Integer> counter1D = kb.count(kb.getIndexClass());
+		float entropyClass = calculEntropy(kb,kb.getIndexClass(),counter1D);
+		int indexBestSplit = find_bestSplit(kb,attIndex,multiple_counters);
+		///
+		ArrayList<ArrayList<Integer>> counter2D = kb.count2DNumeric(attIndex, kb.getIndexClass(),possibleValue.get(indexBestSplit));
+		float entropy2D = calculEntropy2DForNumerical(kb,attIndex,counter2D,possibleValue.get(indexBestSplit));
+		return entropyClass - entropy2D;
 	}
 
+	
+	private int find_bestSplit(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> multiple_counters) {
+		float best_Entropy = 0; // it's a minimum!!
+		int index_Best_Entropy =0;
+		float tmp_Entropy;
+		for(int i=0;i<multiple_counters.size();i++){
+			tmp_Entropy = calculEntropy(kb,attIndex,multiple_counters.get(i));
+			if(tmp_Entropy<best_Entropy){
+				best_Entropy = tmp_Entropy;
+				index_Best_Entropy = i;
+			}
+		}
+		return index_Best_Entropy;
+		
+	}
+	
+	private float calculEntropy2DForNumerical(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> counter2d, AttributeValue<?> attributeValue) {
+		float pv1 = (float)sumList(counter2d.get(0))/kb.getSamples().size();
+		float entropyLine1 = calculEntropyForValueNumerical(kb,attIndex,counter2d.get(0),0,attributeValue,true);
+		float pv2 = (float)sumList(counter2d.get(1))/kb.getSamples().size();
+		float entropyLine2 = calculEntropyForValueNumerical(kb,attIndex,counter2d.get(1),1,attributeValue,false);
+		return pv1*entropyLine1 +pv2*entropyLine2;
+	}
+	
+	private float calculEntropyForValueNumerical(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i,
+			AttributeValue<?> attributeValue, boolean lower) {
+		KnowledgeBase kb2 = kb.SplitNumerical(attIndex, attributeValue,lower);
+		return calculEntropy(kb2,attIndex,counter);
+	}
+	
+	
 	/**
 	 * Compute the gain of a Non Numerical Attribute (i.e Nominal or Boolean) @see Type
 	 * @param kb the KnowledgeBase where you compute the gain
