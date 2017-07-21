@@ -120,8 +120,7 @@ public class KnowledgeBase {
 		Attribute label = getClassAttribute();
 		if(label != null){
 		ArrayList<AttributeValue<?>> possibleValue = getClassAttribute().getPossibleAttributeValue();
-		ArrayList<Integer> counter = new ArrayList<Integer>();
-		counter = countClass(counter);
+		ArrayList<Integer> counter = countClass();
 		// trouver le max
 		int bestValue = counter.get(0);
 		ArrayList<Integer> bestIndex = new ArrayList<Integer>();
@@ -154,7 +153,7 @@ public class KnowledgeBase {
 	 * @param counter
 	 * @return
 	 */
-	public ArrayList<Integer> countClass(ArrayList<Integer> counter) {
+	public ArrayList<Integer> countClass() {
 		return count(getIndexClass());
 	}
 	
@@ -306,8 +305,7 @@ public class KnowledgeBase {
 	public boolean AllSameClass(float error){// error rate as %
 		Attribute label = getClassAttribute();
 		if(label != null){
-		ArrayList<Integer> counter = new ArrayList<Integer>();
-		counter = countClass(counter);
+		ArrayList<Integer> counter = countClass();
 		int max = Collections.max(counter);
 		int numberElem = samples.size();
 		return (numberElem - ((error/100)*numberElem) <= max);
