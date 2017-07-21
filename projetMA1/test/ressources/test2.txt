@@ -7,7 +7,6 @@
 @ taille_text nominal : aucun court moyen long
 @ piece_jointe boolean
 # spam boolean
->Data start
 true false 0 court false false
 false true 0 court false false
 false true 2 court false true
