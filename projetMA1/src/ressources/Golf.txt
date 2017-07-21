@@ -1,6 +1,5 @@
 % Cette KB fictive est un exemple courant de litérature sur le marchine learning
 % Elle est trouvable facilement sur internet
-% La température est en degré Fahrenheit
 @ Outlook nominal : overcast rainy sunny
 @ Temperature nominal : hot cold mild
 @ Humidity nominal : high normal

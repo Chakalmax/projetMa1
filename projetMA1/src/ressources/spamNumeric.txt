@@ -1,0 +1,34 @@
+% Fichier spam avec un attribut numeric
+% Test line
+% Respectez bien la structure du fichier. 
+% % pour les commentaires
+% @ pour les attributs non classe
+% # pour la classe
+% les attributs nominaux doivent être suivi de " : valeur_possible1 valeur_possible2 ... valeur_possibleN"
+% Ne pas oublier de valeur pour les nominaux sinon aucune branche de l'arbre ne pourra porter cette valeur
+% Ajoutez des valeurs fictives (i.e des valeurs de nominaux qui ne sont pas dans la KB) menèrait 
+% à la création de branche inutile
+% Evitez les lignes de commentaires trop longues (pour l'affichage)
+@ addresse_connue boolean
+@ money boolean
+@ faute boolean
+@ taille_text numeric
+@ piece_jointe boolean
+# spam boolean
+true false false 64 false false
+false true false 65 false false
+false true true 57 false true
+false true true 0 true true
+true true true 25 true true
+true false false 120 false false
+true false false 101 true false
+true true false 510 false false
+true false true 101 true true
+true false true 512 true true
+false false false 52 false false
+false true true 125 true true
+false true true 400 true true
+true false false 12 true false
+false false false 22 true true
+false false false 20 true true
+false false false 15 true true
