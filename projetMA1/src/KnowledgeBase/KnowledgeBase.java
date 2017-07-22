@@ -13,15 +13,28 @@ import java.util.Random;
  */
 public class KnowledgeBase {
 
+	/**
+	 * The name of KnowledgeBase
+	 */
 	private String name;
+	/**
+	 * Every Sample of the KnowledgeBase
+	 */
 	private ArrayList<Sample> samples;
+	/**
+	 * List of the attribute of the KnowledgeBase
+	 */
 	private ArrayList<Attribute> attributeList;
+	/**
+	 * A description of the KnowledgeBase (what it does). Could be Empty.
+	 */
 	private String description;
 	
 	public KnowledgeBase(String name,ArrayList<Sample> samples,ArrayList<Attribute> attributeList){
 		this.name = name;
 		this.samples = samples;
 		this.attributeList = attributeList;
+		this.description = "No desription";
 	}
 	
 	public KnowledgeBase(String name,String description,ArrayList<Sample> samples,ArrayList<Attribute> attributeList){
@@ -39,7 +52,7 @@ public class KnowledgeBase {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name the new name for the KnowledgeBase
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -53,7 +66,7 @@ public class KnowledgeBase {
 	}
 
 	/**
-	 * @param samples the samples to set
+	 * @param samples the new samples
 	 */
 	public void setSamples(ArrayList<Sample> samples) {
 		this.samples = samples;
@@ -67,7 +80,7 @@ public class KnowledgeBase {
 	}
 
 	/**
-	 * @param attributeList the attributeList to set
+	 * @param attributeList the new attributeList
 	 */
 	public void setAttributeList(ArrayList<Attribute> attributeList) {
 		this.attributeList = attributeList;
@@ -81,7 +94,7 @@ public class KnowledgeBase {
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description the new description
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -149,25 +162,28 @@ public class KnowledgeBase {
 
 	/**
 	 * This function is able to count iteration of values for the class.
-	 * @param possibleValue
-	 * @param counter
-	 * @return
+	 * @return iteration for values for the class attribute
 	 */
 	public ArrayList<Integer> countClass() {
 		return count(getIndexClass());
 	}
 	
 	/**
-	 * This function is able to count iteration of values for the class.
-	 * @param possibleValue
-	 * @param counter
-	 * @return
+	 * This function is able to count iteration of values for a specific attribute.
+	 * @param index , index of the attribute
+	 * @return iteration for values for specific attribute
 	 */
 	public ArrayList<Integer> count(int index) {
 		ArrayList<AttributeValue<?>>possibleValue = attributeList.get(index).getPossibleAttributeValue();
 		return count(index,possibleValue);
 	}
 	
+	/**
+	 * This function is able to count iteration of values for a specific attribute with specific value.
+	 * @param index
+	 * @param possibleValue
+	 * @return
+	 */
 	public ArrayList<Integer> count(int index,ArrayList<AttributeValue<?>>possibleValue){
 		ArrayList<Integer> counter = init1D(possibleValue);
 		for(Sample samp: samples){
@@ -180,7 +196,12 @@ public class KnowledgeBase {
 		return counter;
 	}
 	
-	
+	/**
+	 * init the counter
+	 * @see count
+	 * @param possibleValue
+	 * @return
+	 */
 	private  ArrayList<Integer> init1D(ArrayList<AttributeValue<?>> possibleValue) {
 		ArrayList<Integer> arr = new ArrayList<Integer>();
 		for(int i=0;i<possibleValue.size();i++)

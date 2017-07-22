@@ -53,7 +53,6 @@ public class AttributeValue<T> {
 		}
 	}
 
-
 	public int compareTo(AttributeValue<?> attributeValue) {
 		if(value instanceof Float&& attributeValue.getValue() instanceof Float){
 			float val = (float) attributeValue.getValue();
