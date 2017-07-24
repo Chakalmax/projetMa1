@@ -27,6 +27,7 @@ public class KnowledgeBaseTest {
 		assertTrue(kb.AllSameClass(100));
 		assertTrue(kb.AllSameClass(90));
 		assertFalse(kb.AllSameClass(0));
+		System.out.println(kb.getName());
 	}
 	@Test
 	public void getDominanteClass(){

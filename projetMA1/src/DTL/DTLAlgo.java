@@ -9,6 +9,9 @@ import KnowledgeBase.*;
 import KnowledgeBase.Type;
 
 public class DTLAlgo {
+	
+	String [] pseudoCode = { "Si tout les attributs utilisés ou tous les échantillons sont de même classe",
+			"retourner Feuille(classe = classeDominante)","Sinon si aucun échantillon restant","Retourne Feuille(classe = classeDominante_Parent","Sinon"};
 
 	/**
 	 * DecisionTreeLearning Algorithm to create a decision Tree. Be very careful with initialization.

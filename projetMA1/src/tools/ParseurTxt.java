@@ -1,6 +1,7 @@
 package tools;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class ParseurTxt {
 	public static KnowledgeBase readFile(String fileName)
 	{
 		String kBName =(fileName != null) ? fileName.substring(0,fileName.indexOf('.')) : "";;
-		kBName = kBName.substring(fileName.lastIndexOf("/")).substring(1);
+		kBName = kBName.substring(fileName.lastIndexOf("\\")).substring(1);
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			line = br.readLine();
 			String description = readDescription(br);
@@ -134,4 +135,5 @@ public class ParseurTxt {
 		System.out.println("Error while reading in the"+ functionName +"function");
 		e.printStackTrace();
 	}
+	
 }
