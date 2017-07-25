@@ -27,7 +27,7 @@ public class EntropyGainTest {
 		GainStrategy strat = new EntropyGain();
 		//
 		ArrayList<Integer> counter = kb.count(1);
-		float entropy1 = ((EntropyGain) strat).calculEntropy(kb,1,counter);
+		float entropy1 = ((EntropyGain) strat).calculImpurity(kb,1,counter);
 		assertTrue(nearlyEquals(entropy1,0.99)); //calculer à la main
 		//
 //		for(int i=0;i<kb.getAttributeList().size();i++){
