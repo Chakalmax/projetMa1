@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
-import KnowledgeBase.AttributeValue;
 import KnowledgeBase.*;
-import KnowledgeBase.Type;
 
 public class DTLAlgo {
 	
@@ -51,16 +49,31 @@ public class DTLAlgo {
 				gainList.add((float) 0);
 		int A = maxIndex(gainList);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
-		for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
-			KnowledgeBase kbChild = kb.Split(A,attVal);
+		if(kb.getAttributeList().get(A).getType() != Type.Numerical)
+			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
+				KnowledgeBase kbChild = kb.Split(A,attVal);
 
+				attIndex.add(A);
+				DecisionTree child = DTL_algo(kbChild,attIndex,kb,error,strat);
+				tree.addArrow(new Arrow(attVal,child));}
+		else{
+			AttributeValue<Float> attVal = getValueBestSplit(kb,kb.getAttributeList().get(A));
+			KnowledgeBase kbChildLower = kb.SplitNumerical(A,attVal,true);
 			attIndex.add(A);
-			DecisionTree child = DTL_algo(kbChild,attIndex,kb,error,strat);
-			tree.addArrow(new Arrow(attVal,child));}
+			DecisionTree childLower = DTL_algo(kbChildLower,attIndex,kb,error,strat);
+			KnowledgeBase kbChildUpper = kb.SplitNumerical(A,attVal,false);
+			DecisionTree childUpper = DTL_algo(kbChildUpper,attIndex,kb,error,strat);
+			tree.addArrow(new ArrowNumerical(attVal,childLower,true));
+			tree.addArrow(new ArrowNumerical(attVal,childUpper,false));		
+		}
 		return tree;
 		
 	}
 
+	private static AttributeValue<Float> getValueBestSplit(KnowledgeBase kb, Attribute attribute) {
+	// TODO Auto-generated method stub
+	return null;
+}
 	/**
 	 * Return index of the maximum value in the ArrayList
 	 * @param gainList an arrayList
