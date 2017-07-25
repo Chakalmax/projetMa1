@@ -82,12 +82,21 @@ public class InnerDecisionTree extends DecisionTree {
 		return arr.getTarget().getDecision(samp);
 	}
 
+	/*
 	private Arrow findGoodArrow(Sample samp) {
 		AttributeValue<?> attvall = samp.get(this.kb.getIndexOfAttribute(this.attribute));
 		for(Arrow arr: arrows)
 			if(arr.getValue().equals(attvall))
 				return arr;
 			
+		return null;
+	}
+	*/
+	private Arrow findGoodArrow(Sample samp) {
+		AttributeValue<?> attvall = samp.get(this.kb.getIndexOfAttribute(this.attribute));
+		for(Arrow arr: arrows)
+			if(arr.rigthPath(attvall))
+				return arr;
 		return null;
 	}
 
