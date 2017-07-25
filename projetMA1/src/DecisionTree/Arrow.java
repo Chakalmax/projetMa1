@@ -24,4 +24,13 @@ public class Arrow {
 	public void setTarget(DecisionTree target) {
 		this.target = target;
 	}
+	
+	public boolean rigthPath(AttributeValue<?> valToCompare){
+		return valToCompare.equals(this.getValue());
+	}
+	
+	@Override
+	public String toString(){
+		return " = " + value.toString();
+	}
 }

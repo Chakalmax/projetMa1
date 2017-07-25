@@ -42,7 +42,7 @@ public class ArrowNumerical extends Arrow {
 	@Override
 	public String toString(){
 		if(isLower())
-			return " < " + getValue().toString();
+			return " <= " + getValue().toString();
 		else
 			return " > " + getValue().toString();
 	}
