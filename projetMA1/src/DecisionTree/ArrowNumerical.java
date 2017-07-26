@@ -27,6 +27,7 @@ public class ArrowNumerical extends Arrow {
 	}
 	
 	public boolean rigthPath(AttributeValue<?> valToCompare){
+		System.out.println(valToCompare.compareTo(getValue()));
 		if(isLower())
 			if(valToCompare.compareTo(getValue()) <=0)
 				return true;

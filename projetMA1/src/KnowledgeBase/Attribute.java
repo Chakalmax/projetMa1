@@ -78,6 +78,11 @@ public class Attribute {
 	public void addValue(AttributeValue<?> value){
 		possibleAttributeValue.add(value);
 	}
+	@Override
+	public String toString(){
+		String str = "Nom:" + this.name + "type : "+ this.type;
+		return str;
+	}
 	
 
 	

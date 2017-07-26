@@ -82,16 +82,6 @@ public class InnerDecisionTree extends DecisionTree {
 		return arr.getTarget().getDecision(samp);
 	}
 
-	/*
-	private Arrow findGoodArrow(Sample samp) {
-		AttributeValue<?> attvall = samp.get(this.kb.getIndexOfAttribute(this.attribute));
-		for(Arrow arr: arrows)
-			if(arr.getValue().equals(attvall))
-				return arr;
-			
-		return null;
-	}
-	*/
 	private Arrow findGoodArrow(Sample samp) {
 		AttributeValue<?> attvall = samp.get(this.kb.getIndexOfAttribute(this.attribute));
 		for(Arrow arr: arrows)
@@ -100,4 +90,15 @@ public class InnerDecisionTree extends DecisionTree {
 		return null;
 	}
 
+	@Override
+	public String toString(){
+		String str = "Attribute : "+ attribute.toString() + "\n";
+		str = str + " kb.size() " + kb.getSamples().size() + "\n";
+		str = str + " gain : " + gain + " \n";
+		for(int i=0;i<arrows.size();i++){
+			str = str + " arrow n°"+i+ " : " + arrows.get(i).toString() + "\n";
+			str = str + arrows.get(i).getTarget().toString() + "\n";
+		}
+		return str;
+	}
 }
