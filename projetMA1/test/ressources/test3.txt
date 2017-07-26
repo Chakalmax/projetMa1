@@ -1,0 +1,11 @@
+% Fichier spam
+% Test line
+% blablablabla
+@ addresse_connue boolean
+@ money boolean
+@ faute boolean
+@ taille_text nominal : aucun court moyen long
+@ piece_jointe boolean
+# spam boolean
+true false false court false false
+true true true aucun true true

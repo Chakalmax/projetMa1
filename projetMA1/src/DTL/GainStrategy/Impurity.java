@@ -22,6 +22,15 @@ public abstract class Impurity implements GainStrategy {
 		else
 			return calculGainNonNumerical(kb,attIndex);
 	}
+	@Override
+	public AttributeValue<Float> getValueBestSplit(KnowledgeBase kb, int attIndex){
+		ArrayList<AttributeValue<Float>> possibleValue =findPossibleValueNumerical(kb,attIndex);
+		ArrayList<ArrayList<Integer>> multiple_counters = new ArrayList<ArrayList<Integer>>();
+		for(int i=0;i<possibleValue.size()-1;i++)
+			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
+		int indexBestSplit = find_bestSplit(kb,attIndex,multiple_counters);
+		return possibleValue.get(indexBestSplit);
+	}
 
 	/**
 	 * Compute the gain of a Non Numerical Attribute (i.e Nominal or Boolean) @see Type
@@ -44,12 +53,7 @@ public abstract class Impurity implements GainStrategy {
 	 * @return the gain
 	 */
 	private float calculGainNumerical(KnowledgeBase kb, int attIndex) {
-		ArrayList<AttributeValue<?>> possibleValue = new ArrayList<AttributeValue<?>>();
-		for(Sample samp: kb.getSamples())
-		{
-			if(!possibleValue.contains(samp.get(attIndex)))
-				possibleValue.add(samp.get(attIndex));
-		}
+		ArrayList<AttributeValue<Float>> possibleValue =findPossibleValueNumerical(kb,attIndex);
 		ArrayList<ArrayList<Integer>> multiple_counters = new ArrayList<ArrayList<Integer>>();
 		for(int i=0;i<possibleValue.size()-1;i++)
 			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
@@ -60,6 +64,16 @@ public abstract class Impurity implements GainStrategy {
 		ArrayList<ArrayList<Integer>> counter2D = kb.count2DNumeric(attIndex, kb.getIndexClass(),possibleValue.get(indexBestSplit));
 		float gini2D = calculImpurity2DForNumerical(kb,attIndex,counter2D,possibleValue.get(indexBestSplit));
 		return gini1D - gini2D;
+	}
+	
+	private ArrayList<AttributeValue<Float>> findPossibleValueNumerical(KnowledgeBase kb, int attIndex){
+		ArrayList<AttributeValue<Float>> possibleValue = new ArrayList<AttributeValue<Float>>();
+		for(Sample samp: kb.getSamples())
+		{
+			if(!possibleValue.contains(samp.get(attIndex)))
+				possibleValue.add((AttributeValue<Float>) samp.get(attIndex));
+		}
+		return possibleValue;
 	}
 	
 	/**

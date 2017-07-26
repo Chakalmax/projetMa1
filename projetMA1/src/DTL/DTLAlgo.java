@@ -52,12 +52,11 @@ public class DTLAlgo {
 		if(kb.getAttributeList().get(A).getType() != Type.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
 				KnowledgeBase kbChild = kb.Split(A,attVal);
-
 				attIndex.add(A);
 				DecisionTree child = DTL_algo(kbChild,attIndex,kb,error,strat);
 				tree.addArrow(new Arrow(attVal,child));}
 		else{
-			AttributeValue<Float> attVal = getValueBestSplit(kb,kb.getAttributeList().get(A));
+			AttributeValue<Float> attVal = strat.getValueBestSplit(kb,A);
 			KnowledgeBase kbChildLower = kb.SplitNumerical(A,attVal,true);
 			attIndex.add(A);
 			DecisionTree childLower = DTL_algo(kbChildLower,attIndex,kb,error,strat);
@@ -69,11 +68,8 @@ public class DTLAlgo {
 		return tree;
 		
 	}
-
-	private static AttributeValue<Float> getValueBestSplit(KnowledgeBase kb, Attribute attribute) {
-	// TODO Auto-generated method stub
-	return null;
-}
+	
+	
 	/**
 	 * Return index of the maximum value in the ArrayList
 	 * @param gainList an arrayList

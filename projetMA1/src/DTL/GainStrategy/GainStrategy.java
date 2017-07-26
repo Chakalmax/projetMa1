@@ -1,5 +1,6 @@
 package DTL.GainStrategy;
 
+import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
 
 public interface GainStrategy {
@@ -11,4 +12,6 @@ public interface GainStrategy {
 	 * @return the gain
 	 */
 	public float getGain(KnowledgeBase kb,int attIndex);
+
+	public AttributeValue<Float> getValueBestSplit(KnowledgeBase kb, int a);
 }
