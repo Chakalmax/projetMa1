@@ -148,10 +148,11 @@ public class KnowledgeBase {
 			}// else do nothing
 			
 		}
-		
+		 
 			Random rand = new Random();
 			int nombreAleatoire = rand.nextInt(bestIndex.size());
-			AttributeValue<?> val = possibleValue.get(nombreAleatoire);
+			AttributeValue<?> val = possibleValue.get(bestIndex.get(nombreAleatoire));
+			
 			return val;
 		
 		}

@@ -27,11 +27,12 @@ public class KnowledgeBaseTest {
 		assertTrue(kb.AllSameClass(100));
 		assertTrue(kb.AllSameClass(90));
 		assertFalse(kb.AllSameClass(0));
-		System.out.println(kb.getName());
 	}
 	@Test
 	public void getDominanteClass(){
 		assertTrue((boolean)kb.getDominantClass().getValue());
+		KnowledgeBase  kb2 = kb.Split(1, new AttributeValue<Boolean>(false));
+		assertFalse((boolean)kb2.getDominantClass().getValue());
 	}
 	
 	@Test 
