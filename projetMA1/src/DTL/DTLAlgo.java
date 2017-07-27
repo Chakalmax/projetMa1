@@ -8,8 +8,19 @@ import KnowledgeBase.*;
 
 public class DTLAlgo {
 	
-	String [] pseudoCode = { "Si tout les attributs utilisés ou tous les échantillons sont de même classe",
-			"retourner Feuille(classe = classeDominante)","Sinon si aucun échantillon restant","Retourne Feuille(classe = classeDominante_Parent","Sinon"};
+	private static String [] pseudoCode = { "Si tout les attributs utilisés ou tous les échantillons sont de même classe",
+			"retourner Feuille(classeDominante)",
+			"Sinon si aucun échantillon restant",
+			"Retourne Feuille(classeDominante_Parent)",
+			"Sinon",
+			"A <- argmax{Gain(A,samples)}",
+			"tree <- DT dont la racine est A",
+			" pour chaque valeur v de A faire:",
+			"sample_fils <- {e|e dans examples et e.A = valeur v}",
+			"DT_fils = DTL(samples_fils,attribute-A,examples)",
+			"ajouter DT_Fils aux fils de tree avec le marquage A = vk sur la branche",
+			"retourner tree"};
+	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,1,1,1,0};
 
 	/**
 	 * DecisionTreeLearning Algorithm to create a decision Tree. Be very careful with initialization.
@@ -85,5 +96,12 @@ public class DTLAlgo {
 			}
 		}
 		return index;
+	}
+	
+	public static String[] getPseudoCode() {
+		return pseudoCode;
+	}
+	public static int[] getPseudoCodeIdentation() {
+		return pseudoCodeIdentation;
 	}
 }
