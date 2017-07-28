@@ -54,6 +54,10 @@ public class BoutonPanel extends JPanel {
 			        "Restart", 
 			        JOptionPane.YES_NO_OPTION, 
 			        JOptionPane.QUESTION_MESSAGE);
+			
+			if(option == JOptionPane.OK_OPTION){
+				
+			}
 		}
 	}
 	
