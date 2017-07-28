@@ -88,4 +88,23 @@ public class PseudoCodePanel extends JPanel {
 		else
 			this.lineToHighLight = 0;
 	}
+
+	public void setGreenHighLight() {
+		this.highlightColor = greenColor;
+		
+	}
+
+	public void setRedHighLight() {
+		this.highlightColor = redColor;
+		
+	}
+
+	public void setNormalHighLight() {
+		this.highlightColor = normalColor;
+		
+	}
+	
+	
+	
+	
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
 import KnowledgeBase.*;
+import graphicInterface.InfoProgressionAlgo;
 
 public class DTLAlgo {
 	
@@ -21,6 +22,7 @@ public class DTLAlgo {
 			"ajouter DT_Fils aux fils de tree avec le marquage A = vk sur la branche",
 			"retourner tree"};
 	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,1,1,1,0};
+	private static InfoProgressionAlgo infoProg;
 
 	/**
 	 * DecisionTreeLearning Algorithm to create a decision Tree. Be very careful with initialization.
@@ -105,8 +107,24 @@ public class DTLAlgo {
 		return pseudoCodeIdentation;
 	}
 	
-	public static DecisionTree DTL_algo_StepByStep(){
+	public DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, float error, GainStrategy strat){
+		ArrayList<Integer> attIndex = new ArrayList<Integer>();
+		attIndex.add(kb.getIndexClass());
+		infoProg = InfoProgressionAlgo.getInstance();
+		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
+	}
+	
+	public static DecisionTree DTL_algo_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
+			KnowledgeBase parent_kb, float error, GainStrategy strat){
 		//TODO
+		boolean firstCondition = testFirstCondition(kb,attIndex,error);
+		if(firstCondition){
+			return new Leaf(kb,kb.getDominantClass());
+		}
 		return null;
+	}
+	
+	private static boolean testFirstCondition(KnowledgeBase kb, ArrayList<Integer> attIndex, float error) {		
+		return (attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error));
 	}
 }
