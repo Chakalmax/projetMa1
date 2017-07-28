@@ -16,6 +16,11 @@ public class EntropyGain extends Impurity implements GainStrategy {
 		}
 		return - entropy;
 	}
+
+	@Override
+	public String getName() {
+		return "EntropyGain";
+	}
 	
 
 

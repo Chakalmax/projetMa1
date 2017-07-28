@@ -34,7 +34,7 @@ public class DTLAlgo {
 	 * @return A DecisionTree
 	 */
 	public static DecisionTree DTL_algo(KnowledgeBase kb, ArrayList<Integer> attIndex,
-			KnowledgeBase parent_kb, float error, GainStrategy strat){
+			KnowledgeBase parent_kb, double error, GainStrategy strat){
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error))
 			return new Leaf(kb,kb.getDominantClass());
 		else if(kb.isEmpty())
@@ -53,7 +53,7 @@ public class DTLAlgo {
  * @return
  */
 	private static DecisionTree createInnerTree(KnowledgeBase kb, ArrayList<Integer> attIndex,
-			KnowledgeBase parent_kb, float error, GainStrategy strat) {
+			KnowledgeBase parent_kb, double error, GainStrategy strat) {
 		ArrayList<Float> gainList = new ArrayList<Float>();
 		for(int i=0; i< kb.getAttributeList().size();i++)
 			if(!attIndex.contains(i))
@@ -124,7 +124,7 @@ public class DTLAlgo {
 		return null;
 	}
 	
-	private static boolean testFirstCondition(KnowledgeBase kb, ArrayList<Integer> attIndex, float error) {		
+	private static boolean testFirstCondition(KnowledgeBase kb, ArrayList<Integer> attIndex, double error) {		
 		return (attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error));
 	}
 }

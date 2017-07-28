@@ -84,7 +84,7 @@ public class MainFrame extends JFrame{
         
 
         // MenuBar
-        menuBar = new MenuBar();
+        menuBar = new MenuBar(this);
 		this.setJMenuBar(menuBar);
         
 	}

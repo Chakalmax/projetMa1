@@ -14,4 +14,6 @@ public interface GainStrategy {
 	public float getGain(KnowledgeBase kb,int attIndex);
 
 	public AttributeValue<Float> getValueBestSplit(KnowledgeBase kb, int a);
+	
+	public String getName();
 }

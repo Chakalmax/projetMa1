@@ -25,5 +25,10 @@ public class GiniGain extends Impurity implements GainStrategy {
 		return 1 - giniIndex;
 	}
 
+	@Override
+	public String getName() {
+		return "GiniGain";
+	}
+
 
 }

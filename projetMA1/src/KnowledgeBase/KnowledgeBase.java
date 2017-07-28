@@ -324,7 +324,7 @@ public class KnowledgeBase {
 	 * This function check if all the sample are of the same class
 	 * @return true if all is in the same class (at an error rate(percentage!!!))
 	 */
-	public boolean AllSameClass(float error){// error rate as %
+	public boolean AllSameClass(double error){// error rate as %
 		Attribute label = getClassAttribute();
 		if(label != null){
 		ArrayList<Integer> counter = countClass();
