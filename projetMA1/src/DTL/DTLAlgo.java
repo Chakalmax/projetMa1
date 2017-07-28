@@ -104,4 +104,9 @@ public class DTLAlgo {
 	public static int[] getPseudoCodeIdentation() {
 		return pseudoCodeIdentation;
 	}
+	
+	public static DecisionTree DTL_algo_StepByStep(){
+		//TODO
+		return null;
+	}
 }

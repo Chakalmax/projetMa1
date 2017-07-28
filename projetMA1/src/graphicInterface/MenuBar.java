@@ -36,7 +36,7 @@ public class MenuBar extends JMenuBar {
 	        JFileChooser dialogue = new JFileChooser(repertoireCourant);
 	        dialogue.showOpenDialog(null);
 	        System.out.println("Fichier choisi : " + dialogue.getSelectedFile());
-	    	Info info = Info.getInstance();
+	    	InfoProgressionAlgo info = InfoProgressionAlgo.getInstance();
 	    	info.setKb(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	      
 	    }    

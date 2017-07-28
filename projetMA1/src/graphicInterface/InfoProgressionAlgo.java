@@ -7,36 +7,30 @@ import KnowledgeBase.KnowledgeBase;
  * @author mvh
  * @version 1.0
  */
-public class Info {
+public class InfoProgressionAlgo {
  
-		KnowledgeBase kb;
+		private KnowledgeBase kb;
 		
-		private Info()
+		private InfoProgressionAlgo()
 		{
 			this.kb = null;
 		}
 
-		private static Info instance = null;
+		private static InfoProgressionAlgo instance = null;
 	 
 
-		public static Info getInstance()
+		public static InfoProgressionAlgo getInstance()
 		{			
 			if ( instance == null)
-			{ 	instance = new Info();	
+			{ 	instance = new InfoProgressionAlgo();	
 			}
 			return instance;
 		}
 		
-		/**
-		 * @return the kb
-		 */
 		public KnowledgeBase getKb() {
 			return kb;
 		}
 
-		/**
-		 * @param kb the kb to set
-		 */
 		public void setKb(KnowledgeBase kb) {
 			this.kb = kb;
 		}

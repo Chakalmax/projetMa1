@@ -14,7 +14,9 @@ import KnowledgeBase.KnowledgeBase;
 
 public class MainFrame extends JFrame{
 	
-	private JSplitPane splitPane;
+	private JSplitPane splitPaneRight;
+	private JSplitPane splitPaneLeft;
+	private JSplitPane splitPaneAll;
 	private MenuBar menuBar;
 	private KnowledgeBase kb;
 	private PseudoCodePanel codePanel;
@@ -48,18 +50,18 @@ public class MainFrame extends JFrame{
 		this.setJMenuBar(menuBar);
 		codePanel = new PseudoCodePanel();
 		infoPanel = new InfoPanel();
-		splitPane = new JSplitPane();
+		splitPaneRight = new JSplitPane();
 
 		
         // the contentPane is the container that holds all our components
         getContentPane().setLayout(new GridLayout());  // the default GridLayout is like a grid with 1 column and 1 row,
         // we only add one element to the window itself
-        getContentPane().add(splitPane);  
+        getContentPane().add(splitPaneRight);  
      // let's configure our splitPane:
-        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);  
-        splitPane.setDividerLocation(525);                    
-        splitPane.setTopComponent(codePanel);                  // at the top we want our "topPanel"
-        splitPane.setBottomComponent(infoPanel);            // and at the bottom we want our "bottomPanel"
+        splitPaneRight.setOrientation(JSplitPane.VERTICAL_SPLIT);  
+        splitPaneRight.setDividerLocation(525);                    
+        splitPaneRight.setTopComponent(codePanel);                  // at the top we want our "topPanel"
+        splitPaneRight.setBottomComponent(infoPanel);            // and at the bottom we want our "bottomPanel"
         
 
         
