@@ -3,6 +3,7 @@ package graphicInterface;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
@@ -98,8 +99,9 @@ public class MenuBar extends JMenuBar {
 			    this.setLocationRelativeTo(null);
 			    panel = new JPanel();
 			    panel.setBackground(Color.white);
-			    panel.setLayout(new BorderLayout());
-			    
+			    //panel.setLayout(new BorderLayout());
+			    panel.setLayout(gl);
+			    panel.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 			    //  choisir sa strategie.
 			    comboStrat = new JComboBox<GainStrategy>();
 			    comboStrat.setPreferredSize(new Dimension(200, 20));		    
@@ -110,11 +112,13 @@ public class MenuBar extends JMenuBar {
 			    comboStrat.addItem(new EntropyGain());
 			    comboStrat.addItem(new GiniGain());
 			    comboStrat.addActionListener(new GainState());
-			    panel.add(top, BorderLayout.NORTH);
+			    //panel.add(top, BorderLayout.NORTH);
+			    panel.add(top);
 			    // choisir avancee rapide ou pas.
 			    JPanel mid = new JPanel();
 			    mid.add(avanceRapide);
-			    panel.add(mid,BorderLayout.CENTER);
+			    //panel.add(mid,BorderLayout.CENTER);
+			    panel.add(mid);
 			    //choisir le taux d'erreur.
 			    JPanel mid2 = new JPanel();
 			    Font police = new Font("Arial", Font.BOLD, 14);
@@ -123,11 +127,10 @@ public class MenuBar extends JMenuBar {
 			    errorField.setPreferredSize(new Dimension(150, 30));
 			    errorField.setForeground(Color.BLACK);
 			    mid2.add(errorField);
-			    panel.add((mid2),BorderLayout.CENTER);
+			    //panel.add((mid2),BorderLayout.CENTER);
+			    panel.add(mid2);
 			
-			    //
-			    this.setContentPane(panel);
-			    this.setVisible(true);
+			   
 			    
 //				this.mainFrame = mainFrame;
 //				panel = new JPanel();
@@ -138,25 +141,13 @@ public class MenuBar extends JMenuBar {
 //				panel.add(combo);
 				
 				this.okButton = new JButton("Use these options");
-			    this.okButton.addActionListener(new ActionListener()
-			    {
-			      public void actionPerformed(ActionEvent e)
-			      {
-			    	if(errorField.getText()!=null||errorField.getText()!=""){
-			    		double tmp = (double) errorField.getValue();
-			    		if(tmp>0 && tmp>50)
-			    		Options.error = (double) errorField.getValue();}
-			    	else
-			    		Options.error = error;
-			        Options.automatique = automatique;
-			        Options.gainStrategy = gainStrat;
-			        System.out.println("error ici"+ error + "error en option"+ Options.error);
-			        System.out.println("automatique ici"+ automatique + "automatique en option"+ Options.automatique);
-			        System.out.println("strat ici"+ gainStrat + "strat en option"+ Options.gainStrategy);
-			        
-			      }
-			    });
-			    panel.add(okButton,BorderLayout.SOUTH);
+			    this.okButton.addActionListener(new BoutonEnd());
+			    
+			    //panel.add(okButton,BorderLayout.SOUTH);
+			    panel.add(okButton);
+			    //
+			    this.setContentPane(panel);
+			    this.setVisible(true);
 			    
 			    
 				
@@ -175,6 +166,35 @@ public class MenuBar extends JMenuBar {
 			      automatique =  ((JCheckBox)e.getSource()).isSelected();
 			    }
 			  }
+			
+			private class BoutonEnd implements ActionListener{
+				public void actionPerformed(ActionEvent e)
+			      {
+			    	if(errorField.getText()!=null||errorField.getText()!=""){
+			    		double tmp = error;
+			    		if(errorField.getValue() instanceof Double){
+			    			tmp = (double) errorField.getValue();
+			    		}
+			    		else if(errorField.getValue() instanceof Float){
+			    			String tmpString = errorField.getText();
+			    			tmpString = tmpString.substring(0, tmpString.length()-2);
+			    			tmp = Double.parseDouble(tmpString);
+			    		}
+			    		if(tmp>0 && tmp>50)
+				    		Options.error = (double) errorField.getValue();
+			    		}
+			    	else
+			    		Options.error = error;
+			        Options.automatique = automatique;
+			        Options.gainStrategy = gainStrat;
+			       // System.out.println("error ici"+ error + "error en option"+ Options.error);
+			       // System.out.println("automatique ici"+ automatique + "automatique en option"+ Options.automatique);
+			       // System.out.println("strat ici"+ gainStrat + "strat en option"+ Options.gainStrategy);
+			        setVisible(false);
+			        dispose();
+			        
+			      }
+			} 
 		
 	}
 }
