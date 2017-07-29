@@ -41,7 +41,7 @@ public class GiniGainTest {
 //		System.out.println("gain : " +gain);
 //		}
 		ArrayList<Integer> counter = kb.count(1);
-		float gini1 = ((GiniGain) strat).calculImpurity(kb,1,counter);
+		float gini1 = ((GiniGain) strat).calculImpurity(kb,counter);
 		assertTrue(nearlyEquals(gini1,0.49));
 		
 		float gain = ((GiniGain) strat).getGain(kb, 5);

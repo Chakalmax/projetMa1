@@ -52,7 +52,7 @@ public abstract class Impurity implements GainStrategy {
 	 */
 	private float calculGainNonNumerical(KnowledgeBase kb, int attIndex) {
 		ArrayList<Integer> counter1D = kb.count(kb.getIndexClass());
-		float giniClass = calculImpurity(kb,kb.getIndexClass(),counter1D);
+		float giniClass = calculImpurity(kb,counter1D);
 		ArrayList<ArrayList<Integer>> counter2D = kb.count2D(attIndex, kb.getIndexClass());
 		float gini2D = calculImpurity2D(kb,attIndex,counter2D);
 		return giniClass - gini2D;
@@ -70,7 +70,7 @@ public abstract class Impurity implements GainStrategy {
 		for(int i=0;i<possibleValue.size()-1;i++)
 			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
 		ArrayList<Integer> counter1D = kb.count(kb.getIndexClass());
-		float gini1D = calculImpurity(kb,kb.getIndexClass(),counter1D);
+		float gini1D = calculImpurity(kb,counter1D);
 		int indexBestSplit = find_bestSplit(kb,attIndex,multiple_counters);
 		///
 		ArrayList<ArrayList<Integer>> counter2D = kb.count2DNumeric(attIndex, kb.getIndexClass(),possibleValue.get(indexBestSplit));
@@ -101,7 +101,7 @@ public abstract class Impurity implements GainStrategy {
 		int index_Best_Gini =0;
 		float tmp_gini;
 		for(int i=0;i<multiple_counters.size();i++){
-			tmp_gini = calculImpurity(kb,attIndex,multiple_counters.get(i));
+			tmp_gini = calculImpurity(kb,multiple_counters.get(i));
 			if(tmp_gini<best_Gini){
 				best_Gini = tmp_gini;
 				index_Best_Gini = i;
@@ -133,16 +133,16 @@ public abstract class Impurity implements GainStrategy {
 	private float calculImpurityForValue(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i) {
 		AttributeValue<?> attVal = kb.getAttributeList().get(attIndex).getPossibleAttributeValue().get(i);
 		KnowledgeBase kb2 = kb.Split(attIndex, attVal);
-		return calculImpurity(kb2,attIndex,counter);
+		return calculImpurity(kb2,counter);
 	}
 
 	private float calculImpurityForValueNumerical(KnowledgeBase kb, int attIndex, ArrayList<Integer> counter, int i,
 			AttributeValue<?> attributeValue, boolean lower) {
 		KnowledgeBase kb2 = kb.SplitNumerical(attIndex, attributeValue,lower);
-		return calculImpurity(kb2,attIndex,counter);
+		return calculImpurity(kb2,counter);
 	}
 	
-	protected abstract float calculImpurity(KnowledgeBase kb, int indexClass, ArrayList<Integer> counter);
+	protected abstract float calculImpurity(KnowledgeBase kb, ArrayList<Integer> counter);
 	/**
 	 * Sum the element of the list
 	 * @param list
