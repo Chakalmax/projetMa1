@@ -1,15 +1,20 @@
 package graphicInterface;
 
+import java.util.ArrayList;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import DTL.GainStrategy.EntropyGain;
 import DTL.GainStrategy.GainStrategy;
@@ -31,16 +36,19 @@ public class GainFrame extends JFrame{
 	private final int minClass = 2;
 	private final int maxClass = 4;
 	private int nbClass = minClass;
-	private final int minAttVal = 2;
+	private final int minAttVal = 4;
 	private final int maxAttVal = 5;
 	private int nbAttVal = minAttVal;
+	ArrayList<ArrayList<Integer>> count2D;
 	private GainStrategy strategy;
+	ArrayList<JFormattedTextField> textFieldTab;
 	//
 	
 	public GainFrame(){
 		super("Calcul de gains");
 		this.panelBouton = new JPanel();
 		this.panelView = new JPanel();
+		count2D = createCount2D();
 		this.setSize(800, 800);
 	    this.setLocationRelativeTo(null);
 	    addThings();
@@ -48,10 +56,22 @@ public class GainFrame extends JFrame{
 	    this.setVisible(true);
 	}
 	
+	private ArrayList<ArrayList<Integer>> createCount2D() {
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		for(int i=0;i<nbAttVal;i++){
+			ArrayList<Integer> tmp = new ArrayList<Integer>();
+			for(int j=0;j<nbClass;j++){
+				tmp.add(0);
+			}
+			result.add(tmp);
+		}
+		return result;
+	}
+
 	private void addThings() {
 		addThingsPanelView();
 		addThingsPanelBouton();
-		getContentPane().setLayout(new GridLayout(0,1));
+		getContentPane().setLayout(new GridLayout(2,1));
 		getContentPane().add(panelBouton);
 		getContentPane().add(panelView);
 		
@@ -59,6 +79,7 @@ public class GainFrame extends JFrame{
 
 	private void addThingsPanelBouton() {
 		panelBouton.setLayout(new GridLayout(1,0));
+		panelBouton.setPreferredSize(new Dimension(100,300));
 		panelBouton.add(buttonCompute);
 		panelBouton.add(buttonDetail);
 		panelBouton.add(buttonValue);
@@ -72,7 +93,33 @@ public class GainFrame extends JFrame{
 	}
 
 	private void addThingsPanelView() {
-		// TODO Auto-generated method stub
+		//panelView.setLayout(new GridLayout(nbAttVal,nbClass));
+		panelView.setLayout(new GridLayout());
+		JPanel panelField = new JPanel();
+		panelField.setLayout(new GridLayout(nbAttVal,nbClass));
+		
+		textFieldTab = new ArrayList<JFormattedTextField>(nbAttVal*nbClass);
+		// on cree assez de textField
+		for(int i=0;i<count2D.size();i++){
+			ArrayList<Integer> tmp = count2D.get(i);
+			for(int j=0;j<count2D.get(i).size();j++){
+				JFormattedTextField txtf = new JFormattedTextField(NumberFormat.getIntegerInstance());
+				//txtf.setSize(new Dimension(40,20));
+				textFieldTab.add(txtf);				
+			}
+				
+		}
+		
+		//
+		for(int i=0;i<textFieldTab.size();i++){
+			panelField.add(textFieldTab.get(i));
+		}
+		//panelView.add(new JLabel(" / "));
+		//panelView.add(new JLabel("Classe",SwingConstants.CENTER));
+		//panelView.add(new JLabel("Attribut",SwingConstants.CENTER));
+		panelView.add(panelField);
+		
+		
 		
 	}
 	
