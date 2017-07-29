@@ -3,6 +3,8 @@ package graphicInterface;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +38,7 @@ public class GainFrame extends JFrame{
 	private final int minClass = 2;
 	private final int maxClass = 4;
 	private int nbClass = minClass;
-	private final int minAttVal = 4;
+	private final int minAttVal = 2;
 	private final int maxAttVal = 5;
 	private int nbAttVal = minAttVal;
 	ArrayList<ArrayList<Integer>> count2D;
@@ -49,7 +51,7 @@ public class GainFrame extends JFrame{
 		this.panelBouton = new JPanel();
 		this.panelView = new JPanel();
 		count2D = createCount2D();
-		this.setSize(800, 800);
+		this.setSize(600, 300);
 	    this.setLocationRelativeTo(null);
 	    addThings();
 	    this.setResizable(true);
@@ -94,9 +96,11 @@ public class GainFrame extends JFrame{
 
 	private void addThingsPanelView() {
 		//panelView.setLayout(new GridLayout(nbAttVal,nbClass));
-		panelView.setLayout(new GridLayout());
-		JPanel panelField = new JPanel();
-		panelField.setLayout(new GridLayout(nbAttVal,nbClass));
+		panelView.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		//panelView.setLayout(new GridLayout());
+		//JPanel panelField = new JPanel();
+		//panelField.setLayout(new GridLayout(nbAttVal,nbClass));
 		
 		textFieldTab = new ArrayList<JFormattedTextField>(nbAttVal*nbClass);
 		// on cree assez de textField
@@ -104,20 +108,53 @@ public class GainFrame extends JFrame{
 			ArrayList<Integer> tmp = count2D.get(i);
 			for(int j=0;j<count2D.get(i).size();j++){
 				JFormattedTextField txtf = new JFormattedTextField(NumberFormat.getIntegerInstance());
-				//txtf.setSize(new Dimension(40,20));
+				txtf.setSize(new Dimension(300,40));
+				txtf.setValue(tmp.get(j));
 				textFieldTab.add(txtf);				
 			}
 				
 		}
 		
-		//
+		// On positionne les objets.
+		gbc.gridx = 0;
+	    gbc.gridy = 0;
+	    //gbc.weightx = 10;
+	    //gbc.weighty = 1.;
+	    //gbc.gridwidth = 50;
+	    //gbc.gridheight = 50;
+	    //gbc.weightx=1.;
+	    gbc.fill=GridBagConstraints.HORIZONTAL;
+	    panelView.add(new JLabel(" tab "),gbc);
+	    System.out.println("tab"+" a la position" + gbc.gridx + "," + gbc.gridy);
+	    for(int i=1;i<nbClass+1;i++){
+	    	gbc.gridx = i;
+	        gbc.gridy = 0;
+	    	panelView.add(new JLabel("Class"+i),gbc);
+	    	System.out.println("Class"+i+" a la position" + gbc.gridx + "," + gbc.gridy);
+	    }
+	    //gbc.gridwidth = GridBagConstraints.REMAINDER;
+	    int index =0;
+	    for(int j=1;j<nbAttVal+1;j++){
+	    	gbc.gridy= j;
+	    	gbc.gridx =0;
+	    	panelView.add(new JLabel("AttVal"+j),gbc);
+	    	System.out.println("attval"+j+" a la position" + gbc.gridx + "," + gbc.gridy);
+	    	for(int i=1;i<nbClass+1;i++){
+	    		gbc.gridy=j;
+	    		gbc.gridx=i;
+	    		panelView.add(textFieldTab.get(index),gbc);
+	    		System.out.println("textField"+index+" a la position" + gbc.gridx + "," + gbc.gridy);
+	    		index++;
+	    	}
+	    	//gbc.gridwidth = GridBagConstraints.REMAINDER;
+	    }
 		for(int i=0;i<textFieldTab.size();i++){
-			panelField.add(textFieldTab.get(i));
+			//panelField.add(textFieldTab.get(i));
 		}
 		//panelView.add(new JLabel(" / "));
 		//panelView.add(new JLabel("Classe",SwingConstants.CENTER));
 		//panelView.add(new JLabel("Attribut",SwingConstants.CENTER));
-		panelView.add(panelField);
+		//panelView.add(panelField);
 		
 		
 		
