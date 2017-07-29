@@ -40,8 +40,8 @@ public class MenuBar extends JMenuBar {
 		
 		super();
 		this.mainFrame = mainFrame;
-		JMenu fichier = new JMenu("File");
-		JMenuItem load = new JMenuItem("Load a file");
+		JMenu fichier = new JMenu("Fichier");
+		JMenuItem load = new JMenuItem("Charger un fichier");
 		load.addActionListener(new BoutonLoad());
 		fichier.add(load);
 		this.add(fichier);
@@ -51,6 +51,15 @@ public class MenuBar extends JMenuBar {
 		optionItem.addActionListener(new BoutonOption());
 		option.add(optionItem);
 		this.add(option);
+		//
+		JMenu outils = new JMenu("outils");
+		JMenuItem parcoursGraph = new JMenuItem("Parcoureur d'arbre");
+		JMenuItem calculGain = new JMenuItem("Calcul de Gain");
+		parcoursGraph.addActionListener(new TreeButton());
+		calculGain.addActionListener(new GainButton());
+		outils.add(calculGain);
+		outils.add(parcoursGraph);
+		this.add(outils);
 	}
 	
 	private class BoutonLoad implements ActionListener{
@@ -196,6 +205,20 @@ public class MenuBar extends JMenuBar {
 			      }
 			} 
 		
+		}
 	}
+	class TreeButton implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		  new ParcoursTreeFrame(null);
+		}
+	}
+	
+	class GainButton implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		  new GainFrame();
+		}
+	}
+	
 }
-	}
