@@ -18,12 +18,26 @@ public abstract class Impurity implements GainStrategy {
 		//TODO
 		// first create count1D
 		ArrayList<Integer> count1D = createCount1D(count2D);
+		int kbSize = sumList(count1D);
+		float giniClass = calculImpurity(kbSize,count1D);
+		//float gini2D = calculImpurity2D(kb,attIndex,counter2D);
+		//TODO
+		//return giniClass - gini2D;
 		return 0;
 	}
 
 	private ArrayList<Integer> createCount1D(ArrayList<ArrayList<Integer>> count2d) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Integer> count1D = new ArrayList<Integer>();
+		// init le count1D
+		for(int i=0;i<count2d.get(0).size();i++){
+			count1D.add(0);
+		}
+		//
+		for(int i=0;i<count2d.size();i++)
+			for(int j=0;j<count2d.get(i).size();j++)
+				count1D.set(j, count1D.get(j)+ count2d.get(i).get(j));
+		
+		return count1D;
 	}
 
 	@Override
