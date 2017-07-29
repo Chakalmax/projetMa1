@@ -13,10 +13,10 @@ import KnowledgeBase.Type;
 public class GiniGain extends Impurity implements GainStrategy {
 
 	
-	public float calculImpurity(KnowledgeBase kb, ArrayList<Integer> counter) {
+	public float calculImpurity(int sizekb, ArrayList<Integer> counter) {
 		float giniIndex = 0;
 		for(int i=0;i<counter.size();i++){
-			float pv = ((float)counter.get(i)/kb.getSamples().size());
+			float pv = ((float)counter.get(i)/sizekb);
 			if(notZero(pv))
 				giniIndex = (float) (giniIndex + Math.pow(pv,2));
 			else
