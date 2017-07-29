@@ -96,7 +96,7 @@ public class GainFrame extends JFrame{
 			System.out.println(nbClass);
 			System.out.println(nbAttVal);
 			System.out.println(strategy.getName());
-			//TODO
+			float result = strategy.getGain(count2D);
 			
 		}
 	}
@@ -384,9 +384,14 @@ public class GainFrame extends JFrame{
 				}
 				@Override
 				public void actionPerformed(ActionEvent e){
+					boolean change=(strategy != tmpStrategy || nbClass != tmpNbClassVal || nbAttVal != tmpNbAttVal);
 					strategy = tmpStrategy;
 					nbClass = tmpNbClassVal;
 					nbAttVal = tmpNbAttVal;
+					if(change){
+						count2D = createCount2D();
+						System.out.println("count2D reset:"+ count2D);
+					}
 					optionFrame.setVisible(false);
 					optionFrame.dispose();
 				}

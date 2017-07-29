@@ -13,6 +13,18 @@ import KnowledgeBase.Type;
  * @version 1.0
  */
 public abstract class Impurity implements GainStrategy {
+	@Override
+	public float getGain(ArrayList<ArrayList<Integer>> count2D){
+		//TODO
+		// first create count1D
+		ArrayList<Integer> count1D = createCount1D(count2D);
+		return 0;
+	}
+
+	private ArrayList<Integer> createCount1D(ArrayList<ArrayList<Integer>> count2d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public float getGain(KnowledgeBase kb, int attIndex) {

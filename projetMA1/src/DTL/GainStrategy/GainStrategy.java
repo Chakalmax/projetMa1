@@ -1,5 +1,7 @@
 package DTL.GainStrategy;
 
+import java.util.ArrayList;
+
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
 
@@ -16,4 +18,6 @@ public interface GainStrategy {
 	public AttributeValue<Float> getValueBestSplit(KnowledgeBase kb, int a);
 	
 	public String getName();
+
+	public float getGain(ArrayList<ArrayList<Integer>> count2d);
 }
