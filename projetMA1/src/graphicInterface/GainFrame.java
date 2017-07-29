@@ -28,7 +28,6 @@ import DecisionTree.DecisionTree;
 public class GainFrame extends JFrame{
 
 	JPanel panelBouton;
-	JPanel panelView;
 	//Bouton for panelBouton;
 	JButton buttonOption = new JButton("Options");
 	JButton buttonCompute = new JButton("Calculer");
@@ -49,8 +48,6 @@ public class GainFrame extends JFrame{
 	public GainFrame(){
 		super("Calcul de gains");
 		this.panelBouton = new JPanel();
-		this.panelView = new JPanel();
-		count2D = createCount2D();
 		this.setSize(600, 300);
 	    this.setLocationRelativeTo(null);
 	    addThings();
@@ -71,11 +68,9 @@ public class GainFrame extends JFrame{
 	}
 
 	private void addThings() {
-		addThingsPanelView();
 		addThingsPanelBouton();
 		getContentPane().setLayout(new GridLayout(2,1));
 		getContentPane().add(panelBouton);
-		getContentPane().add(panelView);
 		
 	}
 
@@ -94,74 +89,13 @@ public class GainFrame extends JFrame{
 		
 	}
 
-	private void addThingsPanelView() {
-		//panelView.setLayout(new GridLayout(nbAttVal,nbClass));
-		panelView.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		//panelView.setLayout(new GridLayout());
-		//JPanel panelField = new JPanel();
-		//panelField.setLayout(new GridLayout(nbAttVal,nbClass));
-		
-		textFieldTab = new ArrayList<JFormattedTextField>(nbAttVal*nbClass);
-		// on cree assez de textField
-		for(int i=0;i<count2D.size();i++){
-			ArrayList<Integer> tmp = count2D.get(i);
-			for(int j=0;j<count2D.get(i).size();j++){
-				JFormattedTextField txtf = new JFormattedTextField(NumberFormat.getIntegerInstance());
-				txtf.setSize(new Dimension(300,40));
-				txtf.setValue(tmp.get(j));
-				textFieldTab.add(txtf);				
-			}
-				
-		}
-		
-		// On positionne les objets.
-		gbc.gridx = 0;
-	    gbc.gridy = 0;
-	    //gbc.weightx = 10;
-	    //gbc.weighty = 1.;
-	    //gbc.gridwidth = 50;
-	    //gbc.gridheight = 50;
-	    //gbc.weightx=1.;
-	    gbc.fill=GridBagConstraints.HORIZONTAL;
-	    panelView.add(new JLabel(" tab "),gbc);
-	    System.out.println("tab"+" a la position" + gbc.gridx + "," + gbc.gridy);
-	    for(int i=1;i<nbClass+1;i++){
-	    	gbc.gridx = i;
-	        gbc.gridy = 0;
-	    	panelView.add(new JLabel("Class"+i),gbc);
-	    	System.out.println("Class"+i+" a la position" + gbc.gridx + "," + gbc.gridy);
-	    }
-	    //gbc.gridwidth = GridBagConstraints.REMAINDER;
-	    int index =0;
-	    for(int j=1;j<nbAttVal+1;j++){
-	    	gbc.gridy= j;
-	    	gbc.gridx =0;
-	    	panelView.add(new JLabel("AttVal"+j),gbc);
-	    	System.out.println("attval"+j+" a la position" + gbc.gridx + "," + gbc.gridy);
-	    	for(int i=1;i<nbClass+1;i++){
-	    		gbc.gridy=j;
-	    		gbc.gridx=i;
-	    		panelView.add(textFieldTab.get(index),gbc);
-	    		System.out.println("textField"+index+" a la position" + gbc.gridx + "," + gbc.gridy);
-	    		index++;
-	    	}
-	    	//gbc.gridwidth = GridBagConstraints.REMAINDER;
-	    }
-		for(int i=0;i<textFieldTab.size();i++){
-			//panelField.add(textFieldTab.get(i));
-		}
-		//panelView.add(new JLabel(" / "));
-		//panelView.add(new JLabel("Classe",SwingConstants.CENTER));
-		//panelView.add(new JLabel("Attribut",SwingConstants.CENTER));
-		//panelView.add(panelField);
-		
-		
-		
-	}
+	
 	
 	private class BoutonCompute implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
+			System.out.println(nbClass);
+			System.out.println(nbAttVal);
+			System.out.println(strategy.getName());
 			//TODO
 			
 		}
@@ -176,8 +110,156 @@ public class GainFrame extends JFrame{
 	
 	private class BoutonValue implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
-			//TODO
+			new ValueFrame();
+		}
+		
+		private class ValueFrame extends JFrame{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			JButton okButton;
+			JButton cancelButton;
+			JPanel panelView;
+			JPanel panelBouton;
 			
+			public ValueFrame(){
+				super("Selectionner les valeurs");				
+				this.setSize(350, 100+nbAttVal*110);
+			    this.setLocationRelativeTo(null);
+			    addThings();
+			    this.setResizable(true);
+			    this.setVisible(true);
+			}
+			
+			private void addThings(){
+				addThingsPanelView();
+				addThingsPanelBouton();
+				getContentPane().setLayout(new GridLayout(2,1));
+				getContentPane().add(panelView);
+				getContentPane().add(panelBouton);
+
+			}
+			
+			private void addThingsPanelView(){
+				panelView = new JPanel();
+				panelView.setLayout(new GridBagLayout());
+				GridBagConstraints gbc = new GridBagConstraints();
+				count2D = createCount2D();
+				textFieldTab = new ArrayList<JFormattedTextField>(nbAttVal*nbClass);
+				// on cree assez de textField
+				for(int i=0;i<count2D.size();i++){
+					ArrayList<Integer> tmp = count2D.get(i);
+					for(int j=0;j<count2D.get(i).size();j++){
+						JFormattedTextField txtf = new JFormattedTextField(NumberFormat.getIntegerInstance());
+						txtf.setSize(new Dimension(300,40));
+						txtf.setValue(tmp.get(j));
+						textFieldTab.add(txtf);				
+					}
+						
+				}
+				
+				// On positionne les objets.
+				gbc.gridx = 0;
+			    gbc.gridy = 0;
+			    gbc.fill=GridBagConstraints.HORIZONTAL;
+			    panelView.add(new JLabel(" tab "),gbc);
+			    for(int i=1;i<nbClass+1;i++){
+			    	gbc.gridx = i;
+			        gbc.gridy = 0;
+			    	panelView.add(new JLabel("Class"+i),gbc);
+			    }
+			    int index =0;
+			    for(int j=1;j<nbAttVal+1;j++){
+			    	gbc.gridy= j;
+			    	gbc.gridx =0;
+			    	panelView.add(new JLabel("AttVal"+j),gbc);
+			    	for(int i=1;i<nbClass+1;i++){
+			    		gbc.gridy=j;
+			    		gbc.gridx=i;
+			    		panelView.add(textFieldTab.get(index),gbc);
+			    		index++;
+			    	}
+			    }
+			    
+			    
+			}
+			
+			private void addThingsPanelBouton(){
+				panelBouton = new JPanel();
+				okButton = new JButton("Sauvegarder");
+				cancelButton = new JButton("Quitter sans sauvegarder");
+				okButton.addActionListener(new ButtonOk(this));
+				cancelButton.addActionListener(new ButtonCancel(this));
+				panelBouton.add(okButton);
+				panelBouton.add(cancelButton);
+				
+			}
+			
+			class ButtonOk implements ActionListener{
+				ValueFrame optionFrame;
+				public ButtonOk(ValueFrame optionFrame) {
+					super();
+					this.optionFrame=optionFrame;
+					
+				}
+				private ArrayList<ArrayList<Integer>> copyList(ArrayList<ArrayList<Integer>> count2d) {
+					ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+					for(ArrayList<Integer> arr : count2d)
+						result.add(copyList2(arr));
+					return result;
+				}
+				private ArrayList<Integer> copyList2(ArrayList<Integer> arr) {
+					ArrayList<Integer> result = new ArrayList<Integer>();
+					for(Integer inte : arr)
+						result.add(inte);
+					return result;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e){
+					int index =0;
+					// i think it's useless lol.
+					ArrayList<ArrayList<Integer>> count2DClone = copyList(count2D);
+					for(int i=0;i<count2D.size();i++){
+						ArrayList<Integer> tmp = new ArrayList<Integer>();
+						for(int j=0;j<tmp.size();j++){
+							Integer tmpInt = count2D.get(i).get(j);
+							ArrayList<Integer> tmpcount = count2DClone.get(i);
+							tmpcount.set(i,tmpInt);
+							count2DClone.set(i,tmpcount);
+							
+						}
+					}
+					//
+					for(int i=0;i<count2DClone.size();i++){
+						for(int j=0;j<count2DClone.size();j++){
+							int tmpInt = Integer.parseInt(textFieldTab.get(index).getText());
+							ArrayList<Integer> tmpcount = count2DClone.get(i);
+							tmpcount.set(j,tmpInt);
+							count2DClone.set(i,tmpcount);
+							index++;
+						}
+					}
+					count2D = count2DClone;
+					System.out.println("Count2D: "+count2D);
+					optionFrame.setVisible(false);
+					optionFrame.dispose();
+				}
+			}
+			
+			class ButtonCancel implements ActionListener{
+				ValueFrame optionFrame;
+				public ButtonCancel(ValueFrame optionFrame) {
+					super();
+					this.optionFrame=optionFrame;
+				}
+
+				@Override
+				public void actionPerformed(ActionEvent e){
+					optionFrame.setVisible(false);
+					optionFrame.dispose();
+				}
+			}
 		}
 	}
 	
@@ -201,9 +283,8 @@ public class GainFrame extends JFrame{
 			public OptionFrame(){
 				super("Option");
 				
-				this.setSize(300, 300);
+				this.setSize(350, 200);
 			    this.setLocationRelativeTo(null);
-			    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			    addThings();
 			    this.setResizable(true);
 			    this.setVisible(true);
@@ -256,6 +337,16 @@ public class GainFrame extends JFrame{
 			    panel.add(top);
 			    panel.add(mid);
 			    panel.add(mid2);
+			    // ajouter les boutons.
+			    okButton = new JButton("Sauvegarder");
+			    cancelButton = new JButton("Sortir sans Sauvegarder");
+			    okButton.addActionListener(new ButtonOk(this));
+			    cancelButton.addActionListener(new ButtonCancel(this));
+			    JPanel buttonPanel = new JPanel();
+			    buttonPanel.setLayout(new GridLayout(1,2));
+			    buttonPanel.add(okButton);
+			    buttonPanel.add(cancelButton);
+			    panel.add(buttonPanel);
 			    
 			    //fin
 			    this.setContentPane(panel);
@@ -264,7 +355,6 @@ public class GainFrame extends JFrame{
 			class nbAttBoxState implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				//	System.out.println("événement déclenché sur : " + ((GainStrategy) comboStrat.getSelectedItem()).getName());
 					tmpNbAttVal = (Integer) nbAttBox.getSelectedItem();
 				}
 		}
@@ -272,7 +362,6 @@ public class GainFrame extends JFrame{
 			class nbClassBoxState implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				//	System.out.println("événement déclenché sur : " + ((GainStrategy) comboStrat.getSelectedItem()).getName());
 					tmpNbClassVal = (Integer) nbClassBox.getSelectedItem();
 				}
 		}
@@ -280,7 +369,6 @@ public class GainFrame extends JFrame{
 			class StrategyState implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				//	System.out.println("événement déclenché sur : " + ((GainStrategy) comboStrat.getSelectedItem()).getName());
 					if(strategyBox.getSelectedItem().toString().compareToIgnoreCase("Gini")==0){
 						tmpStrategy = new GiniGain();
 					} else if(strategyBox.getSelectedItem().toString().compareToIgnoreCase("Entropie")==0){
@@ -288,6 +376,35 @@ public class GainFrame extends JFrame{
 					}
 				}
 		}
+			class ButtonOk implements ActionListener{
+				OptionFrame optionFrame;
+				public ButtonOk(OptionFrame optionFrame) {
+					super();
+					this.optionFrame=optionFrame;
+				}
+				@Override
+				public void actionPerformed(ActionEvent e){
+					strategy = tmpStrategy;
+					nbClass = tmpNbClassVal;
+					nbAttVal = tmpNbAttVal;
+					optionFrame.setVisible(false);
+					optionFrame.dispose();
+				}
+			}
+			
+			class ButtonCancel implements ActionListener{
+				OptionFrame optionFrame;
+				public ButtonCancel(OptionFrame optionFrame) {
+					super();
+					this.optionFrame=optionFrame;
+				}
+
+				@Override
+				public void actionPerformed(ActionEvent e){
+					optionFrame.setVisible(false);
+					optionFrame.dispose();
+				}
+			}
 		}
 	}
 }

@@ -125,6 +125,7 @@ public class MenuBar extends JMenuBar {
 			    panel.add(top);
 			    // choisir avancee rapide ou pas.
 			    JPanel mid = new JPanel();
+			    avanceRapide.addActionListener(new AutomatiqueState());
 			    mid.add(avanceRapide);
 			    //panel.add(mid,BorderLayout.CENTER);
 			    panel.add(mid);
@@ -171,7 +172,7 @@ public class MenuBar extends JMenuBar {
 		}
 			class AutomatiqueState implements ActionListener{
 			    public void actionPerformed(ActionEvent e) {
-			      //System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - état : " + ((JCheckBox)e.getSource()).isSelected());
+			      System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - état : " + ((JCheckBox)e.getSource()).isSelected());
 			      automatique =  ((JCheckBox)e.getSource()).isSelected();
 			    }
 			  }
@@ -196,9 +197,9 @@ public class MenuBar extends JMenuBar {
 			    		Options.error = error;
 			        Options.automatique = automatique;
 			        Options.gainStrategy = gainStrat;
-			       // System.out.println("error ici"+ error + "error en option"+ Options.error);
-			       // System.out.println("automatique ici"+ automatique + "automatique en option"+ Options.automatique);
-			       // System.out.println("strat ici"+ gainStrat + "strat en option"+ Options.gainStrategy);
+			       System.out.println("error ici"+ error + "error en option"+ Options.error);
+			       System.out.println("automatique ici"+ automatique + "automatique en option"+ Options.automatique);
+			       System.out.println("strat ici"+ gainStrat + "strat en option"+ Options.gainStrategy);
 			        setVisible(false);
 			        dispose();
 			        
