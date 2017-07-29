@@ -34,6 +34,7 @@ public class GainFrame extends JFrame{
 	private final int minAttVal = 2;
 	private final int maxAttVal = 5;
 	private int nbAttVal = minAttVal;
+	private GainStrategy strategy;
 	//
 	
 	public GainFrame(){
@@ -109,8 +110,10 @@ public class GainFrame extends JFrame{
 			JButton cancelButton;
 			JComboBox<Integer> nbAttBox;
 			JComboBox<Integer> nbClassBox;
+			JComboBox<String> strategyBox;
 			int tmpNbAttVal = nbAttVal;
 			int tmpNbClassVal = nbClass;
+			GainStrategy tmpStrategy = strategy;
 			public OptionFrame(){
 				super("Option");
 				
@@ -150,11 +153,25 @@ public class GainFrame extends JFrame{
 			    mid.add(nbClassBox);
 			    for(int i=minClass; i<= maxClass;i++)
 			    	nbClassBox.addItem(i);
-			    nbClassBox.addActionListener(new nbAttBoxState());
+			    nbClassBox.addActionListener(new nbClassBoxState());
+			    
+			    // combobox strategyBox
+			    
+			    strategyBox = new JComboBox<String>();
+			    strategyBox.setPreferredSize(new Dimension(100, 20));		    
+			    JLabel labelStrategyBox = new JLabel("Calcul de gain");			    
+			    JPanel mid2 = new JPanel();
+			    mid2.add(labelStrategyBox);
+			    mid2.add(strategyBox);
+			    strategyBox.addItem("Gini");
+			    strategyBox.addItem("Entropie");
+			    strategyBox.addActionListener(new StrategyState());
+			    
 			    // ajouter les combobox au panel.
 			    
 			    panel.add(top);
 			    panel.add(mid);
+			    panel.add(mid2);
 			    
 			    //fin
 			    this.setContentPane(panel);
@@ -173,6 +190,18 @@ public class GainFrame extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 				//	System.out.println("événement déclenché sur : " + ((GainStrategy) comboStrat.getSelectedItem()).getName());
 					tmpNbClassVal = (Integer) nbClassBox.getSelectedItem();
+				}
+		}
+			
+			class StrategyState implements ActionListener{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+				//	System.out.println("événement déclenché sur : " + ((GainStrategy) comboStrat.getSelectedItem()).getName());
+					if(strategyBox.getSelectedItem().toString().compareToIgnoreCase("Gini")==0){
+						tmpStrategy = new GiniGain();
+					} else if(strategyBox.getSelectedItem().toString().compareToIgnoreCase("Entropie")==0){
+						tmpStrategy = new EntropyGain();
+					}
 				}
 		}
 		}
