@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -40,8 +41,8 @@ public class GainFrame extends JFrame{
 	private final int minAttVal = 2;
 	private final int maxAttVal = 5;
 	private int nbAttVal = minAttVal;
-	ArrayList<ArrayList<Integer>> count2D;
-	private GainStrategy strategy;
+	ArrayList<ArrayList<Integer>> count2D =createCount2D();
+	private GainStrategy strategy = new GiniGain();
 	ArrayList<JFormattedTextField> textFieldTab;
 	//
 	
@@ -96,9 +97,40 @@ public class GainFrame extends JFrame{
 			System.out.println(nbClass);
 			System.out.println(nbAttVal);
 			System.out.println(strategy.getName());
-			float result = strategy.getGain(count2D);
+			ArrayList<Integer> count1D = createCount1D(count2D);
+			int kbSize = sumList(count1D);
+			float result = strategy.getGain(count2D,count1D,kbSize);
+			// affiche le result sur une frame.
+			JOptionPane jopt = new JOptionPane();
+			String strOut =  "Le gain est de : " + result +"\n";
+			strOut = strOut + "La méthode de calcul était : " + strategy.getName();
+			jopt.showMessageDialog(null, strOut,"Gain" , JOptionPane.INFORMATION_MESSAGE);
 			
 		}
+		
+		private ArrayList<Integer> createCount1D(ArrayList<ArrayList<Integer>> count2d) {
+			ArrayList<Integer> count1D = new ArrayList<Integer>();
+			// init le count1D
+			for(int i=0;i<count2d.get(0).size();i++){
+				count1D.add(0);
+			}
+			//
+			for(int i=0;i<count2d.size();i++)
+				for(int j=0;j<count2d.get(i).size();j++)
+					count1D.set(j, count1D.get(j)+ count2d.get(i).get(j));
+			
+			return count1D;
+		}
+		
+		protected int sumList(ArrayList<Integer> list){
+			int result =0;
+			for(int i: list){
+				result = result + i;
+			}
+			return result;
+			
+		}
+
 	}
 	
 	private class BoutonDetail implements ActionListener{
@@ -122,9 +154,11 @@ public class GainFrame extends JFrame{
 			JButton cancelButton;
 			JPanel panelView;
 			JPanel panelBouton;
+			ArrayList<ArrayList<Integer>> newCount2D;
 			
 			public ValueFrame(){
-				super("Selectionner les valeurs");				
+				super("Selectionner les valeurs");
+				newCount2D = copyList(count2D);
 				this.setSize(350, 100+nbAttVal*110);
 			    this.setLocationRelativeTo(null);
 			    addThings();
@@ -203,18 +237,7 @@ public class GainFrame extends JFrame{
 					this.optionFrame=optionFrame;
 					
 				}
-				private ArrayList<ArrayList<Integer>> copyList(ArrayList<ArrayList<Integer>> count2d) {
-					ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-					for(ArrayList<Integer> arr : count2d)
-						result.add(copyList2(arr));
-					return result;
-				}
-				private ArrayList<Integer> copyList2(ArrayList<Integer> arr) {
-					ArrayList<Integer> result = new ArrayList<Integer>();
-					for(Integer inte : arr)
-						result.add(inte);
-					return result;
-				}
+				
 				@Override
 				public void actionPerformed(ActionEvent e){
 					int index =0;
@@ -232,7 +255,7 @@ public class GainFrame extends JFrame{
 					}
 					//
 					for(int i=0;i<count2DClone.size();i++){
-						for(int j=0;j<count2DClone.size();j++){
+						for(int j=0;j<count2DClone.get(i).size();j++){
 							int tmpInt = Integer.parseInt(textFieldTab.get(index).getText());
 							ArrayList<Integer> tmpcount = count2DClone.get(i);
 							tmpcount.set(j,tmpInt);
@@ -256,6 +279,8 @@ public class GainFrame extends JFrame{
 
 				@Override
 				public void actionPerformed(ActionEvent e){
+					count2D = newCount2D;
+					System.out.println(count2D);
 					optionFrame.setVisible(false);
 					optionFrame.dispose();
 				}
@@ -312,7 +337,7 @@ public class GainFrame extends JFrame{
 				
 			    nbClassBox = new JComboBox<Integer>();
 			    nbClassBox.setPreferredSize(new Dimension(40, 20));		    
-			    JLabel labelClassBox = new JLabel("Nombre de valeurs pour l'attribut");			    
+			    JLabel labelClassBox = new JLabel("Nombre de valeurs pour la classe");			    
 			    JPanel mid = new JPanel();
 			    mid.add(labelClassBox);
 			    mid.add(nbClassBox);
@@ -384,7 +409,7 @@ public class GainFrame extends JFrame{
 				}
 				@Override
 				public void actionPerformed(ActionEvent e){
-					boolean change=(strategy != tmpStrategy || nbClass != tmpNbClassVal || nbAttVal != tmpNbAttVal);
+					boolean change=(strategy != tmpStrategy || nbClass != tmpNbClassVal || nbAttVal != tmpNbAttVal);	
 					strategy = tmpStrategy;
 					nbClass = tmpNbClassVal;
 					nbAttVal = tmpNbAttVal;
@@ -406,10 +431,24 @@ public class GainFrame extends JFrame{
 
 				@Override
 				public void actionPerformed(ActionEvent e){
+
 					optionFrame.setVisible(false);
 					optionFrame.dispose();
 				}
 			}
 		}
+	}
+	
+	public ArrayList<ArrayList<Integer>> copyList(ArrayList<ArrayList<Integer>> count2d) {
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		for(ArrayList<Integer> arr : count2d)
+			result.add(copyList2(arr));
+		return result;
+	}
+	public ArrayList<Integer> copyList2(ArrayList<Integer> arr) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		for(Integer inte : arr)
+			result.add(inte);
+		return result;
 	}
 }

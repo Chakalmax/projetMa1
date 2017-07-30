@@ -19,5 +19,5 @@ public interface GainStrategy {
 	
 	public String getName();
 
-	public float getGain(ArrayList<ArrayList<Integer>> count2d);
+	public float getGain(ArrayList<ArrayList<Integer>> count2d,ArrayList<Integer>count1D,int kbSize);
 }

@@ -14,31 +14,32 @@ import KnowledgeBase.Type;
  */
 public abstract class Impurity implements GainStrategy {
 	@Override
-	public float getGain(ArrayList<ArrayList<Integer>> count2D){
-		//TODO
-		// first create count1D
-		ArrayList<Integer> count1D = createCount1D(count2D);
-		int kbSize = sumList(count1D);
-		float giniClass = calculImpurity(kbSize,count1D);
-		//float gini2D = calculImpurity2D(kb,attIndex,counter2D);
-		//TODO
-		//return giniClass - gini2D;
-		return 0;
+	public float getGain(ArrayList<ArrayList<Integer>> count2D, ArrayList<Integer> count1D, int kbSize){
+		
+		float ImpurityClass = calculImpurity(kbSize,count1D);
+		float Impurity2D = calculImpurity2D(kbSize,count2D);
+		
+		return ImpurityClass - Impurity2D;
 	}
 
-	private ArrayList<Integer> createCount1D(ArrayList<ArrayList<Integer>> count2d) {
-		ArrayList<Integer> count1D = new ArrayList<Integer>();
-		// init le count1D
-		for(int i=0;i<count2d.get(0).size();i++){
-			count1D.add(0);
+	
+	private float calculImpurity2D(int kbSize, ArrayList<ArrayList<Integer>> count2d) {
+		float impurity =0;
+		for(int i=0;i<count2d.size();i++){
+			float pv = (float)sumList(count2d.get(i))/kbSize;
+			float impurityLine = calculImpurityForValue(count2d.get(i),kbSize);
+			impurityLine = impurity + pv*impurityLine; 
 		}
-		//
-		for(int i=0;i<count2d.size();i++)
-			for(int j=0;j<count2d.get(i).size();j++)
-				count1D.set(j, count1D.get(j)+ count2d.get(i).get(j));
-		
-		return count1D;
+		return impurity;
 	}
+
+	
+
+	private float calculImpurityForValue(ArrayList<Integer> countValue,int kbSize) {
+		int countValueSize = sumList(countValue);
+		return calculImpurity(countValueSize,countValue);
+	}
+
 
 	@Override
 	public float getGain(KnowledgeBase kb, int attIndex) {
