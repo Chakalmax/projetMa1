@@ -45,9 +45,11 @@ public class GainFrame extends JFrame{
 	private GainStrategy strategy = new GiniGain();
 	ArrayList<JFormattedTextField> textFieldTab;
 	//
-	
+	boolean calcul;// true si un calcul a deja ete fait.
+	//
 	public GainFrame(){
 		super("Calcul de gains");
+		this.calcul=false;
 		this.panelBouton = new JPanel();
 		this.setSize(600, 300);
 	    this.setLocationRelativeTo(null);
@@ -94,6 +96,7 @@ public class GainFrame extends JFrame{
 	
 	private class BoutonCompute implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
+			calcul = true;
 			System.out.println(nbClass);
 			System.out.println(nbAttVal);
 			System.out.println(strategy.getName());
@@ -136,6 +139,14 @@ public class GainFrame extends JFrame{
 	private class BoutonDetail implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
 			//TODO
+			if(!calcul){
+				JOptionPane jopt = new JOptionPane();
+				jopt.showMessageDialog(null, "Calculer le gain avant.","Detail" , JOptionPane.WARNING_MESSAGE);
+			}else{
+				JOptionPane jopt = new JOptionPane();
+				String strOut = strategy.getDetail();
+				jopt.showMessageDialog(null, strOut,"Detail" , JOptionPane.INFORMATION_MESSAGE);
+			}
 			
 		}
 	}
@@ -265,6 +276,7 @@ public class GainFrame extends JFrame{
 					}
 					count2D = count2DClone;
 					System.out.println("Count2D: "+count2D);
+					calcul = false;
 					optionFrame.setVisible(false);
 					optionFrame.dispose();
 				}
@@ -417,6 +429,7 @@ public class GainFrame extends JFrame{
 						count2D = createCount2D();
 						System.out.println("count2D reset:"+ count2D);
 					}
+					calcul = false;
 					optionFrame.setVisible(false);
 					optionFrame.dispose();
 				}

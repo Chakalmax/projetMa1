@@ -13,21 +13,30 @@ import KnowledgeBase.Type;
  * @version 1.0
  */
 public abstract class Impurity implements GainStrategy {
+	String detail ="Pas de detail";
+	
 	@Override
 	public float getGain(ArrayList<ArrayList<Integer>> count2D, ArrayList<Integer> count1D, int kbSize){
-		
+		detail = "";
 		float ImpurityClass = calculImpurity(kbSize,count1D);
+		detail = detail + "-[";
 		float Impurity2D = calculImpurity2D(kbSize,count2D);
-		
+		detail = detail + "]";
 		return ImpurityClass - Impurity2D;
 	}
 
 	
 	private float calculImpurity2D(int kbSize, ArrayList<ArrayList<Integer>> count2d) {
 		float impurity =0;
+		boolean firstIt = true;
 		for(int i=0;i<count2d.size();i++){
+			if(!firstIt)
+				detail = detail + "+";
+			firstIt = false;
 			float pv = (float)sumList(count2d.get(i))/kbSize;
+			detail = detail + "(" + sumList(count2d.get(i)) + "/" + kbSize+")*(";
 			float impurityLine = calculImpurityForValue(count2d.get(i),kbSize);
+			detail = detail + ")";
 			impurityLine = impurity + pv*impurityLine; 
 		}
 		return impurity;
@@ -158,6 +167,17 @@ public abstract class Impurity implements GainStrategy {
 	}
 	
 	protected abstract float calculImpurity(int sizeKb, ArrayList<Integer> counter);
+	
+	@Override
+	public String getDetail(){
+		return this.detail;
+	}
+	
+	@Override
+	public void resetDetail(){
+		this.detail = "Pas de detail";
+	}
+	
 	/**
 	 * Sum the element of the list
 	 * @param list

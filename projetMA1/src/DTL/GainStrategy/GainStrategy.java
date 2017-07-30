@@ -20,4 +20,14 @@ public interface GainStrategy {
 	public String getName();
 
 	public float getGain(ArrayList<ArrayList<Integer>> count2d,ArrayList<Integer>count1D,int kbSize);
+	
+	/**
+	 * This function return the detail of the getGain() computation.
+	 * @return detail of the getGain()
+	 */
+	public String getDetail();
+	
+	public void resetDetail();
+	
+	
 }
