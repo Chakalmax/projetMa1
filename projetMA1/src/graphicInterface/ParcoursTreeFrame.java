@@ -1,9 +1,12 @@
 package graphicInterface;
 
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -48,8 +51,32 @@ public class ParcoursTreeFrame extends JFrame {
 	}
 	private void addThingsSelectPanel() {
 		int numberAttribute = kb.getAttributeList().size();
+		componentList = new ArrayList<JComponent>();
 		for(int i=0;i<numberAttribute;i++){
-			//if(kb.getAttributeList().get(i).getType() ==)
+			if(kb.getAttributeList().get(i).getType() == TypeAttribute.Numerical)
+				componentList.add(new JFormattedTextField(NumberFormat.getNumberInstance()));
+			else{ // if TypeAttribute = Boolean
+				if(kb.getAttributeList().get(i).getType() == TypeAttribute.Boolean){
+					JComboBox<Boolean> cb = new JComboBox<Boolean>();
+					for(AttributeValue<?> val : kb.getAttributeList().get(i).getPossibleAttributeValue())
+						cb.addItem((boolean)val.getValue());
+					componentList.add(cb);
+				}else{// if TypeAttribute = Nominal
+					JComboBox<String> cb = new JComboBox<String>();
+					for(AttributeValue<?> val : kb.getAttributeList().get(i).getPossibleAttributeValue())
+						cb.addItem(val.getValue().toString());
+					componentList.add(cb);
+				}
+			}
+		}// Tout les composants sont dans le component List
+		selectPanel.setLayout(new GridLayout(2,numberAttribute));
+		// Ajouter les Labels
+		for(int i=0;i<numberAttribute;i++){
+			selectPanel.add(new JLabel(kb.getAttributeList().get(i).getName()));
+		}
+		// Ajouter les ComboBox et JFormattedTextField
+		for(int i=0;i<numberAttribute;i++){
+			selectPanel.add(componentList.get(i));
 		}
 		
 	}

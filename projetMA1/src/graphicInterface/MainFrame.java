@@ -97,4 +97,8 @@ public class MainFrame extends JFrame{
 	public KnowledgeBase getKB(){
 		return this.kb;
 	}
+	
+	public void setKB(KnowledgeBase kb){
+		this.kb = kb;
+	}
 }

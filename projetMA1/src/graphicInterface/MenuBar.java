@@ -76,6 +76,7 @@ public class MenuBar extends JMenuBar {
 	        System.out.println("Fichier choisi : " + dialogue.getSelectedFile());
 	    	InfoProgressionAlgo info = InfoProgressionAlgo.getInstance();
 	    	info.setKb(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
+	    	mainFrame.setKB(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	      
 	    }    
 	}
@@ -211,6 +212,7 @@ public class MenuBar extends JMenuBar {
 	class TreeButton implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		  if(mainFrame.getKB() != null)
 		  new ParcoursTreeFrame(mainFrame.getKB());
 		}
 	}
