@@ -7,7 +7,7 @@ public class Attribute {
 	private String name;
 	private boolean classe;
 	private ArrayList<AttributeValue<?>> possibleAttributeValue;
-	private Type type;
+	private TypeAttribute type;
 	
 	public Attribute(String name, boolean classe){
 		this.name = name;
@@ -46,13 +46,13 @@ public class Attribute {
 	/**
 	 * @return the type
 	 */
-	public Type getType() {
+	public TypeAttribute getType() {
 		return type;
 	}
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(Type type) {
+	public void setType(TypeAttribute type) {
 			this.type= type;
 	}
 	/**

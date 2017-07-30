@@ -62,7 +62,7 @@ public class DTLAlgo {
 				gainList.add((float) 0);
 		int A = maxIndex(gainList);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
-		if(kb.getAttributeList().get(A).getType() != Type.Numerical)
+		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
 				KnowledgeBase kbChild = kb.Split(A,attVal);
 				attIndex.add(A);

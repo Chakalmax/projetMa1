@@ -84,13 +84,13 @@ public class ParseurTxt {
 			if(attList.get(1).compareToIgnoreCase("nominal")==0){
 				for(int i=3;i<attList.size();i++){
 					att.addValue(new AttributeValue<String>(attList.get(i)));}
-				att.setType(Type.Nominal);
+				att.setType(TypeAttribute.Nominal);
 			} else if(attList.get(1).compareToIgnoreCase("boolean")==0){
 				att.addValue(new AttributeValue<Boolean>(true));
 				att.addValue(new AttributeValue<Boolean>(false));
-				att.setType(Type.Boolean);
+				att.setType(TypeAttribute.Boolean);
 			} else if(attList.get(1).compareToIgnoreCase("numerical")==0){
-				att.setType(Type.Numerical);
+				att.setType(TypeAttribute.Numerical);
 			}
 			attribute.add(att);
 			try {

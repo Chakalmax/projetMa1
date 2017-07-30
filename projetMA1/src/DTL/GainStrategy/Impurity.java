@@ -6,7 +6,7 @@ import KnowledgeBase.Attribute;
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
 import KnowledgeBase.Sample;
-import KnowledgeBase.Type;
+import KnowledgeBase.TypeAttribute;
 /**
  * Impurity is the mesure of "how not homogene the class value is". Entropy & Gini are Impurity.
  * @author mvh
@@ -53,7 +53,7 @@ public abstract class Impurity implements GainStrategy {
 	@Override
 	public float getGain(KnowledgeBase kb, int attIndex) {
 		Attribute att = kb.getAttributeList().get(attIndex);
-		if(att.getType()== Type.Numerical)
+		if(att.getType()== TypeAttribute.Numerical)
 			return calculGainNumerical(kb,attIndex);
 		else
 			return calculGainNonNumerical(kb,attIndex);

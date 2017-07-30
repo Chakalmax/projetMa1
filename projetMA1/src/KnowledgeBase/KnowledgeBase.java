@@ -229,7 +229,7 @@ public class KnowledgeBase {
 	public ArrayList<ArrayList<Integer>> count2D(ArrayList<AttributeValue<?>> possibleValue, int index,
 			ArrayList<AttributeValue<?>> possibleValueClass, int indexClass){
 		ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
-		if(this.attributeList.get(index).getType()!=Type.Numerical){
+		if(this.attributeList.get(index).getType()!=TypeAttribute.Numerical){
 			counter = init2D(possibleValue.size(),possibleValueClass.size());
 			for(Sample samp: samples){
 				AttributeValue<?> val = samp.get(index);

@@ -8,7 +8,7 @@ import KnowledgeBase.Attribute;
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
 import KnowledgeBase.Sample;
-import KnowledgeBase.Type;
+import KnowledgeBase.TypeAttribute;
 
 public class GiniGain extends Impurity implements GainStrategy {
 
