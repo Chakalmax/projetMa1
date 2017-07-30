@@ -211,7 +211,7 @@ public class MenuBar extends JMenuBar {
 	class TreeButton implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		  new ParcoursTreeFrame(null);
+		  new ParcoursTreeFrame(mainFrame.getKB());
 		}
 	}
 	

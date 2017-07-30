@@ -72,7 +72,7 @@ public class GainFrame extends JFrame{
 
 	private void addThings() {
 		addThingsPanelBouton();
-		getContentPane().setLayout(new GridLayout(2,1));
+		getContentPane().setLayout(new GridLayout(1,1));
 		getContentPane().add(panelBouton);
 		
 	}

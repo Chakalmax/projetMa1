@@ -93,4 +93,8 @@ public class MainFrame extends JFrame{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public KnowledgeBase getKB(){
+		return this.kb;
+	}
 }
