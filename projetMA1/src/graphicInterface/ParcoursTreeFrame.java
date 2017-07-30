@@ -31,8 +31,8 @@ public class ParcoursTreeFrame extends JFrame {
 		this.panel = new JPanel();
 		//this.dT = dT; // CAREFUL: Null atm
 		this.kb = kb;
-		
-		this.setSize(800, 800);
+		int numberAttribute = kb.getAttributeList().size();
+		this.setSize(62*numberAttribute, 200);
 	    this.setLocationRelativeTo(null);
 	    addThings();
 	    this.setResizable(true);
