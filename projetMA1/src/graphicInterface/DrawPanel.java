@@ -12,8 +12,9 @@ public class DrawPanel extends JPanel{
 	DecisionTree dt;
 	KnowledgeBase kb;
 	
-	int hauteurMax;
-	int largeurMax;
+	int hauteurMax = 1;
+	int largeurMax = 1;
+	int[] numAttVal;
 	public DrawPanel(){
 		super();
 	}
@@ -44,6 +45,23 @@ public class DrawPanel extends JPanel{
 		this.kb = dt.getKb();
 		this.hauteurMax = kb.getAttributeList().size();
 		this.largeurMax = kb.getLargeurMax();
+		this.numAttVal = kb.getNumAttVal();
 		
+	}
+	/**
+	 * Give the number of node in a level 
+	 * @param level, the level of the tree (profondeur)
+	 * @return
+	 */
+	private int computeWorstNumberNode(int level){
+		if(level ==0)
+			return 0;
+		else{
+			int result =0;
+			for(int i=0;i<level;i++){
+				
+			}
+			return result;
+		}
 	}
 }

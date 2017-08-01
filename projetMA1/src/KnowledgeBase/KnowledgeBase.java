@@ -1,6 +1,7 @@
 package KnowledgeBase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -421,6 +422,17 @@ public class KnowledgeBase {
 		int result=0;
 		for(Attribute att: attributeList)
 			result = result + att.getNumberValue();
+		return result;
+	}
+
+	public int[] getNumAttVal() {
+		int [] result = new int[attributeList.size()];
+		int i=0;
+		for(Attribute att: attributeList){
+			result[i] = att.getNumberValue();
+			i++;
+		}
+		 Arrays.sort(result);
 		return result;
 	}
 
