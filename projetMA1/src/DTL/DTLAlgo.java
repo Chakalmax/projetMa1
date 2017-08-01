@@ -24,6 +24,11 @@ public class DTLAlgo {
 	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,1,1,1,0};
 	private static InfoProgressionAlgo infoProg;
 
+	public static DecisionTree DTL_algo(KnowledgeBase kb, double error, GainStrategy strat){
+		ArrayList<Integer> attIndex = new ArrayList<Integer>();
+		attIndex.add(kb.getIndexClass());
+		return DTL_algo(kb,attIndex,kb,error,strat);
+	}
 	/**
 	 * DecisionTreeLearning Algorithm to create a decision Tree. Be very careful with initialization.
 	 * @param kb the KnowledgeBase on which we create the DecisionTree
