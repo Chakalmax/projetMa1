@@ -36,7 +36,7 @@ public class ParcoursTreeFrame extends JFrame {
 	GainStrategy gStrat = new GiniGain();
 	
 	JPanel selectPanel;
-	TreePanel treePanel;
+	DrawPanel treePanel;
 	JPanel boutonPanel;
 	ArrayList<JLabel> labelList;
 	ArrayList<JComponent> componentList;
@@ -60,14 +60,16 @@ public class ParcoursTreeFrame extends JFrame {
 		// TODO Un panel de tracé (un TreePanel??) et un panel
 		selectPanel = new JPanel();
 		addThingsSelectPanel();
-		treePanel = new TreePanel();// change it to TreePanel after.(Maybe!!)
+		//treePanel = new TreePanel();// change it to TreePanel after.(Maybe!!)
+		//treePanel.setDT(dT);
+		treePanel = new DrawPanel(dT);
 		boutonPanel = new JPanel();
 		addThingsBoutonPanel();
 		
 		mainPanel.setOrientation(JSplitPane.VERTICAL_SPLIT);  
         mainPanel.setDividerLocation(525);    
         
-		treePanel.setDT(dT);
+		//treePanel.setDT(dT);
         mainPanel.setTopComponent(treePanel);  
         
         panelBoutonEtValeur.setLayout(new GridLayout(2,1));
@@ -128,7 +130,7 @@ public class ParcoursTreeFrame extends JFrame {
 	private class BoutonVerification implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e){
-			treePanel.setDT(dT);
+			//treePanel.setDT(dT);
 			Sample samp = new Sample();
 			int classIndex = kb.getIndexClass();
 			AttributeValue<?> classVal = null;

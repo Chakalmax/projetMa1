@@ -17,6 +17,10 @@ public class Leaf extends DecisionTree{
 		return classe;
 	}
 	
+	public AttributeValue<?> getDecision(){
+		return classe;
+	}
+	
 	@Override
 	public String toString(){
 		return "Feuille atteinte : kb.size : " + kb.getSamples().size() + " classe : " + this.classe.toString() ;
