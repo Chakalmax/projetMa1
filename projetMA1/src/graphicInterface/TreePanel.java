@@ -6,9 +6,23 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import DecisionTree.DecisionTree;
+
 public class TreePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	DecisionTree DT;
+	
+	public DecisionTree getDT() {
+		return DT;
+	}
+
+	public void setDT(DecisionTree dT) {
+		DT = dT;
+		repaint();
+	}
+
 	public TreePanel()
 	{
 		super.setBackground(new Color(100, 255, 100));
