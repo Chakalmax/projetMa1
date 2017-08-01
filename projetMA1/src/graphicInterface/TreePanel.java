@@ -33,7 +33,8 @@ public class TreePanel extends JPanel {
 		setLayout(null); // on supprime le layout manager
 		 
         TreeMove listener = new TreeMove(this);
-        add(createComponent());
+
+            add(createComponent());
         
         addMouseListener(listener);
         addMouseMotionListener(listener);
@@ -45,9 +46,9 @@ public class TreePanel extends JPanel {
 	 
 
 	private Component createComponent() {
-		JPanel component=new JPanel(); // Panel ou on créera l'arbre.
-        component.setLocation(0,0); // position
-        component.setSize(200, 250); // taille
+		JPanel component=new JPanel(); // ici on peut faire n'importe quel JComponent, JLabel, par exemple
+        component.setLocation(1,1); // position aléatoire
+        component.setSize(500,250); // taille aléatoire
         component.setBackground(COLORS[2]); // couleur aléatoire
         component.setEnabled(false); // les composants ne doivent pas intercepter la souris
         return component;

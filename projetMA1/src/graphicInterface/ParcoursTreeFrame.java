@@ -1,5 +1,6 @@
 package graphicInterface;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import DTL.DTLAlgo;
 import DTL.GainStrategy.EntropyGain;
@@ -27,7 +29,8 @@ public class ParcoursTreeFrame extends JFrame {
 
 	
 	private static final long serialVersionUID = 1L;
-	JPanel panel;
+	JPanel panelBoutonEtValeur;
+	private JSplitPane mainPanel;
 	DecisionTree dT;
 	KnowledgeBase kb;
 	GainStrategy gStrat = new GiniGain();
@@ -37,14 +40,17 @@ public class ParcoursTreeFrame extends JFrame {
 	JPanel boutonPanel;
 	ArrayList<JLabel> labelList;
 	ArrayList<JComponent> componentList;
+	
+	
 	public ParcoursTreeFrame(KnowledgeBase kb){
 		super("Parcours d'un arbre");
-		this.panel = new JPanel();
+		this.panelBoutonEtValeur = new JPanel();
+		this.mainPanel = new JSplitPane();
 		//this.dT = dT; // CAREFUL: Null atm
 		this.kb = kb;
 		this.dT = DTLAlgo.DTL_algo(kb, 0, gStrat);
 		int numberAttribute = kb.getAttributeList().size();
-		this.setSize(62*numberAttribute, 200);
+		this.setSize(62*numberAttribute, 800);
 	    this.setLocationRelativeTo(null);
 	    addThings();
 	    this.setResizable(true);
@@ -58,12 +64,19 @@ public class ParcoursTreeFrame extends JFrame {
 		boutonPanel = new JPanel();
 		addThingsBoutonPanel();
 		
-		this.getContentPane().setLayout(new GridLayout(3,1));
+		mainPanel.setOrientation(JSplitPane.VERTICAL_SPLIT);  
+        mainPanel.setDividerLocation(525);    
+        
 		treePanel.setDT(dT);
-		this.add(treePanel);
-		this.add(selectPanel);
-		this.add(boutonPanel);
+        mainPanel.setTopComponent(treePanel);  
+        
+        panelBoutonEtValeur.setLayout(new GridLayout(2,1));
+		panelBoutonEtValeur.add(selectPanel);
+		panelBoutonEtValeur.add(boutonPanel);
+        mainPanel.setBottomComponent(panelBoutonEtValeur); 
 		
+		this.getContentPane().setLayout(new GridLayout(1,1));
+        this.add(mainPanel);
 		
 	}
 	
@@ -90,7 +103,13 @@ public class ParcoursTreeFrame extends JFrame {
 		selectPanel.setLayout(new GridLayout(2,numberAttribute));
 		// Ajouter les Labels
 		for(int i=0;i<numberAttribute;i++){
-			selectPanel.add(new JLabel(kb.getAttributeList().get(i).getName()));
+			if(i==kb.getIndexClass()){
+				JLabel jl = new JLabel(kb.getAttributeList().get(i).getName());
+				jl.setForeground(Color.RED);
+				selectPanel.add(jl);
+			}
+			else
+				selectPanel.add(new JLabel(kb.getAttributeList().get(i).getName()));
 		}
 		// Ajouter les ComboBox et JFormattedTextField
 		for(int i=0;i<numberAttribute;i++){
