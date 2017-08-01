@@ -101,4 +101,15 @@ public class InnerDecisionTree extends DecisionTree {
 		}
 		return str;
 	}
+
+	@Override
+	public int getHeight() {
+		int result =1;
+		int maxHighChildren =0;
+		for(Arrow arr : arrows){
+			if(arr.getTarget().getHeight()>maxHighChildren)
+				maxHighChildren = arr.getTarget().getHeight();
+		}
+		return result + maxHighChildren;
+	}
 }

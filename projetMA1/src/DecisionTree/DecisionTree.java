@@ -34,6 +34,8 @@ public abstract class DecisionTree {
 	 * @return the class;
 	 */
 	public abstract AttributeValue<?> getDecision(Sample samp);
+	
+	public abstract int getHeight();
 
 	
 	

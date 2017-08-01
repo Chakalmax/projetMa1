@@ -22,4 +22,10 @@ public class Leaf extends DecisionTree{
 		return "Feuille atteinte : kb.size : " + kb.getSamples().size() + " classe : " + this.classe.toString() ;
 	}
 
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
 }
