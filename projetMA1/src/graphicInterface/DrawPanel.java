@@ -20,11 +20,16 @@ public class DrawPanel extends JPanel{
 	int largeurMax = 1;
 	int maxHeight = 1;
 	int[] numAttVal = {};
+	int[] currentPos ={};
 	public DrawPanel(){
 		super();
 	}
 	
 	public void paintComponent(Graphics g){
+		// rien n'est affiché dans aucune ligne.
+		currentPos = new int[kb.getAttributeList().size()-1];
+		for(int i=0;i<currentPos.length;i++)
+			currentPos[i]=0;
 		super.paintComponent(g);
 		if(dt != null){
 			drawTree(g,dt);
