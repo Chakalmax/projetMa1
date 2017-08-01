@@ -1,5 +1,6 @@
 package graphicInterface;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.*;
@@ -23,8 +24,15 @@ public class DrawPanel extends JPanel{
 	int[] currentPos ={};
 	static final int rowSize =100;
 	static final int collSize = 150;
+	static final int ovalWidth = 55;
+	static final int ovalHeight=35;
 	public DrawPanel(){
 		super();
+	}
+	
+	public DrawPanel(DecisionTree dt){
+		super();
+		setDt(dt);
 	}
 	
 	public void paintComponent(Graphics g){
@@ -41,9 +49,13 @@ public class DrawPanel extends JPanel{
 
 	private void drawTree(Graphics g,DecisionTree dt) {
 		int height = dt.getHeight();
+		int squareNumber = currentPos[height];
 		if(dt instanceof InnerDecisionTree){
-			//g.drawOval(x, y, width, height);
-		}else{// it's a leaf
+			g.setColor(Color.BLACK);
+			g.drawOval((squareNumber*collSize + collSize/2),(height*rowSize + rowSize/2), ovalWidth, ovalHeight);
+		}else{
+			g.setColor(Color.RED);
+			g.drawOval((squareNumber*collSize + collSize/2),(height*rowSize + rowSize/2), ovalWidth, ovalHeight);
 			
 		}
 		

@@ -46,11 +46,12 @@ public class TreePanel extends JPanel {
 	 
 
 	private Component createComponent() {
-		JPanel component=new JPanel(); // ici on peut faire n'importe quel JComponent, JLabel, par exemple
-        component.setLocation(1,1); // position aléatoire
-        component.setSize(500,250); // taille aléatoire
-        component.setBackground(COLORS[2]); // couleur aléatoire
+		JPanel component=new JPanel(); // Le fon de label
+        component.setLocation(1,1); // position
+        component.setSize(500,250); // taille 
+        component.setBackground(COLORS[2]); // couleur 
         component.setEnabled(false); // les composants ne doivent pas intercepter la souris
+        //component.add(new DrawPanel(DT));
         return component;
 	}
 
