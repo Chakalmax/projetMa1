@@ -9,12 +9,17 @@ import KnowledgeBase.*;
 
 public class DrawPanel extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	DecisionTree dt;
 	KnowledgeBase kb;
 	
 	int hauteurMax = 1;
 	int largeurMax = 1;
-	int[] numAttVal;
+	int maxHeight = 1;
+	int[] numAttVal = {};
 	public DrawPanel(){
 		super();
 	}
@@ -28,8 +33,9 @@ public class DrawPanel extends JPanel{
 	}
 
 	private void drawTree(Graphics g,DecisionTree dt) {
+		int height = dt.getHeight();
 		if(dt instanceof InnerDecisionTree){
-			
+			//g.drawOval(x, y, width, height);
 		}else{// it's a leaf
 			
 		}
@@ -43,6 +49,7 @@ public class DrawPanel extends JPanel{
 
 	private void updateInfo() {
 		this.kb = dt.getKb();
+		this.maxHeight = dt.getHeight();
 		this.hauteurMax = kb.getAttributeList().size();
 		this.largeurMax = kb.getLargeurMax();
 		this.numAttVal = kb.getNumAttVal();
@@ -59,7 +66,7 @@ public class DrawPanel extends JPanel{
 		else{
 			int result =0;
 			for(int i=0;i<level;i++){
-				
+				result = result + numAttVal[i];
 			}
 			return result;
 		}
