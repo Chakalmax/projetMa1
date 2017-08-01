@@ -16,28 +16,25 @@ public class BoutonPanel extends JPanel {
 	private JButton buttonNext;
 	private JButton buttonRestart;
 	private JButton buttonEnd;
-	private boolean first;
 	
 	private static final long serialVersionUID = 1L;
 	public BoutonPanel()
 	{
 		//super.setBackground(new Color(100, 255, 100));
-		first = true;
+		
+		buttonNext = new JButton("Next");
+		buttonRestart = new JButton("Restart");
+		buttonEnd = new JButton("Finir l'algo");
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		if(first){	
-			buttonNext = new JButton("Next");
-			buttonRestart = new JButton("Restart");
-			buttonEnd = new JButton("Finir l'algo");
 		
+
+		this.add(buttonEnd,BorderLayout.EAST);
+		this.add(buttonNext,BorderLayout.CENTER);
+		this.add(buttonRestart,BorderLayout.WEST);
 		
-			this.add(buttonEnd,BorderLayout.EAST);
-			this.add(buttonNext,BorderLayout.CENTER);
-			this.add(buttonRestart,BorderLayout.WEST);
-			first = false;
-		}
 		buttonNext.addActionListener(new BoutonNext());
 		buttonEnd.addActionListener(new BoutonEnd());
 		buttonRestart.addActionListener(new BoutonRestart());
