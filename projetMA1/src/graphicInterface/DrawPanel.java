@@ -21,6 +21,8 @@ public class DrawPanel extends JPanel{
 	int maxHeight = 1;
 	int[] numAttVal = {};
 	int[] currentPos ={};
+	static final int rowSize =100;
+	static final int collSize = 150;
 	public DrawPanel(){
 		super();
 	}
