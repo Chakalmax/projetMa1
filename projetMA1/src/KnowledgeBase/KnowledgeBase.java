@@ -359,7 +359,6 @@ public class KnowledgeBase {
 	public ArrayList<Integer> countNumerical(AttributeValue<?> attributeValue, int index) {
 		ArrayList<Integer> counter = init1D(2);
 		for(Sample samp: samples){
-			AttributeValue<?> val = samp.get(index);
 			if(samp.get(index).compareTo(attributeValue)!=1)
 				counter.set(0,counter.get(0)+1);
 			else
