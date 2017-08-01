@@ -21,12 +21,12 @@ public class BoutonPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public BoutonPanel()
 	{
-		super.setBackground(new Color(100, 255, 100));
+		//super.setBackground(new Color(100, 255, 100));
 		first = true;
 	}
 
 	public void paintComponent(Graphics g){
-		
+		super.paintComponent(g);
 		if(first){	
 			buttonNext = new JButton("Next");
 			buttonRestart = new JButton("Restart");

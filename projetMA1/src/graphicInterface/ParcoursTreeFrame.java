@@ -33,7 +33,7 @@ public class ParcoursTreeFrame extends JFrame {
 	GainStrategy gStrat = new GiniGain();
 	
 	JPanel selectPanel;
-	JPanel treePanel;
+	TreePanel treePanel;
 	JPanel boutonPanel;
 	ArrayList<JLabel> labelList;
 	ArrayList<JComponent> componentList;
@@ -59,9 +59,11 @@ public class ParcoursTreeFrame extends JFrame {
 		addThingsBoutonPanel();
 		
 		this.getContentPane().setLayout(new GridLayout(3,1));
+		treePanel.setDT(dT);
 		this.add(treePanel);
 		this.add(selectPanel);
 		this.add(boutonPanel);
+		
 		
 	}
 	
@@ -107,6 +109,7 @@ public class ParcoursTreeFrame extends JFrame {
 	private class BoutonVerification implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e){
+			treePanel.setDT(dT);
 			Sample samp = new Sample();
 			int classIndex = kb.getIndexClass();
 			AttributeValue<?> classVal = null;

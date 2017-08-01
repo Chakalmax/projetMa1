@@ -32,7 +32,7 @@ public class PseudoCodePanel extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g){
-		
+		super.paintComponent(g);
 		int marginTop = 20;
 	    int fontSize = Math.min(15, (getHeight() - this.instructions.length * 8 - marginTop) / this.instructions.length);
 	    Font normalFont;
