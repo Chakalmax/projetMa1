@@ -1,12 +1,14 @@
 package graphicInterface;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
 import DecisionTree.DecisionTree;
+
 
 public class TreePanel extends JPanel {
 
@@ -27,6 +29,28 @@ public class TreePanel extends JPanel {
 	public TreePanel()
 	{
 		super.setBackground(new Color(100, 255, 100));
+		
+		setLayout(null); // on supprime le layout manager
+		 
+        TreeMove listener = new TreeMove(this);
+        add(createComponent());
+        
+        addMouseListener(listener);
+        addMouseMotionListener(listener);
+		
+	}
+	
+	 private final static Color[] COLORS= {Color.RED, Color.GREEN, Color.YELLOW, Color.ORANGE,
+			 Color.BLUE, Color.CYAN, Color.MAGENTA, Color.PINK, Color.WHITE, Color.BLACK};
+	 
+
+	private Component createComponent() {
+		JPanel component=new JPanel(); // Panel ou on créera l'arbre.
+        component.setLocation(0,0); // position
+        component.setSize(200, 250); // taille
+        component.setBackground(COLORS[2]); // couleur aléatoire
+        component.setEnabled(false); // les composants ne doivent pas intercepter la souris
+        return component;
 	}
 
 	public void paintComponent(Graphics g){
