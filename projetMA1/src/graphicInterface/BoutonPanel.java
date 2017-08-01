@@ -25,6 +25,10 @@ public class BoutonPanel extends JPanel {
 		buttonNext = new JButton("Next");
 		buttonRestart = new JButton("Restart");
 		buttonEnd = new JButton("Finir l'algo");
+		
+		buttonNext.addActionListener(new BoutonNext());
+		buttonEnd.addActionListener(new BoutonEnd());
+		buttonRestart.addActionListener(new BoutonRestart());
 	}
 
 	public void paintComponent(Graphics g){
@@ -35,9 +39,7 @@ public class BoutonPanel extends JPanel {
 		this.add(buttonNext,BorderLayout.CENTER);
 		this.add(buttonRestart,BorderLayout.WEST);
 		
-		buttonNext.addActionListener(new BoutonNext());
-		buttonEnd.addActionListener(new BoutonEnd());
-		buttonRestart.addActionListener(new BoutonRestart());
+		
 		
 	}
 	
