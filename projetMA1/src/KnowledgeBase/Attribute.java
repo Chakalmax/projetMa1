@@ -83,6 +83,12 @@ public class Attribute {
 		String str = "Nom:" + this.name + "type : "+ this.type;
 		return str;
 	}
+	public int getNumberValue() {
+		if(this.type == TypeAttribute.Numerical)
+			return 2;
+		else
+			return possibleAttributeValue.size();
+	}
 	
 
 	

@@ -413,4 +413,15 @@ public class KnowledgeBase {
 		return new KnowledgeBase(name, newSamples, attributeList);
 	}
 
+	/**
+	 * Largeur max que peut prendre l'arbre une fois créer
+	 * @return
+	 */
+	public int getLargeurMax() {
+		int result=0;
+		for(Attribute att: attributeList)
+			result = result + att.getNumberValue();
+		return result;
+	}
+
 }
