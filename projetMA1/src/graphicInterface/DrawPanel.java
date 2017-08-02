@@ -60,6 +60,10 @@ public class DrawPanel extends JPanel{
 			g.drawOval((squareNumber*collSize + collSize/2),(deep*rowSize + rowSize/2), ovalWidth, ovalHeight);
 			System.out.println("Inner att:"+((InnerDecisionTree)dt).getAttribute()+" nb fils :"+((InnerDecisionTree)dt).getArrows().size());
 			currentPos[deep] = currentPos[deep]+1;
+			int numberOfArrows =0;
+			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
+				if(arr.getTarget()!=null)
+					numberOfArrows = numberOfArrows +1;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				drawTree(g,arr.getTarget());
 		}else{
