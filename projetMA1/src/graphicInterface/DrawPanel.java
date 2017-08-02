@@ -22,10 +22,10 @@ public class DrawPanel extends JPanel{
 	int maxHeight = 1;
 	int[] numAttVal = {};
 	int[] currentPos ={};
-	static final int rowSize =100;
+	static final int rowSize =125;
 	static final int collSize = 150;
-	static final int ovalWidth = 55;
-	static final int ovalHeight=35;
+	static final int ovalWidth = 120;
+	static final int ovalHeight=75;
 	public DrawPanel(){
 		super();
 	}
@@ -41,7 +41,7 @@ public class DrawPanel extends JPanel{
 		super.paintComponent(g);
 		if(dt != null){
 			// rien n'est affiché dans aucune ligne.
-			currentPos = new int[kb.getAttributeList().size()-1];
+			currentPos = new int[kb.getAttributeList().size()];
 			dt.computeDeepness(-1);
 			for(int i=0;i<currentPos.length;i++)
 				currentPos[i]=0;
@@ -64,6 +64,7 @@ public class DrawPanel extends JPanel{
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				if(arr.getTarget()!=null)
 					numberOfArrows = numberOfArrows +1;
+			drawEdge((InnerDecisionTree)dt,numberOfArrows,deep);
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				drawTree(g,arr.getTarget());
 		}else{
@@ -76,6 +77,11 @@ public class DrawPanel extends JPanel{
 		
 	}
 	
+	private void drawEdge(InnerDecisionTree dt2, int numberOfArrows, int deep) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void setDt(DecisionTree dt){
 		this.dt = dt;
 		updateInfo();
