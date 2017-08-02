@@ -42,6 +42,7 @@ public class DrawPanel extends JPanel{
 		if(dt != null){
 			// rien n'est affiché dans aucune ligne.
 			currentPos = new int[kb.getAttributeList().size()-1];
+			dt.computeDeepness(-1);
 			for(int i=0;i<currentPos.length;i++)
 				currentPos[i]=0;
 			drawTree(g,dt);
@@ -50,20 +51,22 @@ public class DrawPanel extends JPanel{
 	}
 
 	private void drawTree(Graphics g,DecisionTree dt) {
-		int height = maxHeight - dt.getHeight();
-		int squareNumber = currentPos[height];
+		//int height = maxHeight - dt.getHeight();
+		int deep = dt.getDeep();
+		int squareNumber = currentPos[deep];
 		if(dt instanceof InnerDecisionTree){
+			
 			g.setColor(Color.BLACK);
-			g.drawOval((squareNumber*collSize + collSize/2),(height*rowSize + rowSize/2), ovalWidth, ovalHeight);
+			g.drawOval((squareNumber*collSize + collSize/2),(deep*rowSize + rowSize/2), ovalWidth, ovalHeight);
 			System.out.println("Inner att:"+((InnerDecisionTree)dt).getAttribute()+" nb fils :"+((InnerDecisionTree)dt).getArrows().size());
-			currentPos[height] = currentPos[height]+1;
+			currentPos[deep] = currentPos[deep]+1;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				drawTree(g,arr.getTarget());
 		}else{
 			g.setColor(Color.RED);
-			g.drawOval((squareNumber*collSize + collSize/2),(height*rowSize + rowSize/2), ovalWidth, ovalHeight);
+			g.drawOval((squareNumber*collSize + collSize/2),(deep*rowSize + rowSize/2), ovalWidth, ovalHeight);
 			System.out.println("leaf , value: "+ ((Leaf)dt).getDecision());
-			currentPos[height] = currentPos[height]+1;
+			currentPos[deep] = currentPos[deep]+1;
 			
 		}
 		
