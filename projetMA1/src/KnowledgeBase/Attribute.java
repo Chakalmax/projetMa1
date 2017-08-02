@@ -90,6 +90,13 @@ public class Attribute {
 			return possibleAttributeValue.size();
 	}
 	
+	@Override
+	public boolean equals(Object ob){
+		return (ob instanceof Attribute 
+				&& ((Attribute)ob).getName().compareTo(this.name)==0 
+				&& ((Attribute)ob).isClasse()==this.classe 
+				&& ((Attribute)ob).getType()==this.type);
+	}
 
 	
 }

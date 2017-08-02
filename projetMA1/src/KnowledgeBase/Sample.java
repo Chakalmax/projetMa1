@@ -12,5 +12,20 @@ public class Sample extends ArrayList<AttributeValue<?>>{
 	public Sample(){
 		super();
 	} 
+	
+	@Override
+	public boolean equals(Object ob){
+		boolean result = false;
+		if(ob instanceof Sample){
+			result = true;
+			if(((Sample)ob).size()==this.size()){
+				for(int i=0;i<size();i++)
+					if(!((Sample)ob).get(i).equals(get(i)))
+						result = false;
+			}
+			
+		}
+		return result;
+	}
 
 }
