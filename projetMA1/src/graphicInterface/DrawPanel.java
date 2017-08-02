@@ -22,7 +22,7 @@ public class DrawPanel extends JPanel{
 	int maxHeight = 1;
 	int[] numAttVal = {};
 	int[] currentPos ={};
-	static final int rowSize =125;
+	static final int rowSize =130;
 	static final int collSize = 150;
 	static final int ovalWidth = 120;
 	static final int ovalHeight=75;
@@ -57,19 +57,19 @@ public class DrawPanel extends JPanel{
 		if(dt instanceof InnerDecisionTree){
 			
 			g.setColor(Color.BLACK);
-			g.drawOval((squareNumber*collSize + collSize/2),(deep*rowSize + rowSize/2), ovalWidth, ovalHeight);
-			System.out.println("Inner att:"+((InnerDecisionTree)dt).getAttribute()+" nb fils :"+((InnerDecisionTree)dt).getArrows().size());
-			currentPos[deep] = currentPos[deep]+1;
+			g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
+			System.out.println("Inner att:"+((InnerDecisionTree)dt).getAttribute()+" nb fils :"+((InnerDecisionTree)dt).getArrows().size());	
 			int numberOfArrows =0;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				if(arr.getTarget()!=null)
 					numberOfArrows = numberOfArrows +1;
-			drawEdge((InnerDecisionTree)dt,numberOfArrows,deep);
+			drawEdge(g,(InnerDecisionTree)dt,numberOfArrows,deep);
+			currentPos[deep] = currentPos[deep]+1;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				drawTree(g,arr.getTarget());
 		}else{
 			g.setColor(Color.RED);
-			g.drawOval((squareNumber*collSize + collSize/2),(deep*rowSize + rowSize/2), ovalWidth, ovalHeight);
+			g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
 			System.out.println("leaf , value: "+ ((Leaf)dt).getDecision());
 			currentPos[deep] = currentPos[deep]+1;
 			
@@ -77,8 +77,15 @@ public class DrawPanel extends JPanel{
 		
 	}
 	
-	private void drawEdge(InnerDecisionTree dt2, int numberOfArrows, int deep) {
-		// TODO Auto-generated method stub
+	private void drawEdge(Graphics g, InnerDecisionTree dt2, int numberOfArrows, int deep) {
+		int squareNumber = currentPos[deep];
+		for(int i=0;i<numberOfArrows;i++){
+			int squareNumberSon = currentPos[deep+1]+i;
+			g.drawLine(10+(squareNumber*collSize + ovalWidth/2), 10+(deep*rowSize + ovalHeight),
+					10+(squareNumberSon*collSize+ovalWidth/2) , 10+((deep+1)*rowSize));
+			//g.drawString(dt2.getArrows().get(i).getValue().toString(), x, y);
+
+		}
 		
 	}
 
