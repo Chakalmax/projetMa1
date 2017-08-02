@@ -112,4 +112,16 @@ public class InnerDecisionTree extends DecisionTree {
 		}
 		return result + maxHighChildren;
 	}
+	
+	@Override
+	public int getDeep(DecisionTree dt, int deepParent) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean equals(Object ob) {
+		return (ob instanceof InnerDecisionTree && this.attribute.equals(((InnerDecisionTree) ob).getAttribute()) 
+				&& this.kb.equals(((InnerDecisionTree)ob).getKb()));
+	}
 }

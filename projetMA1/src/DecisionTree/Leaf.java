@@ -28,8 +28,18 @@ public class Leaf extends DecisionTree{
 
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
 		return 1;
+	}
+
+	@Override
+	public int getDeep(DecisionTree dt, int deepParent) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean equals(Object ob) {
+		return (ob instanceof Leaf && this.classe.equals(((Leaf) ob).getDecision()) && this.kb.equals(((Leaf)ob).getKb()));
 	}
 
 }

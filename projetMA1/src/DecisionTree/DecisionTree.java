@@ -36,6 +36,11 @@ public abstract class DecisionTree {
 	public abstract AttributeValue<?> getDecision(Sample samp);
 	
 	public abstract int getHeight();
+	
+	public abstract int getDeep(DecisionTree dt, int deepParent);
+	
+	@Override
+	public abstract boolean equals(Object ob);
 
 	
 	
