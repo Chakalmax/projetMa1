@@ -434,5 +434,26 @@ public class KnowledgeBase {
 		 Arrays.sort(result);
 		return result;
 	}
+	
+	@Override
+	public boolean equals(Object ob){
+		boolean result = false;
+		 if(ob instanceof KnowledgeBase){
+			result = true;
+			if(((KnowledgeBase)ob).getName().compareTo(this.name)==0){
+				if(!sameAttList(((KnowledgeBase)ob).getAttributeList()) && ! sameSamples( ((KnowledgeBase)ob).getSamples() ))
+					result = false;
+			}else
+				result = false;
+		 }
+		 return result;
+	}
+	private boolean sameSamples(ArrayList<Sample> samples2) {
+		return samples2.containsAll(this.samples) && samples.containsAll(samples2);
+	}
+
+	private boolean sameAttList(ArrayList<Attribute> attributeList2) {
+		return attributeList2.containsAll(this.attributeList) && attributeList.containsAll(attributeList2);
+	}
 
 }
