@@ -9,7 +9,8 @@ import KnowledgeBase.Sample;
  *
  */
 public abstract class DecisionTree {
-	KnowledgeBase kb;
+	protected KnowledgeBase kb;
+	private int deep =1;
 	
 	public DecisionTree(KnowledgeBase kb){
 		this.kb = kb;
@@ -37,7 +38,18 @@ public abstract class DecisionTree {
 	
 	public abstract int getHeight();
 	
-	public abstract int getDeep(DecisionTree dt, int deepParent);
+	public int getDeep(){
+		return deep;
+	}
+	
+	public void setDeep(int deep){
+		this.deep=deep;
+	}
+	/**
+	 * call it with -1 when the DT is done.
+	 * @param parent
+	 */
+	public abstract void computeDeepness(int parentDeepness);
 	
 	@Override
 	public abstract boolean equals(Object ob);
