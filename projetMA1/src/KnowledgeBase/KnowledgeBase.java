@@ -441,7 +441,7 @@ public class KnowledgeBase {
 		 if(ob instanceof KnowledgeBase){
 			result = true;
 			if(((KnowledgeBase)ob).getName().compareTo(this.name)==0){
-				if(!sameAttList(((KnowledgeBase)ob).getAttributeList()) && ! sameSamples( ((KnowledgeBase)ob).getSamples() ))
+				if(!sameAttList(((KnowledgeBase)ob).getAttributeList()) || ! sameSamples( ((KnowledgeBase)ob).getSamples() ))
 					result = false;
 			}else
 				result = false;

@@ -72,6 +72,18 @@ public class KnowledgeBaseTest {
 		assertEquals(kb2.getDominantClass(),new AttributeValue<Boolean>(true));
 	}
 	
+	@Test
+	public void testEquals(){
+		String filePath = new File("").getAbsolutePath();
+		String fileName = filePath.concat("/test/ressources/test1.txt");
+		KnowledgeBase kb2 = ParseurTxt.readFile(fileName);
+		assertTrue(kb.equals(kb2));
+		assertEquals(kb,kb2);
+		kb2.getSamples().remove(0);
+
+		assertFalse(kb.equals(kb2));
+		assertNotEquals(kb2,kb);
+	}
 
 	
 	
