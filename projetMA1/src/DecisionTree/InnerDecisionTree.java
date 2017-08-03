@@ -95,10 +95,10 @@ public class InnerDecisionTree extends DecisionTree {
 		String str = "Attribute : "+ attribute.toString() + "\n";
 		str = str + " kb.size() " + kb.getSamples().size() + "\n";
 		str = str + " gain : " + gain + " \n";
-		for(int i=0;i<arrows.size();i++){
+		/*for(int i=0;i<arrows.size();i++){
 			str = str + " arrow n°"+i+ " : " + arrows.get(i).toString() + "\n";
 			str = str + arrows.get(i).getTarget().toString() + "\n";
-		}
+		}*/
 		return str;
 	}
 
@@ -137,4 +137,6 @@ public class InnerDecisionTree extends DecisionTree {
 				result = result + arr.getTarget().getSize();
 		return result;
 	}
+
+	
 }

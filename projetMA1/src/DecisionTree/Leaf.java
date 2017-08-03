@@ -23,7 +23,7 @@ public class Leaf extends DecisionTree{
 	
 	@Override
 	public String toString(){
-		return "Feuille atteinte : kb.size : " + kb.getSamples().size() + " classe : " + this.classe.toString() ;
+		return "Feuille :"+ "\n "+" Taille de la base de connaissances : " + kb.getSamples().size()+"\n" + " classe : " + this.classe.toString() ;
 	}
 
 	@Override
@@ -49,5 +49,7 @@ public class Leaf extends DecisionTree{
 	public int getSize() {
 		return 1;
 	}
+
+	
 
 }

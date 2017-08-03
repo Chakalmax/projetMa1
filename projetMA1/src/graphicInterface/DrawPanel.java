@@ -5,13 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-import org.w3c.dom.events.MouseEvent;
 
 import DecisionTree.*;
 import KnowledgeBase.*;
@@ -36,6 +34,7 @@ public class DrawPanel extends JPanel{
 	static final int ovalHeight=75;
 	
 	private ArrayList<Shape> Nodes;
+	private ArrayList<DecisionTree> dtNodes;
 	
 	public DrawPanel(){
 		super();
@@ -55,6 +54,7 @@ public class DrawPanel extends JPanel{
 			currentPos = new int[kb.getAttributeList().size()];
 			dt.computeDeepness(-1);
 			Nodes = new ArrayList<Shape>();
+			dtNodes = new ArrayList<DecisionTree>();
 			for(int i=0;i<currentPos.length;i++)
 				currentPos[i]=0;
 	        Graphics2D g2d = (Graphics2D) g;
@@ -71,13 +71,16 @@ public class DrawPanel extends JPanel{
 			// TODO Auto-generated method stub
 			
 			super.mouseClicked(me);
-            for (Shape s : Nodes) {
-
+            for (int i=0; i<Nodes.size();i++) {
+            	Shape s = Nodes.get(i);
                 if (s.contains(me.getPoint())) {
                     System.out.println("Clicked a "+s.getClass().getName());
+                    DecisionTree node = dtNodes.get(i);
+                    String output = node.toString();
+                    System.out.println(output);
                     
-                     if (s instanceof Ellipse2D) 
-                        System.out.println("Clicked a circle");
+                    //JOptionPane jop1 = new JOptionPane();
+                    JOptionPane.showMessageDialog(null,  output , "Information sur le noeud", JOptionPane.INFORMATION_MESSAGE);
                     
 
                 }
@@ -100,6 +103,7 @@ public class DrawPanel extends JPanel{
 			//g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
 			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*collSize), 10+(deep*rowSize), ovalWidth, ovalHeight);
 			Nodes.add(node);
+			dtNodes.add((InnerDecisionTree)dt);
 			g2d.draw(node);
 			int numberOfArrows =0;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
@@ -114,6 +118,7 @@ public class DrawPanel extends JPanel{
 			g.setColor(Color.RED);
 			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
 			Nodes.add(node);
+			dtNodes.add((Leaf)dt);
 			g2d.draw(node);
 			g.drawString(((Leaf)dt).getDecision().toString(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
