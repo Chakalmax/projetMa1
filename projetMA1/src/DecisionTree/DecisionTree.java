@@ -54,6 +54,13 @@ public abstract class DecisionTree {
 	@Override
 	public abstract boolean equals(Object ob);
 
+	public DecisionTree getNode(int indexNode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public abstract int getSize();
+
 	
 	
 	

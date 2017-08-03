@@ -42,5 +42,12 @@ public class Leaf extends DecisionTree{
 		this.setDeep(parentDeepness+1);
 		
 	}
+	/**
+	 * Get the number of node in the tree. Basically, a leaf had a size of 1.
+	 */
+	@Override
+	public int getSize() {
+		return 1;
+	}
 
 }

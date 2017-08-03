@@ -128,4 +128,13 @@ public class InnerDecisionTree extends DecisionTree {
 				arr.getTarget().computeDeepness(parentDeepness+1);
 		
 	}
+
+	@Override
+	public int getSize() {
+		int result =1;
+		for(Arrow arr : arrows)
+			if(arr.getTarget() != null)
+				result = result + arr.getTarget().getSize();
+		return result;
+	}
 }
