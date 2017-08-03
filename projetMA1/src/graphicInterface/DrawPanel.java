@@ -2,6 +2,10 @@ package graphicInterface;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -26,6 +30,9 @@ public class DrawPanel extends JPanel{
 	static final int collSize = 150;
 	static final int ovalWidth = 120;
 	static final int ovalHeight=75;
+	
+	private ArrayList<Shape> Nodes;
+	
 	public DrawPanel(){
 		super();
 	}
@@ -43,22 +50,28 @@ public class DrawPanel extends JPanel{
 			// rien n'est affiché dans aucune ligne.
 			currentPos = new int[kb.getAttributeList().size()];
 			dt.computeDeepness(-1);
+			Nodes = new ArrayList<Shape>();
 			for(int i=0;i<currentPos.length;i++)
 				currentPos[i]=0;
-			drawTree(g,dt);
+	        Graphics2D g2d = (Graphics2D) g;
+			drawTree(g,dt,g2d);
+			
+
 			
 		}
 	}
 
-	private void drawTree(Graphics g,DecisionTree dt) {
+	private void drawTree(Graphics g,DecisionTree dt, Graphics2D g2d) {
 		//int height = maxHeight - dt.getHeight();
 		int deep = dt.getDeep();
 		int squareNumber = currentPos[deep];
 		if(dt instanceof InnerDecisionTree){
 			
 			g.setColor(Color.BLACK);
-			g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
-			System.out.println("Inner att:"+((InnerDecisionTree)dt).getAttribute()+" nb fils :"+((InnerDecisionTree)dt).getArrows().size());	
+			//g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
+			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*collSize), 10+(deep*rowSize), ovalWidth, ovalHeight);
+			Nodes.add(node);
+			g2d.draw(node);
 			int numberOfArrows =0;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				if(arr.getTarget()!=null)
@@ -67,11 +80,12 @@ public class DrawPanel extends JPanel{
 			g.drawString(((InnerDecisionTree)dt).getAttribute().getName(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
-				drawTree(g,arr.getTarget());
+				drawTree(g,arr.getTarget(),g2d);
 		}else{
 			g.setColor(Color.RED);
-			g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
-			System.out.println("leaf , value: "+ ((Leaf)dt).getDecision());
+			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
+			Nodes.add(node);
+			g2d.draw(node);
 			g.drawString(((Leaf)dt).getDecision().toString(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
 			
