@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import org.w3c.dom.events.MouseEvent;
 
 import DecisionTree.*;
 import KnowledgeBase.*;
@@ -56,9 +60,34 @@ public class DrawPanel extends JPanel{
 	        Graphics2D g2d = (Graphics2D) g;
 			drawTree(g,dt,g2d);
 			
+			this.addMouseListener(new ClickNode());
+		}
+	}
+	
+	private class ClickNode extends MouseAdapter{
 
+		@Override
+		public void mouseClicked(java.awt.event.MouseEvent me) {
+			// TODO Auto-generated method stub
+			
+			super.mouseClicked(me);
+            for (Shape s : Nodes) {
+
+                if (s.contains(me.getPoint())) {
+                    System.out.println("Clicked a "+s.getClass().getName());
+                    
+                     if (s instanceof Ellipse2D) 
+                        System.out.println("Clicked a circle");
+                    
+
+                }
+			
 			
 		}
+            }
+
+		
+		
 	}
 
 	private void drawTree(Graphics g,DecisionTree dt, Graphics2D g2d) {
