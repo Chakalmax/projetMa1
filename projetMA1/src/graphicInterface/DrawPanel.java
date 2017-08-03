@@ -64,6 +64,7 @@ public class DrawPanel extends JPanel{
 				if(arr.getTarget()!=null)
 					numberOfArrows = numberOfArrows +1;
 			drawEdge(g,(InnerDecisionTree)dt,numberOfArrows,deep);
+			g.drawString(((InnerDecisionTree)dt).getAttribute().getName(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				drawTree(g,arr.getTarget());
@@ -71,6 +72,7 @@ public class DrawPanel extends JPanel{
 			g.setColor(Color.RED);
 			g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
 			System.out.println("leaf , value: "+ ((Leaf)dt).getDecision());
+			g.drawString(((Leaf)dt).getDecision().toString(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
 			
 		}
@@ -81,9 +83,15 @@ public class DrawPanel extends JPanel{
 		int squareNumber = currentPos[deep];
 		for(int i=0;i<numberOfArrows;i++){
 			int squareNumberSon = currentPos[deep+1]+i;
-			g.drawLine(10+(squareNumber*collSize + ovalWidth/2), 10+(deep*rowSize + ovalHeight),
-					10+(squareNumberSon*collSize+ovalWidth/2) , 10+((deep+1)*rowSize));
-			//g.drawString(dt2.getArrows().get(i).getValue().toString(), x, y);
+			int x1= 10+(squareNumber*collSize + ovalWidth/2);
+			int y1 = 10+(deep*rowSize + ovalHeight);
+			int x2 =10+(squareNumberSon*collSize+ovalWidth/2);
+			int y2 = 10+((deep+1)*rowSize);
+			g.drawLine(x1, y1, x2 , y2);
+
+			int x3 = (x1+x2)/2;
+			int y3 = (y1+y2)/2;
+			g.drawString(dt2.getArrows().get(i).getValue().toString(), x3, y3);
 
 		}
 		
