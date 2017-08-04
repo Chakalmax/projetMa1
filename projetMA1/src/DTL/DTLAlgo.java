@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
 import KnowledgeBase.*;
+import graphicInterface.PseudoCodePanel;
 
 public class DTLAlgo {
 	
@@ -15,12 +16,12 @@ public class DTLAlgo {
 			"Sinon",
 			"A <- argmax{Gain(A,samples)}",
 			"tree <- DT dont la racine est A",
-			" pour chaque valeur v de A faire:",
+			"Pour chaque valeur v de A faire:",
 			"sample_fils <- {e|e dans examples et e.A = valeur v}",
 			"DT_fils = DTL(samples_fils,attribute-A,examples)",
 			"ajouter DT_Fils aux fils de tree avec le marquage A = vk sur la branche",
 			"retourner tree"};
-	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,1,1,1,0};
+	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,2,2,2,0};
 	private static InfoProgressionAlgo infoProg;
 	private static DTL_Management mana;
 
@@ -112,23 +113,96 @@ public class DTLAlgo {
 		return pseudoCodeIdentation;
 	}
 	
-	public DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, float error, GainStrategy strat){
+	public DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, float error, GainStrategy strat, PseudoCodePanel codePanel){
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
 		attIndex.add(kb.getIndexClass());
 		infoProg = InfoProgressionAlgo.getInstance();
+		mana = new DTL_Management(codePanel);
 		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
 	}
 	
 	public static DecisionTree DTL_algo_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
 			KnowledgeBase parent_kb, float error, GainStrategy strat){
+		mana.goToLine(0);
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error)){
-			
+			mana.setLineToGreen();
+			// wait a moment
+			mana.setLineToNormal();
+			mana.nextLine();
 			return new Leaf(kb,kb.getDominantClass());
 		}
-		else if(kb.isEmpty())
+		else {mana.setLineToRed();
+		//wait a moment
+		mana.setLineToNormal();
+		mana.jumpLine(2);}
+		if(kb.isEmpty()){
+			mana.setLineToGreen();
+			// wait a moment
+			mana.setLineToNormal();
+			mana.nextLine();
 			return new Leaf(kb,parent_kb.getDominantClass());
-		else
-			return createInnerTree(kb,attIndex,parent_kb,error, strat);
+		}
+		else{
+			mana.setLineToRed();
+			//wait a moment
+			mana.setLineToNormal();
+			mana.jumpLine(2);
+		}
+		mana.setLineToGreen();
+			return createInnerTree_StepByStep(kb,attIndex,parent_kb,error, strat);
+	}
+	
+	private static DecisionTree createInnerTree_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
+			KnowledgeBase parent_kb, float error, GainStrategy strat) {
+		mana.setLineToNormal();
+		mana.goToLine(5);
+		
+		ArrayList<Float> gainList = new ArrayList<Float>();
+		for(int i=0; i< kb.getAttributeList().size();i++)
+			if(!attIndex.contains(i))
+				gainList.add(strat.getGain(kb,i));
+			else
+				gainList.add((float) 0);
+		int A = maxIndex(gainList);
+		// wait & display things
+		mana.nextLine();
+		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
+		// Si c'est la racine, la rajouter qqp pour les tracer
+		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
+			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
+				mana.goToLine(7);
+				// wait & display l'elem selectionné
+				mana.nextLine();
+				KnowledgeBase kbChild = kb.Split(A,attVal);
+				attIndex.add(A);
+				mana.nextLine();
+				//wait
+				DecisionTree child = DTL_algo(kbChild,attIndex,kb,error,strat);
+				mana.nextLine();
+				// wait
+				tree.addArrow(new Arrow(attVal,child));}
+		else{
+			attIndex.add(A);
+			
+			AttributeValue<Float> attVal = strat.getValueBestSplit(kb,A);
+			mana.goToLine(7);
+			// wait & display elem selectionné (preciser inférieur)
+			mana.nextLine();
+			KnowledgeBase kbChildLower = kb.SplitNumerical(A,attVal,true);
+			mana.nextLine();
+			DecisionTree childLower = DTL_algo(kbChildLower,attIndex,kb,error,strat);
+			mana.nextLine();
+			tree.addArrow(new ArrowNumerical(attVal,childLower,true));
+			mana.goToLine(7);
+			// wait & display elem select (preciser supérieur)
+			KnowledgeBase kbChildUpper = kb.SplitNumerical(A,attVal,false);
+			mana.nextLine();
+			DecisionTree childUpper = DTL_algo(kbChildUpper,attIndex,kb,error,strat);
+			mana.nextLine();
+			tree.addArrow(new ArrowNumerical(attVal,childUpper,false));		
+		}
+		mana.goToLine(11);
+		return tree;
 	}
 	
 	

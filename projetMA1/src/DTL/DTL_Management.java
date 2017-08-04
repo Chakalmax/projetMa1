@@ -45,4 +45,10 @@ public class DTL_Management {
 			  this.codePanel.nextLineToHighLight();
 	  }
 
+	public void jumpLine(int i) {
+		if(this.codePanel.isVisible())
+			this.codePanel.setLineToHighLight(this.codePanel.getLineToHighLight()+i);
+		
+	}
+
 }
