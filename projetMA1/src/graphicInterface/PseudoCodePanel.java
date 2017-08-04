@@ -24,6 +24,7 @@ public class PseudoCodePanel extends JPanel {
 	private boolean isMac = System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0;
 	private int lineToHighLight = 0;
 	
+	
 
 	public PseudoCodePanel(){
 		super.setBackground(fontColor);
@@ -79,7 +80,11 @@ public class PseudoCodePanel extends JPanel {
 	}
 
 	public void setLineToHighLight(int lineToHighLight) {
-		this.lineToHighLight = lineToHighLight;
+		if(lineToHighLight>0 && lineToHighLight< this.instructions.length)
+			this.lineToHighLight = lineToHighLight;
+		else
+			this.lineToHighLight = this.instructions.length;
+		repaint();
 	}
 	
 	public void nextLineToHighLight(){
@@ -91,16 +96,18 @@ public class PseudoCodePanel extends JPanel {
 
 	public void setGreenHighLight() {
 		this.highlightColor = greenColor;
-		
+		repaint();
 	}
 
 	public void setRedHighLight() {
 		this.highlightColor = redColor;
+		repaint();
 		
 	}
 
 	public void setNormalHighLight() {
 		this.highlightColor = normalColor;
+		repaint();
 		
 	}
 	

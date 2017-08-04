@@ -1,4 +1,4 @@
-package graphicInterface;
+package DTL;
 
 import KnowledgeBase.KnowledgeBase;
 

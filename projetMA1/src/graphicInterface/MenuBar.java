@@ -29,6 +29,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DTL.InfoProgressionAlgo;
 import DTL.GainStrategy.*;
 import KnowledgeBase.KnowledgeBase;
 import tools.ParseurTxt;

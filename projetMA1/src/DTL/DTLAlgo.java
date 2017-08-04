@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
 import KnowledgeBase.*;
-import graphicInterface.InfoProgressionAlgo;
 
 public class DTLAlgo {
 	
@@ -121,15 +120,13 @@ public class DTLAlgo {
 	
 	public static DecisionTree DTL_algo_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
 			KnowledgeBase parent_kb, float error, GainStrategy strat){
-		//TODO
-		boolean firstCondition = testFirstCondition(kb,attIndex,error);
-		if(firstCondition){
+		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error))
 			return new Leaf(kb,kb.getDominantClass());
-		}
-		return null;
+		else if(kb.isEmpty())
+			return new Leaf(kb,parent_kb.getDominantClass());
+		else
+			return createInnerTree(kb,attIndex,parent_kb,error, strat);
 	}
 	
-	private static boolean testFirstCondition(KnowledgeBase kb, ArrayList<Integer> attIndex, double error) {		
-		return (attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error));
-	}
+	
 }
