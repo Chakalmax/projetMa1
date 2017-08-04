@@ -92,6 +92,7 @@ public class PseudoCodePanel extends JPanel {
 			this.lineToHighLight = lineToHighLight +1;
 		else
 			this.lineToHighLight = 0;
+		repaint();
 	}
 
 	public void setGreenHighLight() {

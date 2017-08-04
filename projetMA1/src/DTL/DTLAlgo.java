@@ -22,6 +22,7 @@ public class DTLAlgo {
 			"retourner tree"};
 	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,1,1,1,0};
 	private static InfoProgressionAlgo infoProg;
+	private static DTL_Management mana;
 
 	public static DecisionTree DTL_algo(KnowledgeBase kb, double error, GainStrategy strat){
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
@@ -120,8 +121,10 @@ public class DTLAlgo {
 	
 	public static DecisionTree DTL_algo_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
 			KnowledgeBase parent_kb, float error, GainStrategy strat){
-		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error))
+		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error)){
+			
 			return new Leaf(kb,kb.getDominantClass());
+		}
 		else if(kb.isEmpty())
 			return new Leaf(kb,parent_kb.getDominantClass());
 		else

@@ -1,6 +1,7 @@
 package DTL;
 
-import KnowledgeBase.KnowledgeBase;
+import DecisionTree.*;
+import KnowledgeBase.*;
 
 /**
  * This class is a Singleton, with bunch of Information about the code.
@@ -10,6 +11,7 @@ import KnowledgeBase.KnowledgeBase;
 public class InfoProgressionAlgo {
  
 		private KnowledgeBase kb;
+		private DecisionTree dt;
 		
 		private InfoProgressionAlgo()
 		{
@@ -33,6 +35,10 @@ public class InfoProgressionAlgo {
 
 		public void setKb(KnowledgeBase kb) {
 			this.kb = kb;
+		}
+		
+		public DecisionTree getDt(){
+			return this.dt;
 		}
 	
 

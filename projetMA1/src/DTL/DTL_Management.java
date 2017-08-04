@@ -34,5 +34,15 @@ public class DTL_Management {
 	      this.codePanel.setNormalHighLight();
 	    }
 	  }
+	  
+	  public void goToLine(int i){
+		  if(this.codePanel.isVisible())
+			  this.codePanel.setLineToHighLight(i);
+	  }
+	  
+	  public void nextLine(){
+		  if(this.codePanel.isVisible())
+			  this.codePanel.nextLineToHighLight();
+	  }
 
 }
