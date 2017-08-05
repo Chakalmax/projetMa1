@@ -105,14 +105,15 @@ public class MainFrame extends JFrame{
 	}
 
 	public void startAlgo() {
-		if(this.kb !=null)
+		if(this.kb !=null){
+			MainFrame mf = this;
 		new Thread(new Runnable()
 	      {
 	        public void run()
 	        {
 	          try {
 	        	  System.out.println("algo launched");
-				DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, codePanel);
+				DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -122,6 +123,7 @@ public class MainFrame extends JFrame{
 	      })
 	      
 	        .start();
+		}
 		else
 			JOptionPane.showMessageDialog(null, "Chargez une base de connaissance","Error", JOptionPane.ERROR_MESSAGE);
 		
@@ -133,5 +135,9 @@ public class MainFrame extends JFrame{
 		this.addThings();
 		
 		
+	}
+
+	public InfoPanel getInfoPanel() {
+		return this.infoPanel;
 	}
 }

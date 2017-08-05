@@ -10,9 +10,10 @@ public class InfoPanel extends JPanel {
 	
 	
 	private static final long serialVersionUID = 1L;
+	String info;
 	public InfoPanel()
 	{
-		//super.setBackground(new Color(100, 255, 100));
+		this.info = "Info";
 	}
 
 	public void paintComponent(Graphics g){
@@ -21,6 +22,11 @@ public class InfoPanel extends JPanel {
 	    	Font normalFont = new Font("Dial", 0, fontSize);
 	    	g.setFont(normalFont);
 	    
-	    	g.drawString("THIS IS PANEL INFO", 10, 20);
+	    	g.drawString(info, 10, 20);
+	}
+
+	public void setInformation(String info) {
+		this.info = info;
+		repaint();		
 	}
 }

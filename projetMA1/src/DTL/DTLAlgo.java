@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
 import KnowledgeBase.*;
+import graphicInterface.MainFrame;
 import graphicInterface.Options;
 import graphicInterface.PseudoCodePanel;
 
@@ -115,52 +116,56 @@ public class DTLAlgo {
 		return pseudoCodeIdentation;
 	}
 	
-	public static DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, double error, GainStrategy strat, PseudoCodePanel codePanel) throws InterruptedException{
+	public static DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, double error, GainStrategy strat, MainFrame mainFrame) throws InterruptedException{
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
 		attIndex.add(kb.getIndexClass());
 		infoProg = InfoProgressionAlgo.getInstance();
-		mana = new DTL_Management(codePanel);
+		mana = new DTL_Management(mainFrame.getCodePanel(),mainFrame.getInfoPanel());
 		firstIt = true;
 		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
 	}
 	
 	public static DecisionTree DTL_algo_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
 			KnowledgeBase parent_kb, double error, GainStrategy strat) throws InterruptedException{
+		String info;
 		mana.goToLine(0);
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error)){
+			if(attIndex.size() == kb.getAttributeList().size())
+				info = "Plus d'attribut restant \n";
+			else
+				info = "Tous les attributs sont de la même classe \n";
+			mana.changeInfoToDisplay(info);
 			mana.setLineToGreen();
-			//Thread.sleep(Options.waitTime);
-			// wait a moment
+			// Donner l'info de ce qui a provoqué le true:
+			
 			mana.setLineToNormal();
+			Leaf leaf = new Leaf(kb,kb.getDominantClass());
+			info = info + leaf.toString();
+			mana.changeInfoToDisplay(info);
 			mana.nextLine();
-			//Thread.sleep(2000);
-			return new Leaf(kb,kb.getDominantClass());
+			return leaf;
 		}
 		else {mana.setLineToRed();
-		//Thread.sleep(2000);
 		
 		mana.setLineToNormal();
 		mana.jumpLine(2);
-		//Thread.sleep(2000);
 		}
 		if(kb.isEmpty()){
+			info = "Plus d'échantillon restant";
+			mana.changeInfoToDisplay(info);
 			mana.setLineToGreen();
-			//Thread.sleep(2000);
-			// wait a moment
-			
+			Leaf leaf = new Leaf(kb,parent_kb.getDominantClass());
+			info = info + leaf.toString();
+			mana.changeInfoToDisplay(info);
 			mana.setLineToNormal();
 			mana.nextLine();
-			//Thread.sleep(2000);
-			return new Leaf(kb,parent_kb.getDominantClass());
+			return leaf;
 		}
 		else{
 			mana.setLineToRed();
-			//Thread.sleep(2000);
-			//wait a moment
 			
 			mana.setLineToNormal();
 			mana.jumpLine(2);
-			//Thread.sleep(2000);
 		}
 		mana.setLineToGreen();
 			return createInnerTree_StepByStep(kb,attIndex,parent_kb,error, strat);
@@ -168,6 +173,7 @@ public class DTLAlgo {
 	
 	private static DecisionTree createInnerTree_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
 			KnowledgeBase parent_kb, double error, GainStrategy strat) throws InterruptedException {
+		String info;
 		mana.setLineToNormal();
 		mana.goToLine(5);
 		//Thread.sleep(2000);
@@ -179,15 +185,20 @@ public class DTLAlgo {
 			else
 				gainList.add((float) 0);
 		int A = maxIndex(gainList);
+		info = kb.getAttributeList().get(A).toString();
+		mana.changeInfoToDisplay(info);
 		// wait & display things
 		mana.nextLine();
 		//Thread.sleep(2000);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
-		// Si c'est la racine, la rajouter qqp pour les tracer
-		if(firstIt)
+		// Si c'est la racine, la rajouter qqp pour les traces
+		if(firstIt){
 			infoProg.setDt(tree);
+			firstIt = false;}
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
+				info = "valeur pour l'attribut "+ kb.getAttributeList().get(A).getName() +" : " + attVal.toString();
+				mana.changeInfoToDisplay(info);
 				mana.goToLine(7);
 				
 				// display l'elem selectionné

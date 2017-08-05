@@ -1,14 +1,17 @@
 package DTL;
 
+import graphicInterface.InfoPanel;
 import graphicInterface.Options;
 import graphicInterface.PseudoCodePanel;
 
 public class DTL_Management {
 	
 	PseudoCodePanel codePanel;
+	InfoPanel infoPanel;
 	
-	public DTL_Management(PseudoCodePanel codePanel){
+	public DTL_Management(PseudoCodePanel codePanel, InfoPanel infoPanel){
 		this.codePanel=codePanel;
+		this.infoPanel = infoPanel;
 	}
 	
 	  public void setLineToGreen()
@@ -70,6 +73,10 @@ public class DTL_Management {
 			System.out.println("Erreur lors du sleep (DTL_MANAGEMENT)");
 			e.printStackTrace();
 		}
+	}
+	
+	public void changeInfoToDisplay(String info){
+		infoPanel.setInformation(info);
 	}
 
 }
