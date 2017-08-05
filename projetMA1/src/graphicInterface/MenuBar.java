@@ -80,12 +80,7 @@ public class MenuBar extends JMenuBar {
 	    	info.setKb(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	    	mainFrame.setKB(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	    	
-	    	try {
-				DTLAlgo.Init_DTL_algo_StepByStep(mainFrame.getKB(), Options.error, Options.gainStrategy, mainFrame.getCodePanel());
-			} catch (InterruptedException e) {
-				System.out.println("can't launch this shit");
-				e.printStackTrace();
-			}
+	    	
 	      
 	    }    
 	}

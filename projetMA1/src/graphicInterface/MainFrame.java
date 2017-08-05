@@ -54,7 +54,7 @@ public class MainFrame extends JFrame{
 		codePanel = new PseudoCodePanel();
 		infoPanel = new InfoPanel();
 		treePanel = new TreePanel();
-		boutonPanel = new BoutonPanel();
+		boutonPanel = new BoutonPanel(this);
 		//creation des SplitPanel
 		splitPaneRight = new JSplitPane();
 		splitPaneLeft = new JSplitPane();

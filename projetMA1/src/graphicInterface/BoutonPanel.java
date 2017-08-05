@@ -11,20 +11,25 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import DTL.DTLAlgo;
+
 public class BoutonPanel extends JPanel {
 
 	private JButton buttonNext;
 	private JButton buttonRestart;
 	private JButton buttonEnd;
+	private boolean runing;
+	private MainFrame mainFrame;
 	
 	private static final long serialVersionUID = 1L;
-	public BoutonPanel()
+	public BoutonPanel(MainFrame mainFrame)
 	{
 		//super.setBackground(new Color(100, 255, 100));
-		
+		runing = false;
 		buttonNext = new JButton("Next");
 		buttonRestart = new JButton("Restart");
 		buttonEnd = new JButton("Finir l'algo");
+		this.mainFrame = mainFrame;
 		
 		buttonNext.addActionListener(new BoutonNext());
 		buttonEnd.addActionListener(new BoutonEnd());
@@ -51,7 +56,8 @@ public class BoutonPanel extends JPanel {
 	    }  
 	private class BoutonRestart implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
-			System.out.println("Restart");
+			if(runing){
+			System.out.println("start");
 			int option = JOptionPane.showConfirmDialog(null, 
 			        "Voulez vous recommencer l'algo depuis le début?", 
 			        "Restart", 
@@ -59,7 +65,20 @@ public class BoutonPanel extends JPanel {
 			        JOptionPane.QUESTION_MESSAGE);
 			
 			if(option == JOptionPane.OK_OPTION){
-				
+				try {
+					DTLAlgo.Init_DTL_algo_StepByStep(mainFrame.getKB(), Options.error, Options.gainStrategy, mainFrame.getCodePanel());
+				} catch (InterruptedException e) {
+					System.out.println("can't launch this shit");
+					e.printStackTrace();
+				}
+			}}
+			else{
+				try {
+					DTLAlgo.Init_DTL_algo_StepByStep(mainFrame.getKB(), Options.error, Options.gainStrategy, mainFrame.getCodePanel());
+				} catch (InterruptedException e) {
+					System.out.println("can't launch this shit");
+					e.printStackTrace();
+				}
 			}
 		}
 	}
