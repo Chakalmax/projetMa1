@@ -32,6 +32,7 @@ public class DrawPanel extends JPanel{
 	static final int collSize = 150;
 	static final int ovalWidth = 120;
 	static final int ovalHeight=75;
+	static ClickNode click;
 	
 	private ArrayList<Shape> Nodes;
 	private ArrayList<DecisionTree> dtNodes;
@@ -50,6 +51,8 @@ public class DrawPanel extends JPanel{
 		
 		super.paintComponent(g);
 		if(dt != null){
+			if(click != null)
+				this.removeMouseListener(click);
 			// rien n'est affiché dans aucune ligne.
 			currentPos = new int[kb.getAttributeList().size()];
 			dt.computeDeepness(-1);
@@ -59,8 +62,8 @@ public class DrawPanel extends JPanel{
 				currentPos[i]=0;
 	        Graphics2D g2d = (Graphics2D) g;
 			drawTree(g,dt,g2d);
-			
-			this.addMouseListener(new ClickNode());
+			click = new ClickNode();
+			this.addMouseListener(click);
 		}
 	}
 	
