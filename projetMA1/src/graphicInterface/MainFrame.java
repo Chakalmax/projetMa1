@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
+import DTL.DTLAlgo;
 import KnowledgeBase.KnowledgeBase;
 
 public class MainFrame extends JFrame{
@@ -100,5 +101,33 @@ public class MainFrame extends JFrame{
 
 	public PseudoCodePanel getCodePanel() {
 		return this.codePanel;
+	}
+
+	public void startAlgo() {
+		new Thread(new Runnable()
+	      {
+	        public void run()
+	        {
+	          try {
+	        	  System.out.println("algo launched");
+				DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, codePanel);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Start Algo failed");
+			}
+	        }
+	      })
+	      
+	        .start();
+		
+	}
+
+	public void restartAlgo() {
+		// TODO recommencer l'algo, tout clean & tout.
+		this.removeAll();
+		this.addThings();
+		
+		
 	}
 }

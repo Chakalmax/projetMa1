@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
 import KnowledgeBase.*;
+import graphicInterface.Options;
 import graphicInterface.PseudoCodePanel;
 
 public class DTLAlgo {
@@ -126,7 +127,7 @@ public class DTLAlgo {
 		mana.goToLine(0);
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error)){
 			mana.setLineToGreen();
-			Thread.sleep(2000);
+			Thread.sleep(Options.waitTime);
 			// wait a moment
 			
 				Thread.sleep(2000);

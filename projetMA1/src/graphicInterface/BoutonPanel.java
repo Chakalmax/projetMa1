@@ -65,20 +65,11 @@ public class BoutonPanel extends JPanel {
 			        JOptionPane.QUESTION_MESSAGE);
 			
 			if(option == JOptionPane.OK_OPTION){
-				try {
-					DTLAlgo.Init_DTL_algo_StepByStep(mainFrame.getKB(), Options.error, Options.gainStrategy, mainFrame.getCodePanel());
-				} catch (InterruptedException e) {
-					System.out.println("can't launch this shit");
-					e.printStackTrace();
-				}
+				mainFrame.restartAlgo();
 			}}
 			else{
-				try {
-					DTLAlgo.Init_DTL_algo_StepByStep(mainFrame.getKB(), Options.error, Options.gainStrategy, mainFrame.getCodePanel());
-				} catch (InterruptedException e) {
-					System.out.println("can't launch this shit");
-					e.printStackTrace();
-				}
+				mainFrame.startAlgo();
+				runing = true;
 			}
 		}
 	}
