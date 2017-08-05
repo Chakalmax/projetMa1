@@ -160,20 +160,4 @@ public class DrawPanel extends JPanel{
 		this.numAttVal = kb.getNumAttVal();
 		
 	}
-	/**
-	 * Give the number of node in a level 
-	 * @param level, the level of the tree (profondeur)
-	 * @return
-	 */
-	private int computeWorstNumberNode(int level){
-		if(level ==0)
-			return 0;
-		else{
-			int result =0;
-			for(int i=0;i<level;i++){
-				result = result + numAttVal[i];
-			}
-			return result;
-		}
-	}
 }
