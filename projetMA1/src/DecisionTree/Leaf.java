@@ -50,6 +50,17 @@ public class Leaf extends DecisionTree{
 		return 1;
 	}
 
+	@Override
+	public void addTree(DecisionTree tree) {
+		// do nothing, it's normal you can't add a thing on a leaf.
+		
+	}
+
+	@Override
+	public Arrow findEmptyArrow() {
+		return null;
+	}
+
 	
 
 }

@@ -55,6 +55,10 @@ public abstract class DecisionTree {
 	public abstract boolean equals(Object ob);
 	
 	public abstract int getSize();
+	
+	public abstract void addTree(DecisionTree tree);
+	
+	public abstract Arrow findEmptyArrow();
 
 
 	

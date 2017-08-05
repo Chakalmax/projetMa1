@@ -138,5 +138,29 @@ public class InnerDecisionTree extends DecisionTree {
 		return result;
 	}
 
+	@Override
+	public void addTree(DecisionTree tree) {
+		// TODO Auto-generated method stub
+		boolean emptyArrow = false;
+		Arrow arr = findEmptyArrow();
+		if(arr != null)
+			arr.setTarget(tree);
+	}
+
+	@Override
+	public Arrow findEmptyArrow() {
+		for(Arrow arr: arrows)
+			if(arr.getTarget()==null&& arr.getValue() != null)
+				return arr;
+			else{
+				Arrow arr2 = arr.getTarget().findEmptyArrow();
+				if(arr2!=null)
+					return arr2;
+			}
+		return null;
+	}
+
+
+
 	
 }
