@@ -140,8 +140,6 @@ public class InnerDecisionTree extends DecisionTree {
 
 	@Override
 	public void addTree(DecisionTree tree) {
-		// TODO Auto-generated method stub
-		boolean emptyArrow = false;
 		Arrow arr = findEmptyArrow();
 		if(arr != null)
 			arr.setTarget(tree);

@@ -141,16 +141,6 @@ public class MenuBar extends JMenuBar {
 			    mid2.add(errorField);
 			    //panel.add((mid2),BorderLayout.CENTER);
 			    panel.add(mid2);
-			
-			   
-			    
-//				this.mainFrame = mainFrame;
-//				panel = new JPanel();
-//				this.add(panel);
-//				combo = new JComboBox();
-//				combo.addItem("obj1");
-//				combo.addItem("Obj2");
-//				panel.add(combo);
 				
 				this.okButton = new JButton("Use these options");
 			    this.okButton.addActionListener(new BoutonEnd());
@@ -168,7 +158,6 @@ public class MenuBar extends JMenuBar {
 			class GainState implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				//	System.out.println("événement déclenché sur : " + ((GainStrategy) comboStrat.getSelectedItem()).getName());
 					gainStrat = (GainStrategy) comboStrat.getSelectedItem();
 				}
 		}

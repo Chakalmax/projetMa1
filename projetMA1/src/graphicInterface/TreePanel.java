@@ -15,7 +15,7 @@ public class TreePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	DecisionTree DT;
-	Component compGlissant;
+	DrawPanel compGlissant;
 	
 	public DecisionTree getDT() {
 		return DT;
@@ -44,10 +44,10 @@ public class TreePanel extends JPanel {
 			 Color.BLUE, Color.CYAN, Color.MAGENTA, Color.PINK, Color.WHITE, Color.BLACK};
 	 
 
-	private Component createComponent() {
-		JPanel component=new DrawPanel(); // Le fon de label
-        component.setLocation(1,1); // position
-        component.setSize(500,250); // taille 
+	private DrawPanel createComponent() {
+		DrawPanel component=new DrawPanel(); // Le fon de label
+        component.setLocation(-1,-1); // position
+        component.setSize(650,550); // taille 
        // component.setBackground(COLORS[2]); // couleur 
         component.setEnabled(false); // les composants ne doivent pas intercepter la souris
         //component.add(new DrawPanel(DT));
@@ -58,6 +58,9 @@ public class TreePanel extends JPanel {
 		super.paintComponent(g);
 		
 	    add(compGlissant);
+	    if(this.DT != null)
+	    	compGlissant.setDt(this.DT);
+	    compGlissant.repaint();
 		if(DT == null){
 			int fontSize = 15;
 	    	Font normalFont = new Font("Dial", 0, fontSize);
@@ -75,6 +78,12 @@ public class TreePanel extends JPanel {
     	g.setFont(normalFont);
     
     	g.drawString("THIS IS PANEL Tree BUT REPAINTED YEAH", 10, 20);
+		
+	}
+
+	public void addTree(DecisionTree dT2) {
+		this.DT.addTree(dT2);
+		repaint();
 		
 	}
 }

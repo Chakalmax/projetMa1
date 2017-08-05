@@ -118,7 +118,7 @@ public class DTLAlgo {
 	public static DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, double error, GainStrategy strat, MainFrame mainFrame) throws InterruptedException{
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
 		attIndex.add(kb.getIndexClass());
-		mana = new DTL_Management(mainFrame.getCodePanel(),mainFrame.getInfoPanel());
+		mana = new DTL_Management(mainFrame.getCodePanel(),mainFrame.getInfoPanel(),mainFrame.getTreePanel());
 		firstIt = true;
 		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
 	}

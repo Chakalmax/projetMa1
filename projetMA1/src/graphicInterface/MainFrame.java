@@ -140,4 +140,8 @@ public class MainFrame extends JFrame{
 	public InfoPanel getInfoPanel() {
 		return this.infoPanel;
 	}
+
+	public TreePanel getTreePanel() {
+		return this.treePanel;
+	}
 }
