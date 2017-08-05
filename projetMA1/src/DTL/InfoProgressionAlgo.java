@@ -40,6 +40,10 @@ public class InfoProgressionAlgo {
 		public DecisionTree getDt(){
 			return this.dt;
 		}
+		
+		public void setDt(DecisionTree dt){
+			this.dt = dt;
+		}
 	
 
 }

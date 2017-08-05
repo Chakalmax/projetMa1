@@ -25,6 +25,7 @@ public class DTLAlgo {
 	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,2,2,2,0};
 	private static InfoProgressionAlgo infoProg;
 	private static DTL_Management mana;
+	private static boolean firstIt;
 
 	public static DecisionTree DTL_algo(KnowledgeBase kb, double error, GainStrategy strat){
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
@@ -119,6 +120,7 @@ public class DTLAlgo {
 		attIndex.add(kb.getIndexClass());
 		infoProg = InfoProgressionAlgo.getInstance();
 		mana = new DTL_Management(codePanel);
+		firstIt = true;
 		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
 	}
 	
@@ -182,23 +184,23 @@ public class DTLAlgo {
 		//Thread.sleep(2000);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
 		// Si c'est la racine, la rajouter qqp pour les tracer
+		if(firstIt)
+			infoProg.setDt(tree);
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
 				mana.goToLine(7);
-				//Thread.sleep(2000);
-				// wait & display l'elem selectionné
+				
+				// display l'elem selectionné
 				mana.nextLine();
-				//Thread.sleep(2000);
+				
 				KnowledgeBase kbChild = kb.Split(A,attVal);
 				attIndex.add(A);
 				mana.nextLine();
-				//Thread.sleep(2000);
-				//wait
+				
 				DecisionTree child = DTL_algo_StepByStep(kbChild,attIndex,kb,error,strat);
 				mana.goToLine(10);
 				System.out.println("Ici : "+mana.getLine());
-				//Thread.sleep(2000);
-				// wait
+				
 				tree.addArrow(new Arrow(attVal,child));}
 		else{
 			attIndex.add(A);
