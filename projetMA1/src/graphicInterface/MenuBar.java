@@ -29,6 +29,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DTL.DTLAlgo;
 import DTL.InfoProgressionAlgo;
 import DTL.GainStrategy.*;
 import KnowledgeBase.KnowledgeBase;
@@ -78,6 +79,13 @@ public class MenuBar extends JMenuBar {
 	    	InfoProgressionAlgo info = InfoProgressionAlgo.getInstance();
 	    	info.setKb(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	    	mainFrame.setKB(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
+	    	
+	    	try {
+				DTLAlgo.Init_DTL_algo_StepByStep(mainFrame.getKB(), Options.error, Options.gainStrategy, mainFrame.getCodePanel());
+			} catch (InterruptedException e) {
+				System.out.println("can't launch this shit");
+				e.printStackTrace();
+			}
 	      
 	    }    
 	}

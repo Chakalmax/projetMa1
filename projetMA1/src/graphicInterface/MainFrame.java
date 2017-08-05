@@ -55,7 +55,6 @@ public class MainFrame extends JFrame{
 		infoPanel = new InfoPanel();
 		treePanel = new TreePanel();
 		boutonPanel = new BoutonPanel();
-		configureBoutonPanel();
 		//creation des SplitPanel
 		splitPaneRight = new JSplitPane();
 		splitPaneLeft = new JSplitPane();
@@ -89,10 +88,7 @@ public class MainFrame extends JFrame{
         
 	}
 
-	private void configureBoutonPanel() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	public KnowledgeBase getKB(){
 		return this.kb;
@@ -100,5 +96,9 @@ public class MainFrame extends JFrame{
 	
 	public void setKB(KnowledgeBase kb){
 		this.kb = kb;
+	}
+
+	public PseudoCodePanel getCodePanel() {
+		return this.codePanel;
 	}
 }

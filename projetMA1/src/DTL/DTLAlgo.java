@@ -113,7 +113,7 @@ public class DTLAlgo {
 		return pseudoCodeIdentation;
 	}
 	
-	public DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, float error, GainStrategy strat, PseudoCodePanel codePanel){
+	public static DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, double error, GainStrategy strat, PseudoCodePanel codePanel) throws InterruptedException{
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
 		attIndex.add(kb.getIndexClass());
 		infoProg = InfoProgressionAlgo.getInstance();
@@ -122,29 +122,40 @@ public class DTLAlgo {
 	}
 	
 	public static DecisionTree DTL_algo_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
-			KnowledgeBase parent_kb, float error, GainStrategy strat){
+			KnowledgeBase parent_kb, double error, GainStrategy strat) throws InterruptedException{
 		mana.goToLine(0);
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error)){
 			mana.setLineToGreen();
+			Thread.sleep(2000);
 			// wait a moment
+			
+				Thread.sleep(2000);
+				System.out.println("first sleep");
+			
 			mana.setLineToNormal();
 			mana.nextLine();
 			return new Leaf(kb,kb.getDominantClass());
 		}
 		else {mana.setLineToRed();
-		//wait a moment
+		Thread.sleep(2000);
+		System.out.println("seconde sleep");
+		Thread.sleep(2000);
 		mana.setLineToNormal();
 		mana.jumpLine(2);}
 		if(kb.isEmpty()){
 			mana.setLineToGreen();
+			Thread.sleep(2000);
 			// wait a moment
+			Thread.sleep(2000);
 			mana.setLineToNormal();
 			mana.nextLine();
 			return new Leaf(kb,parent_kb.getDominantClass());
 		}
 		else{
 			mana.setLineToRed();
+			Thread.sleep(2000);
 			//wait a moment
+			Thread.sleep(2000);
 			mana.setLineToNormal();
 			mana.jumpLine(2);
 		}
@@ -153,9 +164,10 @@ public class DTLAlgo {
 	}
 	
 	private static DecisionTree createInnerTree_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,
-			KnowledgeBase parent_kb, float error, GainStrategy strat) {
+			KnowledgeBase parent_kb, double error, GainStrategy strat) throws InterruptedException {
 		mana.setLineToNormal();
 		mana.goToLine(5);
+		Thread.sleep(2000);
 		
 		ArrayList<Float> gainList = new ArrayList<Float>();
 		for(int i=0; i< kb.getAttributeList().size();i++)
@@ -166,19 +178,24 @@ public class DTLAlgo {
 		int A = maxIndex(gainList);
 		// wait & display things
 		mana.nextLine();
+		Thread.sleep(2000);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
 		// Si c'est la racine, la rajouter qqp pour les tracer
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
 				mana.goToLine(7);
+				Thread.sleep(2000);
 				// wait & display l'elem selectionné
 				mana.nextLine();
+				Thread.sleep(2000);
 				KnowledgeBase kbChild = kb.Split(A,attVal);
 				attIndex.add(A);
 				mana.nextLine();
+				Thread.sleep(2000);
 				//wait
 				DecisionTree child = DTL_algo(kbChild,attIndex,kb,error,strat);
 				mana.nextLine();
+				Thread.sleep(2000);
 				// wait
 				tree.addArrow(new Arrow(attVal,child));}
 		else{
@@ -186,19 +203,26 @@ public class DTLAlgo {
 			
 			AttributeValue<Float> attVal = strat.getValueBestSplit(kb,A);
 			mana.goToLine(7);
+			Thread.sleep(2000);
 			// wait & display elem selectionné (preciser inférieur)
 			mana.nextLine();
+			Thread.sleep(2000);
 			KnowledgeBase kbChildLower = kb.SplitNumerical(A,attVal,true);
 			mana.nextLine();
+			Thread.sleep(2000);
 			DecisionTree childLower = DTL_algo(kbChildLower,attIndex,kb,error,strat);
 			mana.nextLine();
+			Thread.sleep(2000);
 			tree.addArrow(new ArrowNumerical(attVal,childLower,true));
 			mana.goToLine(7);
+			Thread.sleep(2000);
 			// wait & display elem select (preciser supérieur)
 			KnowledgeBase kbChildUpper = kb.SplitNumerical(A,attVal,false);
 			mana.nextLine();
+			Thread.sleep(2000);
 			DecisionTree childUpper = DTL_algo(kbChildUpper,attIndex,kb,error,strat);
 			mana.nextLine();
+			Thread.sleep(2000);
 			tree.addArrow(new ArrowNumerical(attVal,childUpper,false));		
 		}
 		mana.goToLine(11);
