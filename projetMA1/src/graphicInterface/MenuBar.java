@@ -30,7 +30,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import DTL.DTLAlgo;
-import DTL.InfoProgressionAlgo;
 import DTL.GainStrategy.*;
 import KnowledgeBase.KnowledgeBase;
 import tools.ParseurTxt;
@@ -76,8 +75,6 @@ public class MenuBar extends JMenuBar {
 	        JFileChooser dialogue = new JFileChooser(repertoireCourant);
 	        dialogue.showOpenDialog(null);
 	        System.out.println("Fichier choisi : " + dialogue.getSelectedFile());
-	    	InfoProgressionAlgo info = InfoProgressionAlgo.getInstance();
-	    	info.setKb(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	    	mainFrame.setKB(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	    	
 	    	

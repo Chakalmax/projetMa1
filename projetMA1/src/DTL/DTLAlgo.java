@@ -24,7 +24,6 @@ public class DTLAlgo {
 			"ajouter DT_Fils aux fils de tree avec le marquage A = vk sur la branche",
 			"retourner tree"};
 	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,2,2,2,0};
-	private static InfoProgressionAlgo infoProg;
 	private static DTL_Management mana;
 	private static boolean firstIt;
 
@@ -119,7 +118,6 @@ public class DTLAlgo {
 	public static DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, double error, GainStrategy strat, MainFrame mainFrame) throws InterruptedException{
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
 		attIndex.add(kb.getIndexClass());
-		infoProg = InfoProgressionAlgo.getInstance();
 		mana = new DTL_Management(mainFrame.getCodePanel(),mainFrame.getInfoPanel());
 		firstIt = true;
 		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
@@ -193,7 +191,7 @@ public class DTLAlgo {
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
 		// Si c'est la racine, la rajouter qqp pour les traces
 		if(firstIt){
-			infoProg.setDt(tree);
+				// mettre le tree qqp
 			firstIt = false;}
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
