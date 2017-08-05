@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
@@ -104,6 +105,7 @@ public class MainFrame extends JFrame{
 	}
 
 	public void startAlgo() {
+		if(this.kb !=null)
 		new Thread(new Runnable()
 	      {
 	        public void run()
@@ -120,6 +122,8 @@ public class MainFrame extends JFrame{
 	      })
 	      
 	        .start();
+		else
+			JOptionPane.showMessageDialog(null, "Chargez une base de connaissance","Error", JOptionPane.ERROR_MESSAGE);
 		
 	}
 

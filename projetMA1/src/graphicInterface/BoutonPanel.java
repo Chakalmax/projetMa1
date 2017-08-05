@@ -56,6 +56,7 @@ public class BoutonPanel extends JPanel {
 	    }  
 	private class BoutonRestart implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
+			if(mainFrame.getKB() != null)
 			if(runing){
 			System.out.println("start");
 			int option = JOptionPane.showConfirmDialog(null, 
