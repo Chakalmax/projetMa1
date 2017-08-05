@@ -197,7 +197,7 @@ public class DTLAlgo {
 			firstIt = false;}
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
-				info = "valeur pour l'attribut "+ kb.getAttributeList().get(A).getName() +" : " + attVal.toString();
+				info = "valeur pour l'attribut "+ kb.getAttributeList().get(A).getName() +" : \n" + attVal.toString();
 				mana.changeInfoToDisplay(info);
 				mana.goToLine(7);
 				
@@ -217,6 +217,8 @@ public class DTLAlgo {
 			attIndex.add(A);
 			
 			AttributeValue<Float> attVal = strat.getValueBestSplit(kb,A);
+			info = "valeur pour l'attribut "+ kb.getAttributeList().get(A).getName() +" : \n" + attVal.toString();
+			mana.changeInfoToDisplay(info);
 			mana.goToLine(7);
 			//Thread.sleep(2000);
 			// wait & display elem selectionné (preciser inférieur)

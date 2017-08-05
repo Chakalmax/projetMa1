@@ -41,7 +41,7 @@ public class MainFrame extends JFrame{
 	public MainFrame(){
 		
 		this.setTitle("DTL learning tool");
-		this.setSize(800, 800);
+		this.setSize(1100, 800);
 	    this.setLocationRelativeTo(null);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    addThings();
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame{
         splitPaneLeft.setBottomComponent(boutonPanel);
         
         splitPaneAll.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-        splitPaneAll.setDividerLocation(400);
+        splitPaneAll.setDividerLocation(500);
         splitPaneAll.setLeftComponent(splitPaneLeft);
         splitPaneAll.setRightComponent(splitPaneRight);
         
