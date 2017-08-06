@@ -28,6 +28,7 @@ public class MainFrame extends JFrame{
 	private InfoPanel infoPanel;
 	private DrawPanel drawPanel;
 	private BoutonPanel boutonPanel;
+	private Thread thread;
 
 	public static void main(String[] args)
 	  {
@@ -109,32 +110,56 @@ public class MainFrame extends JFrame{
 	public void startAlgo() {
 		if(this.kb !=null){
 			MainFrame mf = this;
-		new Thread(new Runnable()
-	      {
-	        public void run()
-	        {
-	          try {
-	        	  System.out.println("algo launched");
-				DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
-				System.out.println("algo ended");
-				mf.drawPanel.setDt(dtalgo);
-				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Start Algo failed");
-			}
-	        }
-	      })
-	      
-	        .start();
+		this.thread = new AlgoThread(mf);
+		thread.start();
 		}
 		else
 			JOptionPane.showMessageDialog(null, "Chargez une base de connaissance","Error", JOptionPane.ERROR_MESSAGE);
 		
 	}
+	
+	private class AlgoThread extends Thread{
+		
+		MainFrame mf;
+		
+		AlgoThread(MainFrame mf){
+			super(new RunnableThread(mf));
+			this.mf = mf;
+		}
+		
+		
+	}
+	
+	private class RunnableThread implements Runnable{
+
+		MainFrame mf;
+		
+		public RunnableThread(MainFrame mf) {
+			super();
+			this.mf = mf;
+		}
+
+		@Override
+		public void run()
+        {
+          try {
+        	  System.out.println("algo launched");
+			DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
+			System.out.println("algo ended");
+			mf.drawPanel.setDt(dtalgo);
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Start Algo failed");
+		}
+        }
+		
+		
+	}
 
 	public void restartAlgo() {
+		this.thread.interrupt();
 		infoPanel.restart();
 		drawPanel.restart();
 		codePanel.restart();
