@@ -1,18 +1,18 @@
 package DTL;
 
 import DecisionTree.DecisionTree;
+import graphicInterface.DrawPanel;
 import graphicInterface.InfoPanel;
 import graphicInterface.Options;
 import graphicInterface.PseudoCodePanel;
-import graphicInterface.TreePanel;
 
 public class DTL_Management {
 	
 	PseudoCodePanel codePanel;
 	InfoPanel infoPanel;
-	TreePanel treePanel;
+	DrawPanel treePanel;
 	
-	public DTL_Management(PseudoCodePanel codePanel, InfoPanel infoPanel,TreePanel treePanel){
+	public DTL_Management(PseudoCodePanel codePanel, InfoPanel infoPanel,DrawPanel treePanel){
 		this.codePanel=codePanel;
 		this.infoPanel = infoPanel;
 		this.treePanel = treePanel;
@@ -84,7 +84,7 @@ public class DTL_Management {
 	}
 	
 	public void setTree(DecisionTree dT){
-		treePanel.setDT(dT);
+		treePanel.setDt(dT);
 	}
 	
 	public void addTree(DecisionTree dT){

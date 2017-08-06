@@ -151,6 +151,7 @@ public class DrawPanel extends JPanel{
 	public void setDt(DecisionTree dt){
 		this.dt = dt;
 		updateInfo();
+		repaint();
 	}
 
 	private void updateInfo() {
@@ -160,5 +161,10 @@ public class DrawPanel extends JPanel{
 		this.largeurMax = kb.getLargeurMax();
 		this.numAttVal = kb.getNumAttVal();
 		
+	}
+
+	public void addTree(DecisionTree dT2) {
+		this.dt.addTree(dT2);
+		repaint();
 	}
 }

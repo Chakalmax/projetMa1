@@ -25,7 +25,7 @@ public class MainFrame extends JFrame{
 	private KnowledgeBase kb;
 	private PseudoCodePanel codePanel;
 	private InfoPanel infoPanel;
-	private TreePanel treePanel;
+	private DrawPanel drawPanel;
 	private BoutonPanel boutonPanel;
 
 	public static void main(String[] args)
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame{
 		// création des Panel
 		codePanel = new PseudoCodePanel();
 		infoPanel = new InfoPanel();
-		treePanel = new TreePanel();
+		drawPanel = new DrawPanel();
 		boutonPanel = new BoutonPanel(this);
 		//creation des SplitPanel
 		splitPaneRight = new JSplitPane();
@@ -76,7 +76,7 @@ public class MainFrame extends JFrame{
         
         splitPaneLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
         splitPaneLeft.setDividerLocation(650);
-        splitPaneLeft.setTopComponent(treePanel);
+        splitPaneLeft.setTopComponent(drawPanel);
         splitPaneLeft.setBottomComponent(boutonPanel);
         
         splitPaneAll.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -116,7 +116,7 @@ public class MainFrame extends JFrame{
 	        	  System.out.println("algo launched");
 				DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
 				System.out.println("algo ended");
-				mf.treePanel.setDT(dtalgo);
+				mf.drawPanel.setDt(dtalgo);
 				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -145,7 +145,7 @@ public class MainFrame extends JFrame{
 		return this.infoPanel;
 	}
 
-	public TreePanel getTreePanel() {
-		return this.treePanel;
+	public DrawPanel getTreePanel() {
+		return this.drawPanel;
 	}
 }
