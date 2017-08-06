@@ -165,4 +165,10 @@ public class DrawPanel extends JPanel{
 		this.dt.addTree(dT2);
 		repaint();
 	}
+
+	public void restart() {
+		this.dt = null;
+		repaint();
+		
+	}
 }

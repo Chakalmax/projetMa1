@@ -110,6 +110,13 @@ public class PseudoCodePanel extends JPanel {
 		repaint();
 		
 	}
+
+	public void restart() {
+		setNormalHighLight();
+		this.setLineToHighLight(0);
+		repaint();
+		
+	}
 	
 	
 	

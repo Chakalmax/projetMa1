@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
@@ -57,6 +58,7 @@ public class MainFrame extends JFrame{
 		codePanel = new PseudoCodePanel();
 		infoPanel = new InfoPanel();
 		drawPanel = new DrawPanel();
+		JScrollPane jScrollPane = new JScrollPane(drawPanel);
 		boutonPanel = new BoutonPanel(this);
 		//creation des SplitPanel
 		splitPaneRight = new JSplitPane();
@@ -76,7 +78,7 @@ public class MainFrame extends JFrame{
         
         splitPaneLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
         splitPaneLeft.setDividerLocation(650);
-        splitPaneLeft.setTopComponent(drawPanel);
+        splitPaneLeft.setTopComponent(jScrollPane);
         splitPaneLeft.setBottomComponent(boutonPanel);
         
         splitPaneAll.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -134,12 +136,14 @@ public class MainFrame extends JFrame{
 	}
 
 	public void restartAlgo() {
-		// TODO recommencer l'algo, tout clean & tout.
-		this.removeAll();
-		this.addThings();
+		infoPanel.restart();
+		drawPanel.restart();
+		codePanel.restart();
+		this.startAlgo();
 		
 		
 	}
+
 
 	public InfoPanel getInfoPanel() {
 		return this.infoPanel;
