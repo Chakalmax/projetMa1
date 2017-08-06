@@ -13,6 +13,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 import DTL.DTLAlgo;
+import DecisionTree.DecisionTree;
 import KnowledgeBase.KnowledgeBase;
 
 public class MainFrame extends JFrame{
@@ -113,7 +114,10 @@ public class MainFrame extends JFrame{
 	        {
 	          try {
 	        	  System.out.println("algo launched");
-				DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
+				DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
+				System.out.println("algo ended");
+				mf.treePanel.setDT(dtalgo);
+				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
