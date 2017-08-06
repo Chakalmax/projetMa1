@@ -147,15 +147,19 @@ public class InnerDecisionTree extends DecisionTree {
 
 	@Override
 	public Arrow findEmptyArrow() {
-		for(Arrow arr: arrows)
-			if(arr.getTarget()==null&& arr.getValue() != null)
-				return arr;
-			else{
-				Arrow arr2 = arr.getTarget().findEmptyArrow();
-				if(arr2!=null)
-					return arr2;
+		boolean found = false;
+		Arrow arrow = null;
+		for(Arrow arr: arrows){
+			if(arr.getTarget() == null){
+				arrow = arr;
+				break;
+			}else{
+				arrow = arr.getTarget().findEmptyArrow();
+				if(arrow != null)
+					break;
 			}
-		return null;
+		}	
+		return arrow;
 	}
 
 

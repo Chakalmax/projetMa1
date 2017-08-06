@@ -139,6 +139,7 @@ public class DTLAlgo {
 			mana.setLineToNormal();
 			Leaf leaf = new Leaf(kb,kb.getDominantClass());
 			info = info + leaf.toString();
+			mana.addTree(leaf);
 			mana.changeInfoToDisplay(info);
 			mana.nextLine();
 			return leaf;
@@ -154,6 +155,7 @@ public class DTLAlgo {
 			mana.setLineToGreen();
 			Leaf leaf = new Leaf(kb,parent_kb.getDominantClass());
 			info = info + leaf.toString();
+			mana.addTree(leaf);
 			mana.changeInfoToDisplay(info);
 			mana.setLineToNormal();
 			mana.nextLine();
