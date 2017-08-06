@@ -115,6 +115,7 @@ public class DrawPanel extends JPanel{
 			g.drawString(((InnerDecisionTree)dt).getAttribute().getName(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
+				if(arr.getTarget()!=null)
 				drawTree(g,arr.getTarget(),g2d);
 		}else{
 			g.setColor(Color.RED);

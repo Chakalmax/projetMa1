@@ -23,7 +23,6 @@ public class TreePanel extends JPanel {
 
 	public void setDT(DecisionTree dT) {
 		DT = dT;
-		removeAll();
 		repaint();
 	}
 

@@ -189,10 +189,24 @@ public class DTLAlgo {
 		mana.nextLine();
 		//Thread.sleep(2000);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
-		// Si c'est la racine, la rajouter qqp pour les traces
+		// ici c'est pour l'affichage,on a une copie mais qui a des arrows vide.
+		InnerDecisionTree tree2 = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
+
+		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
+			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
+				tree2.addArrow(new Arrow(attVal));
+			}
+		else{ // if Numerical
+			AttributeValue<Float> attVal = strat.getValueBestSplit(kb,A);
+			tree2.addArrow(new ArrowNumerical(attVal,true));
+			tree2.addArrow(new ArrowNumerical(attVal,false));
+		}
 		if(firstIt){
-				// mettre le tree qqp
+			mana.setTree(tree2);
 			firstIt = false;}
+		else{
+			mana.addTree(tree);
+		}
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
 				info = "valeur pour l'attribut "+ kb.getAttributeList().get(A).getName() +" : \n" + attVal.toString();

@@ -15,6 +15,7 @@ public class DTL_Management {
 	public DTL_Management(PseudoCodePanel codePanel, InfoPanel infoPanel,TreePanel treePanel){
 		this.codePanel=codePanel;
 		this.infoPanel = infoPanel;
+		this.treePanel = treePanel;
 	}
 	
 	  public void setLineToGreen()
