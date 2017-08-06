@@ -77,10 +77,8 @@ public class DrawPanel extends JPanel{
             for (int i=0; i<Nodes.size();i++) {
             	Shape s = Nodes.get(i);
                 if (s.contains(me.getPoint())) {
-                    System.out.println("Clicked a "+s.getClass().getName());
                     DecisionTree node = dtNodes.get(i);
                     String output = node.toString();
-                    System.out.println("me.getPoint()" + me.getPoint());
                     //JOptionPane jop1 = new JOptionPane();
                     JOptionPane.showMessageDialog(null,  output , "Information sur le noeud", JOptionPane.INFORMATION_MESSAGE);
                     

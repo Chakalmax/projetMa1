@@ -50,7 +50,6 @@ public class PseudoCodePanel extends JPanel {
 	      {
 	        if (this.lineToHighLight == i)
 	        {
-	        	System.out.println(i);
 	          g.setColor(this.highlightColor);
 	          g.fillRect(5,(15-fontSize)+25*i,getWidth()-5,fontSize+2);
 	        }
@@ -80,12 +79,10 @@ public class PseudoCodePanel extends JPanel {
 	}
 
 	public void setLineToHighLight(int lineToHighLight) {
-		System.out.println("Un appel a setLineToHighLight pour la ligne"+lineToHighLight);
 		if(lineToHighLight>=0 && lineToHighLight< this.instructions.length)
 			this.lineToHighLight = lineToHighLight;
 		else
 			this.lineToHighLight = this.instructions.length;
-		System.out.println("la ligne à highLight est: " + this.lineToHighLight);
 		repaint();
 	}
 	

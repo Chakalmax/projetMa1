@@ -140,26 +140,24 @@ public class InnerDecisionTree extends DecisionTree {
 
 	@Override
 	public void addTree(DecisionTree tree) {
-		Arrow arr = findEmptyArrow();
-		if(arr != null)
-			arr.setTarget(tree);
+		ArrayList<Arrow> arr = findEmptyArrows();
+		if(arr.get(0).getTarget() == null)
+			arr.get(0).setTarget(tree);
+//		if(arr != null)
+//			arr.setTarget(tree);
 	}
 
 	@Override
-	public Arrow findEmptyArrow() {
+	public ArrayList<Arrow> findEmptyArrows() {
 		boolean found = false;
-		Arrow arrow = null;
+		ArrayList<Arrow> list = new ArrayList<Arrow>();
 		for(Arrow arr: arrows){
-			if(arr.getTarget() == null){
-				arrow = arr;
-				break;
-			}else{
-				arrow = arr.getTarget().findEmptyArrow();
-				if(arrow != null)
-					break;
-			}
-		}	
-		return arrow;
+			if(arr.getTarget() != null)
+				list.addAll(arr.getTarget().findEmptyArrows());
+			else
+				list.add(arr);
+		}
+		return list;
 	}
 
 

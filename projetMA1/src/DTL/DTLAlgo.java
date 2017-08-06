@@ -176,8 +176,7 @@ public class DTLAlgo {
 		String info;
 		mana.setLineToNormal();
 		mana.goToLine(5);
-		//Thread.sleep(2000);
-		
+	
 		ArrayList<Float> gainList = new ArrayList<Float>();
 		for(int i=0; i< kb.getAttributeList().size();i++)
 			if(!attIndex.contains(i))
@@ -189,7 +188,6 @@ public class DTLAlgo {
 		mana.changeInfoToDisplay(info);
 		// wait & display things
 		mana.nextLine();
-		//Thread.sleep(2000);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
 		// ici c'est pour l'affichage,on a une copie mais qui a des arrows vide.
 		InnerDecisionTree tree2 = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
@@ -207,7 +205,7 @@ public class DTLAlgo {
 			mana.setTree(tree2);
 			firstIt = false;}
 		else{
-			mana.addTree(tree);
+			mana.addTree(tree2);
 		}
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
@@ -224,36 +222,28 @@ public class DTLAlgo {
 				
 				DecisionTree child = DTL_algo_StepByStep(kbChild,attIndex,kb,error,strat);
 				mana.goToLine(10);
-				System.out.println("Ici : "+mana.getLine());
 				
 				tree.addArrow(new Arrow(attVal,child));}
-		else{
+		else{// Numeric
 			attIndex.add(A);
 			
 			AttributeValue<Float> attVal = strat.getValueBestSplit(kb,A);
 			info = "valeur pour l'attribut "+ kb.getAttributeList().get(A).getName() +" : \n" + attVal.toString();
 			mana.changeInfoToDisplay(info);
 			mana.goToLine(7);
-			//Thread.sleep(2000);
 			// wait & display elem selectionné (preciser inférieur)
 			mana.nextLine();
-			//Thread.sleep(2000);
 			KnowledgeBase kbChildLower = kb.SplitNumerical(A,attVal,true);
 			mana.nextLine();
-			//Thread.sleep(2000);
 			DecisionTree childLower = DTL_algo_StepByStep(kbChildLower,attIndex,kb,error,strat);
 			mana.goToLine(10);
-			//Thread.sleep(2000);
 			tree.addArrow(new ArrowNumerical(attVal,childLower,true));
 			mana.goToLine(7);
-			//Thread.sleep(2000);
 			// wait & display elem select (preciser supérieur)
 			KnowledgeBase kbChildUpper = kb.SplitNumerical(A,attVal,false);
 			mana.nextLine();
-			//Thread.sleep(2000);
 			DecisionTree childUpper = DTL_algo_StepByStep(kbChildUpper,attIndex,kb,error,strat);
 			mana.goToLine(10);
-			//Thread.sleep(2000);
 			tree.addArrow(new ArrowNumerical(attVal,childUpper,false));		
 		}
 		mana.goToLine(11);

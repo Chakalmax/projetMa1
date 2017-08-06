@@ -1,5 +1,7 @@
 package DecisionTree;
 
+import java.util.ArrayList;
+
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
 import KnowledgeBase.Sample;
@@ -57,9 +59,10 @@ public class Leaf extends DecisionTree{
 	}
 
 	@Override
-	public Arrow findEmptyArrow() {
-		return null;
+	public ArrayList<Arrow> findEmptyArrows() {
+		return new ArrayList<Arrow>();
 	}
+
 
 	
 

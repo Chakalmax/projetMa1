@@ -1,5 +1,7 @@
 package DecisionTree;
 
+import java.util.ArrayList;
+
 import KnowledgeBase.AttributeValue;
 import KnowledgeBase.KnowledgeBase;
 import KnowledgeBase.Sample;
@@ -58,7 +60,7 @@ public abstract class DecisionTree {
 	
 	public abstract void addTree(DecisionTree tree);
 	
-	public abstract Arrow findEmptyArrow();
+	public abstract ArrayList<Arrow> findEmptyArrows();
 
 
 	
