@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JPanel;
 
@@ -23,12 +24,12 @@ public class InfoPanel extends JPanel {
 	    	Font normalFont = new Font("Dial", 0, fontSize);
 	    	g.setFont(normalFont);
 	    	ArrayList<String> output = TransformInfo();
-	    	g.drawString(info, 10, 20);
+	    	for(int i=0;i<output.size();i++)
+	    		g.drawString(output.get(i), 10, 20 +25*i);
 	}
 
 	private ArrayList<String> TransformInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<String>(Arrays.asList(info.split("\\n")));
 	}
 
 	public void setInformation(String info) {
