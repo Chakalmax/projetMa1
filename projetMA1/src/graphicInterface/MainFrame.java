@@ -149,7 +149,6 @@ public class MainFrame extends JFrame{
 			mf.drawPanel.setDt(dtalgo);
 			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Start Algo failed");
 		}

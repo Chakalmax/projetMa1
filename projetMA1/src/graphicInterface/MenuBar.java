@@ -90,15 +90,20 @@ public class MenuBar extends JMenuBar {
 		
 		private class OptionFrame extends JFrame{
 			
-			JPanel panel;
-			MainFrame mainFrame;
-			JButton okButton;
-			double error = Options.error;
-			boolean automatique = Options.automatique;
-			GainStrategy gainStrat = Options.gainStrategy;
-			JComboBox<GainStrategy> comboStrat;
-			private JCheckBox avanceRapide = new JCheckBox("AvanceRapide");
+			private static final long serialVersionUID = 1L;
+			private JPanel panel;
+			private JButton okButton;
+			
+			private double error = Options.error;
+			//private boolean automatique = Options.automatique;
+			private GainStrategy gainStrat = Options.gainStrategy;
+			private long waitTime = Options.waitTime;
+			
+			private JComboBox<Double> comboWaitTime;
+			private JComboBox<GainStrategy> comboStrat;
+			//private JCheckBox avanceRapide = new JCheckBox("AvanceRapide");
 			private JFormattedTextField errorField = new JFormattedTextField(NumberFormat.getPercentInstance());
+			
 			private GridLayout gl = new GridLayout(0,1);
 			
 			public OptionFrame(MainFrame mainFrame){
@@ -126,11 +131,23 @@ public class MenuBar extends JMenuBar {
 			    //panel.add(top, BorderLayout.NORTH);
 			    panel.add(top);
 			    // choisir avancee rapide ou pas.
-			    JPanel mid = new JPanel();
-			    avanceRapide.addActionListener(new AutomatiqueState());
-			    mid.add(avanceRapide);
+			    //JPanel mid = new JPanel();
+			   // avanceRapide.addActionListener(new AutomatiqueState());
+			   // mid.add(avanceRapide);
 			    //panel.add(mid,BorderLayout.CENTER);
-			    panel.add(mid);
+			    //panel.add(mid);
+			    // choisir le temps entre deux instructions
+			    comboWaitTime = new JComboBox<Double>();
+			    comboWaitTime.setPreferredSize(new Dimension(80,20));
+			    JLabel label2 = new JLabel("Temps entre deux instructions");
+			    JPanel mid1 = new JPanel();
+			    mid1.add(label2);
+			    mid1.add(comboWaitTime);
+			    comboWaitTime.addItem(0.5);
+			    for(int i=1;i<10;i++)
+			    	comboWaitTime.addItem((double)i);
+			    comboWaitTime.addActionListener(new WaitState());
+			    panel.add(mid1);
 			    //choisir le taux d'erreur.
 			    JPanel mid2 = new JPanel();
 			    Font police = new Font("Arial", Font.BOLD, 14);
@@ -160,13 +177,22 @@ public class MenuBar extends JMenuBar {
 				public void actionPerformed(ActionEvent e) {
 					gainStrat = (GainStrategy) comboStrat.getSelectedItem();
 				}
+				
+				
 		}
-			class AutomatiqueState implements ActionListener{
-			    public void actionPerformed(ActionEvent e) {
-			      System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - état : " + ((JCheckBox)e.getSource()).isSelected());
-			      automatique =  ((JCheckBox)e.getSource()).isSelected();
-			    }
-			  }
+			
+			class WaitState implements ActionListener{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					waitTime = (long) Double.parseDouble(comboWaitTime.getSelectedItem().toString()) *1000;
+				}
+			}
+//			class AutomatiqueState implements ActionListener{
+//			    public void actionPerformed(ActionEvent e) {
+//			      System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - état : " + ((JCheckBox)e.getSource()).isSelected());
+//			      automatique =  ((JCheckBox)e.getSource()).isSelected();
+//			    }
+//			  }
 			
 			private class BoutonEnd implements ActionListener{
 				public void actionPerformed(ActionEvent e)
@@ -186,10 +212,10 @@ public class MenuBar extends JMenuBar {
 			    		}
 			    	else
 			    		Options.error = error;
-			        Options.automatique = automatique;
+			        //Options.automatique = automatique;
 			        Options.gainStrategy = gainStrat;
 			       System.out.println("error ici"+ error + "error en option"+ Options.error);
-			       System.out.println("automatique ici"+ automatique + "automatique en option"+ Options.automatique);
+			       //System.out.println("automatique ici"+ automatique + "automatique en option"+ Options.automatique);
 			       System.out.println("strat ici"+ gainStrat + "strat en option"+ Options.gainStrategy);
 			        setVisible(false);
 			        dispose();
