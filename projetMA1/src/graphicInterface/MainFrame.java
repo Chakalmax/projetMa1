@@ -58,7 +58,6 @@ public class MainFrame extends JFrame{
 		codePanel = new PseudoCodePanel();
 		infoPanel = new InfoPanel();
 		drawPanel = new DrawPanel();
-		JScrollPane jScrollPane = new JScrollPane(drawPanel);
 		boutonPanel = new BoutonPanel(this);
 		//creation des SplitPanel
 		splitPaneRight = new JSplitPane();
@@ -78,7 +77,7 @@ public class MainFrame extends JFrame{
         
         splitPaneLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
         splitPaneLeft.setDividerLocation(650);
-        splitPaneLeft.setTopComponent(jScrollPane);
+        splitPaneLeft.setTopComponent(drawPanel);
         splitPaneLeft.setBottomComponent(boutonPanel);
         
         splitPaneAll.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
