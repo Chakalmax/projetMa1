@@ -143,6 +143,7 @@ public class MenuBar extends JMenuBar {
 			    JPanel mid1 = new JPanel();
 			    mid1.add(label2);
 			    mid1.add(comboWaitTime);
+			    comboWaitTime.addItem(0.1);
 			    comboWaitTime.addItem(0.5);
 			    for(int i=1;i<10;i++)
 			    	comboWaitTime.addItem((double)i);
