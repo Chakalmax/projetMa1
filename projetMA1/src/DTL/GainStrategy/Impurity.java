@@ -37,7 +37,7 @@ public abstract class Impurity implements GainStrategy {
 			detail = detail + "(" + sumList(count2d.get(i)) + "/" + kbSize+")*(";
 			float impurityLine = calculImpurityForValue(count2d.get(i),kbSize);
 			detail = detail + ")";
-			impurityLine = impurity + pv*impurityLine; 
+			impurity = impurity + pv*impurityLine; 
 		}
 		return impurity;
 	}
