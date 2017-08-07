@@ -78,19 +78,25 @@ public class DrawPanel extends JPanel{
             	Shape s = Nodes.get(i);
                 if (s.contains(me.getPoint())) {
                     DecisionTree node = dtNodes.get(i);
-                    String output = node.toString();
-                    //JOptionPane jop1 = new JOptionPane();
-                    JOptionPane.showMessageDialog(null,  output , "Information sur le noeud", JOptionPane.INFORMATION_MESSAGE);
-                    
-
+                    new InfoNodeFrame(node);
                 }
-			
-			
-		}
-            }
+			}
+         }		
+	}
+	
+	private class InfoNodeFrame extends JFrame{
 
+		DecisionTree node;
+		JPanel panel;
+		public InfoNodeFrame(DecisionTree node) {
+			this.node = node;
+			addThings();
+		}
 		
-		
+		private void addThings(){
+			this.panel = new JPanel();
+			ArrayList<String> output = dt.getInfo();
+		}
 	}
 
 	private void drawTree(Graphics g,DecisionTree dt, Graphics2D g2d) {

@@ -160,6 +160,17 @@ public class InnerDecisionTree extends DecisionTree {
 		return list;
 	}
 
+	@Override
+	public ArrayList<String> getInfo() {
+		ArrayList<String> result = new ArrayList<String>();
+		result.add("Noeud interne de l'arbre");
+		result.add("Attribut : "+ attribute.getName());
+		result.add("Il y a "+ kb.getSamples().size()+ " échantillons de la base de connnaissances");
+		result.add("qui correspondent à ce noeud de l'arbre");
+		result.add("");
+		return result;
+	}
+
 
 
 	

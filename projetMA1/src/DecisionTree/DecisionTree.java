@@ -62,6 +62,8 @@ public abstract class DecisionTree {
 	
 	public abstract ArrayList<Arrow> findEmptyArrows();
 
+	public abstract ArrayList<String> getInfo();
+
 
 	
 	

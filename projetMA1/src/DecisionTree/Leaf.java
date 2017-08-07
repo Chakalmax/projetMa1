@@ -63,6 +63,12 @@ public class Leaf extends DecisionTree{
 		return new ArrayList<Arrow>();
 	}
 
+	@Override
+	public ArrayList<String> getInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 
