@@ -72,6 +72,8 @@ public class BoutonPanel extends JPanel {
 				mainFrame.startAlgo();
 				runing = true;
 			}
+			else
+				JOptionPane.showMessageDialog(null, "Ouvrir une Kb avant", "", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	

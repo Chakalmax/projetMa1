@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -213,12 +214,10 @@ public class MenuBar extends JMenuBar {
 			    		}
 			    	else
 			    		Options.error = error;
-			        //Options.automatique = automatique;
 			    	Options.waitTime = waitTime;
 			        Options.gainStrategy = gainStrat;
 			       System.out.println("error ici"+ error + "error en option"+ Options.error);
 			       System.out.println("waitTime ici"+ waitTime + "waittime en option"+ Options.waitTime);
-			       //System.out.println("automatique ici"+ automatique + "automatique en option"+ Options.automatique);
 			       System.out.println("strat ici"+ gainStrat + "strat en option"+ Options.gainStrategy);
 			        setVisible(false);
 			        dispose();
@@ -233,6 +232,8 @@ public class MenuBar extends JMenuBar {
 		public void actionPerformed(ActionEvent e) {
 		  if(mainFrame.getKB() != null)
 		  new ParcoursTreeFrame(mainFrame.getKB());
+		  else
+			  JOptionPane.showMessageDialog(null, "Ouvrir une Kb avant d'acceder à cette section", "", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
