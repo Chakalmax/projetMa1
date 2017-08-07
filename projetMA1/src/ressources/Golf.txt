@@ -5,17 +5,17 @@
 @ Humidity nominal : high normal
 @ Windy boolean
 # Play boolean
-overcast	hot	    	high	FALSE	yes
-overcast	cool		normal	TRUE	yes
-overcast	mild		high	TRUE	yes
-overcast	hot		    normal	FALSE	yes
-rainy		mild		high	FALSE	yes
-rainy		cool		normal	FALSE	yes
-rainy		cool		normal	TRUE	no
-rainy		mild		normal	FALSE	yes
-rainy		mild		high	TRUE	no
-sunny		hot	    	high	FALSE	no
-sunny		hot	    	high	TRUE	no
-sunny		mild		high	FALSE	no
-sunny		cool		normal	FALSE	yes
-sunny		mild		normal	TRUE	yes
+overcast	hot	    	high	FALSE	true
+overcast	cool		normal	TRUE	true
+overcast	mild		high	TRUE	true
+overcast	hot		    normal	FALSE	true
+rainy		mild		high	FALSE	true
+rainy		cool		normal	FALSE	true
+rainy		cool		normal	TRUE	false
+rainy		mild		normal	FALSE	true
+rainy		mild		high	TRUE	false
+sunny		hot	    	high	FALSE	false
+sunny		hot	    	high	TRUE	false
+sunny		mild		high	FALSE	false
+sunny		cool		normal	FALSE	true
+sunny		mild		normal	TRUE	true

@@ -12,7 +12,7 @@
 @ addresse_connue boolean
 @ money boolean
 @ faute boolean
-@ taille_text numeric
+@ taille_text numerical
 @ piece_jointe boolean
 # spam boolean
 true false false 64 false false
