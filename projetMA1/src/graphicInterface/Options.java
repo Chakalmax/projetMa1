@@ -8,4 +8,5 @@ public class Options {
 	public static double error = (float)0.0;
 	public static GainStrategy gainStrategy = new EntropyGain();
 	public static long waitTime = 200;
+	public static boolean stop = false;
 }

@@ -15,9 +15,9 @@ import DTL.DTLAlgo;
 
 public class BoutonPanel extends JPanel {
 
-	private JButton buttonNext;
+	private JButton buttonStart;
 	private JButton buttonRestart;
-	private JButton buttonEnd;
+	private JButton buttonStop;
 	private boolean runing;
 	private MainFrame mainFrame;
 	
@@ -26,35 +26,37 @@ public class BoutonPanel extends JPanel {
 	{
 		//super.setBackground(new Color(100, 255, 100));
 		runing = false;
-		buttonNext = new JButton("Next");
-		buttonRestart = new JButton("Restart");
-		buttonEnd = new JButton("Finir l'algo");
+		buttonStart = new JButton("Resume");
+		buttonRestart = new JButton("Start");
+		buttonStop = new JButton("Stop");
 		this.mainFrame = mainFrame;
 		
-		buttonNext.addActionListener(new BoutonNext());
-		buttonEnd.addActionListener(new BoutonEnd());
-		buttonRestart.addActionListener(new BoutonRestart());
+		buttonStart.addActionListener(new BoutonResume());
+		buttonStop.addActionListener(new BoutonStop());
+		buttonRestart.addActionListener(new BoutonStart());
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
 
-		this.add(buttonEnd,BorderLayout.EAST);
-		this.add(buttonNext,BorderLayout.CENTER);
+		this.add(buttonStop,BorderLayout.CENTER);
+		this.add(buttonStart,BorderLayout.EAST);
 		this.add(buttonRestart,BorderLayout.WEST);
 		
 		
 		
 	}
 	
-	private class BoutonNext implements ActionListener{
+	private class BoutonResume implements ActionListener{
 	    public void actionPerformed(ActionEvent arg0) {   	
-	      System.out.println("Next");
-	    	  
+	    	System.out.println("Start");
+	    	if(Options.stop)
+	    		Options.stop=false;
+	    	System.out.println(Options.stop);
 	      }
 	    }  
-	private class BoutonRestart implements ActionListener{
+	private class BoutonStart implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
 			if(mainFrame.getKB() != null)
 			if(runing){
@@ -77,9 +79,12 @@ public class BoutonPanel extends JPanel {
 		}
 	}
 	
-	private class BoutonEnd implements ActionListener{
+	private class BoutonStop implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
-			System.out.println("End");
+			System.out.println("stop");
+			if(!Options.stop)
+				Options.stop = true;
+			System.out.println(Options.stop);
 		}
 	}
 }

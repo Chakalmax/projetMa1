@@ -77,6 +77,14 @@ public class DTL_Management {
 			System.out.println("Erreur lors du sleep (DTL_MANAGEMENT)");
 			e.printStackTrace();
 		}
+		while(Options.stop){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				System.out.println("Erreur lors du sleep (DTL_MANAGEMENT)");
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void changeInfoToDisplay(String info){
