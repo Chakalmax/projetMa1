@@ -60,7 +60,7 @@ public class BoutonPanel extends JPanel {
 			if(mainFrame.getKB() != null)
 			if(Options.running){
 			System.out.println("start");
-			changeBoutonToRestart();
+			
 			int option = JOptionPane.showConfirmDialog(null, 
 			        "Voulez vous recommencer l'algo depuis le début?", 
 			        "Restart", 
@@ -68,6 +68,7 @@ public class BoutonPanel extends JPanel {
 			        JOptionPane.QUESTION_MESSAGE);
 			
 			if(option == JOptionPane.OK_OPTION){
+					changeBoutonToRestart();
 					mainFrame.restartAlgo();
 				
 				
@@ -99,7 +100,6 @@ public class BoutonPanel extends JPanel {
         if (nom.equals("Start")) {
         	buttonRestart.setText("Restart");
             buttonRestart.revalidate();
-            buttonRestart.setBackground(Color.red);
             buttonRestart.setOpaque(true);
             buttonRestart.setEnabled(true);
             buttonRestart.revalidate(); // peut-être même pas obligatoire
