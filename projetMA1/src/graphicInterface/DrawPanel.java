@@ -2,6 +2,7 @@ package graphicInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,13 +35,14 @@ public class DrawPanel extends JPanel{
 	int[] numAttVal = {};
 	int[] currentPos ={};
 	static final int rowSize =130;
-	static final int collSize = 150;
+	static final int colSize = 150;
 	static final int ovalWidth = 120;
 	static final int ovalHeight=75;
 	static ClickNode click;
 	
 	private ArrayList<Shape> Nodes;
 	private ArrayList<DecisionTree> dtNodes;
+	public int largeurTree=1;
 	
 	public DrawPanel(){
 		super();
@@ -69,9 +71,31 @@ public class DrawPanel extends JPanel{
 			drawTree(g,dt,g2d);
 			click = new ClickNode();
 			this.addMouseListener(click);
+			if(currentPos.length>0)
+				largeurTree = max(currentPos);
+			else
+				largeurTree = 1;
+			
 		}
 	}
 	
+	public Dimension getPreferredSize() {
+		System.out.println(dt.getHeight());
+		System.out.println(largeurTree);
+		System.out.println(largeurTree*colSize);
+		System.out.println(50+dt.getHeight()*rowSize);
+        return new Dimension(largeurTree*colSize,50+dt.getHeight()*rowSize);
+    }
+	
+	private int max(int[] currentPos) {
+		int index =0;
+		int max = currentPos[index];
+		for(int i=1;i<currentPos.length;i++)
+			if(currentPos[i]>max)
+				index = i;
+		return index;
+	}
+
 	private class ClickNode extends MouseAdapter{
 
 		@Override
@@ -97,7 +121,6 @@ public class DrawPanel extends JPanel{
 		JPanel panel;
 
 		
-		private GridLayout gl = new GridLayout(0,1);
 		
 		public InfoNodeFrame(DecisionTree node) {
 			this.setTitle("Information sur le noeud");
@@ -193,7 +216,7 @@ public class DrawPanel extends JPanel{
 			
 			g.setColor(Color.BLACK);
 			//g.drawOval(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
-			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*collSize), 10+(deep*rowSize), ovalWidth, ovalHeight);
+			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*colSize), 10+(deep*rowSize), ovalWidth, ovalHeight);
 			Nodes.add(node);
 			dtNodes.add((InnerDecisionTree)dt);
 			g2d.draw(node);
@@ -202,18 +225,18 @@ public class DrawPanel extends JPanel{
 				if(arr.getTarget()!=null)
 					numberOfArrows = numberOfArrows +1;
 			drawEdge(g,(InnerDecisionTree)dt,numberOfArrows,deep);
-			g.drawString(((InnerDecisionTree)dt).getAttribute().getName(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
+			g.drawString(((InnerDecisionTree)dt).getAttribute().getName(),10+(squareNumber*colSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
 			for(Arrow arr: ((InnerDecisionTree) dt).getArrows())
 				if(arr.getTarget()!=null)
 				drawTree(g,arr.getTarget(),g2d);
 		}else{
 			g.setColor(Color.RED);
-			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*collSize),10+(deep*rowSize), ovalWidth, ovalHeight);
+			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*colSize),10+(deep*rowSize), ovalWidth, ovalHeight);
 			Nodes.add(node);
 			dtNodes.add((Leaf)dt);
 			g2d.draw(node);
-			g.drawString(((Leaf)dt).getDecision().toString(),10+(squareNumber*collSize)+30, 10+(deep*rowSize)+ovalHeight/2);
+			g.drawString(((Leaf)dt).getDecision().toString(),10+(squareNumber*colSize)+30, 10+(deep*rowSize)+ovalHeight/2);
 			currentPos[deep] = currentPos[deep]+1;
 			
 		}
@@ -224,9 +247,9 @@ public class DrawPanel extends JPanel{
 		int squareNumber = currentPos[deep];
 		for(int i=0;i<numberOfArrows;i++){
 			int squareNumberSon = currentPos[deep+1]+i;
-			int x1= 10+(squareNumber*collSize + ovalWidth/2);
+			int x1= 10+(squareNumber*colSize + ovalWidth/2);
 			int y1 = 10+(deep*rowSize + ovalHeight);
-			int x2 =10+(squareNumberSon*collSize+ovalWidth/2);
+			int x2 =10+(squareNumberSon*colSize+ovalWidth/2);
 			int y2 = 10+((deep+1)*rowSize);
 			g.drawLine(x1, y1, x2 , y2);
 

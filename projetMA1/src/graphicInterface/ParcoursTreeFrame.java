@@ -1,7 +1,9 @@
 package graphicInterface;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import DTL.DTLAlgo;
@@ -30,7 +33,8 @@ public class ParcoursTreeFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	JPanel panelBoutonEtValeur;
-	private JSplitPane mainPanel;
+	JPanel mainPanel;
+	JScrollPane scrollPane;
 	DecisionTree dT;
 	KnowledgeBase kb;
 	GainStrategy gStrat = new GiniGain();
@@ -45,7 +49,8 @@ public class ParcoursTreeFrame extends JFrame {
 	public ParcoursTreeFrame(KnowledgeBase kb){
 		super("Parcours d'un arbre");
 		this.panelBoutonEtValeur = new JPanel();
-		this.mainPanel = new JSplitPane();
+		this.mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
 		//this.dT = dT; // CAREFUL: Null atm
 		this.kb = kb;
 		this.dT = DTLAlgo.DTL_algo(kb, 0, gStrat);
@@ -53,30 +58,32 @@ public class ParcoursTreeFrame extends JFrame {
 		this.setSize(62*numberAttribute, 800);
 	    this.setLocationRelativeTo(null);
 	    addThings();
-	    this.setResizable(true);
+	    pack();
+	    //this.setSize(600, 400);
+	    this.setResizable(false);
 	    this.setVisible(true);
 	}
 	private void addThings() {
-		// TODO Un panel de tracé (un TreePanel??) et un panel
 		selectPanel = new JPanel();
 		addThingsSelectPanel();
-		//treePanel = new TreePanel();// change it to TreePanel after.(Maybe!!)
-		//treePanel.setDT(dT);
 		treePanel = new DrawPanel(dT);
 		boutonPanel = new JPanel();
 		addThingsBoutonPanel();
+		//treePanel.setSize(new Dimension(treePanel.hauteurMax*treePanel.ovalHeight,treePanel.largeurMax*treePanel.ovalWidth));
+		System.out.println(treePanel.getSize());
+		scrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		//scrollPane.setPreferredSize(new Dimension(61*kb.getAttributeList().size(),150));
+		//scrollPane.setSize(61*kb.getAttributeList().size(), 600);
 		
-		mainPanel.setOrientation(JSplitPane.VERTICAL_SPLIT);  
-        mainPanel.setDividerLocation(525);    
-        
+		mainPanel.add(scrollPane,BorderLayout.CENTER);	
 		//treePanel.setDT(dT);
-        mainPanel.setTopComponent(treePanel);  
+        //mainPanel.setTopComponent(treePanel);  
         
         panelBoutonEtValeur.setLayout(new GridLayout(2,1));
 		panelBoutonEtValeur.add(selectPanel);
 		panelBoutonEtValeur.add(boutonPanel);
-        mainPanel.setBottomComponent(panelBoutonEtValeur); 
-		
+        //mainPanel.setBottomComponent(panelBoutonEtValeur); 
+		mainPanel.add(panelBoutonEtValeur,BorderLayout.SOUTH);
 		this.getContentPane().setLayout(new GridLayout(1,1));
         this.add(mainPanel);
 		
