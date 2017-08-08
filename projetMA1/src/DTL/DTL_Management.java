@@ -23,7 +23,7 @@ public class DTL_Management {
 	    if (this.codePanel.isVisible())
 	    {
 	      this.codePanel.setGreenHighLight();
-	      sleep();
+	      sleepLess();
 	    }
 	  }
 	  
@@ -32,7 +32,7 @@ public class DTL_Management {
 	    if (this.codePanel.isVisible())
 	    {
 	      this.codePanel.setRedHighLight();
-	      sleep();
+	      sleepLess();
 	    }
 	  }
 	  
@@ -73,6 +73,26 @@ public class DTL_Management {
 	public void sleep (){
 		try {
 			Thread.sleep(Options.waitTime);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		while(Options.stop){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void sleepLess(){
+		long waitTime;
+		if(Options.waitTime<500)
+			waitTime = Options.waitTime;
+		else
+			waitTime = 500;
+		try {
+			Thread.sleep(waitTime);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
