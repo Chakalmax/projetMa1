@@ -184,7 +184,9 @@ public class DTLAlgo {
 			else
 				gainList.add((float) 0);
 		int A = maxIndex(gainList);
-		info = kb.getAttributeList().get(A).toString();
+		info = "Les attributs et leur gains sont: \n";
+		info = info + TabGainToInfo(gainList,kb.getAttributeList());
+		info = info + "Attribut choisi: " +kb.getAttributeList().get(A).getName();
 		mana.changeInfoToDisplay(info);
 		// wait & display things
 		mana.nextLine();
@@ -248,6 +250,15 @@ public class DTLAlgo {
 		}
 		mana.goToLine(11);
 		return tree;
+	}
+	
+	
+	private static String TabGainToInfo(ArrayList<Float> gainList, ArrayList<Attribute> arrayList) {
+		String info = "";
+		for(int i=0;i<gainList.size();i++)
+			if(gainList.get(i) != 0)
+				info = info + arrayList.get(i).getName()+ " " + gainList.get(i) + "\n";
+		return info;
 	}
 	
 	
