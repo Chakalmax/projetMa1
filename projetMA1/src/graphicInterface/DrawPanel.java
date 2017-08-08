@@ -102,7 +102,7 @@ public class DrawPanel extends JPanel{
 		public InfoNodeFrame(DecisionTree node) {
 			this.setTitle("Information sur le noeud");
 			this.node = node;
-			this.setSize(500, 400);
+			this.setSize(400, 300);
 		    this.setLocationRelativeTo(null);		
 			addThingsInfo();		
 		    this.setResizable(true);
@@ -115,8 +115,8 @@ public class DrawPanel extends JPanel{
 			System.out.println("Fini le textPanel");
 			JPanel panelBouton = new JPanel();
 			System.out.println("Fini le boutounPanel");
-			panel.setLayout(gl);
-			panel.add(panelText);
+			panel.setLayout(new BorderLayout());
+			panel.add(panelText, BorderLayout.CENTER);
 			JButton button = new JButton("Détail");
 			button.addActionListener(new DetailButton());
 			panelBouton.add(button);
