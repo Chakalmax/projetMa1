@@ -137,29 +137,34 @@ public class MainFrame extends JFrame{
 
 		@Override
 		public void run()
-        {
+        { 
+			while(!Options.cancelled)
           try {
         	  System.out.println("algo launched");
 			DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
 			System.out.println("algo ended");
 			Options.running = false;
+			boutonPanel.changeBoutonToStart();
 			mf.drawPanel.setDt(dtalgo);
 			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			System.out.println("Start Algo failed");
 		}
+			
         }
 		
 		
 	}
 
-	public void restartAlgo() {
+	public void restartAlgo(){
 		this.thread.interrupt();
+		Options.cancelled = true;
 		infoPanel.restart();
 		drawPanel.restart();
 		codePanel.restart();
 		this.startAlgo();
+		Options.cancelled= false;
 		
 		
 	}

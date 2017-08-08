@@ -283,6 +283,9 @@ public class DrawPanel extends JPanel{
 
 	public void restart() {
 		this.dt = null;
+		hauteurMax = 1;
+		largeurMax = 1;
+		maxHeight = 1;
 		repaint();
 		
 	}
