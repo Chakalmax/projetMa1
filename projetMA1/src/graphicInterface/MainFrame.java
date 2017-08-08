@@ -146,6 +146,7 @@ public class MainFrame extends JFrame{
 			Options.running = false;
 			boutonPanel.changeBoutonToStart();
 			mf.drawPanel.setDt(dtalgo);
+			Options.cancelled = true;
 			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
