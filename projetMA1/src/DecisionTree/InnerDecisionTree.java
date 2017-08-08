@@ -165,9 +165,15 @@ public class InnerDecisionTree extends DecisionTree {
 		ArrayList<String> result = new ArrayList<String>();
 		result.add("Noeud interne de l'arbre");
 		result.add("Attribut : "+ attribute.getName());
-		result.add("Il y a "+ kb.getSamples().size()+ " échantillons de la base de connnaissances");
-		result.add("qui correspondent à ce noeud de l'arbre");
-		result.add("");
+		if(kb.getSamples().size()>1){
+			result.add("Il y a "+ kb.getSamples().size()+ " échantillons de la base de");
+			result.add("connaissances qui correspondent à ce noeud de l'arbre");
+		}
+		else{
+			result.add("Il y a "+ kb.getSamples().size()+ " échantillon de la base de");
+			result.add("connaissances qui correspond à ce noeud de l'arbre");
+		}
+		result.add("Le gain calculé était de" + this.gain);
 		return result;
 	}
 

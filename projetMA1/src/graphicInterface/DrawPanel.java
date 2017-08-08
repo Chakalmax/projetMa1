@@ -1,9 +1,14 @@
 package graphicInterface;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -71,8 +76,6 @@ public class DrawPanel extends JPanel{
 
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent me) {
-			// TODO Auto-generated method stub
-			
 			super.mouseClicked(me);
             for (int i=0; i<Nodes.size();i++) {
             	Shape s = Nodes.get(i);
@@ -83,20 +86,103 @@ public class DrawPanel extends JPanel{
 			}
          }		
 	}
-	
+	//
+// INFO WHEN YOU CLICK ON A NODE
+	//
 	private class InfoNodeFrame extends JFrame{
 
+		
+		private static final long serialVersionUID = 1L;
 		DecisionTree node;
 		JPanel panel;
+
+		
+		private GridLayout gl = new GridLayout(0,1);
+		
 		public InfoNodeFrame(DecisionTree node) {
+			this.setTitle("Information sur le noeud");
 			this.node = node;
-			addThings();
+			this.setSize(500, 400);
+		    this.setLocationRelativeTo(null);		
+			addThingsInfo();		
+		    this.setResizable(true);
+		    this.setVisible(true);
 		}
 		
-		private void addThings(){
+		private void addThingsInfo(){
 			this.panel = new JPanel();
-			ArrayList<String> output = dt.getInfo();
+			PanelText panelText = new PanelText("hello");
+			System.out.println("Fini le textPanel");
+			JPanel panelBouton = new JPanel();
+			System.out.println("Fini le boutounPanel");
+			panel.setLayout(gl);
+			panel.add(panelText);
+			JButton button = new JButton("Détail");
+			button.addActionListener(new DetailButton());
+			panelBouton.add(button);
+			panel.add(panelBouton,BorderLayout.SOUTH);
+			this.add(panel);
 		}
+		
+		private class PanelText extends JPanel{
+			
+			private static final long serialVersionUID = 1L;
+			public PanelText(String h)
+			{
+				System.out.println(h);
+				repaint();
+			}
+
+			public void paintComponent(Graphics g){
+				super.paintComponent(g);
+				ArrayList<String> output = dt.getInfo();
+		    	g.setFont(new Font("Dial",0,15));
+				for(int i=0;i<output.size();i++){
+					g.drawString(output.get(i), 10, 20 +25*i);
+				}
+			}
+		}
+		
+		private class DetailButton implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = new JFrame();
+		    	String[] columns = completeCollumns();
+		    	String[][] lines = completeLines();
+		    	JPanel pane = new JPanel();
+		    	JTable table = new JTable(lines, columns);
+		    	pane.add(new JScrollPane(table));	
+		    	frame.add(pane);
+		    	frame.pack();
+		    	frame.setTitle("detail");  
+		    	frame.setResizable(true);
+		        frame.setVisible(true);
+			}
+
+			private String[][] completeLines() {
+				int numberColl = node.getKb().getAttributeList().size()+1;
+				int numberRow = node.getKb().getSamples().size();
+				String [][] tab = new String [numberRow][numberColl];
+				for(int i=0;i<numberRow;i++){
+					Sample samp = node.getKb().getSamples().get(i);
+					tab[i][0]= ""+i;
+					for(int j=1;j<numberColl;j++)
+						tab[i][j] = samp.get(j-1).toString();
+				}
+				return tab;
+			}
+
+			private String[] completeCollumns() {
+				int numberAttribute = node.getKb().getAttributeList().size();
+				String [] coll = new String[numberAttribute+1] ; 
+				coll[0] = "n°";
+				for(int i=1;i<numberAttribute+1;i++)
+					coll[i]=node.getKb().getAttributeList().get(i-1).getName();
+				return coll;
+			}
+		}
+		
+		
 	}
 
 	private void drawTree(Graphics g,DecisionTree dt, Graphics2D g2d) {

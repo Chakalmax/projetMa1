@@ -65,8 +65,21 @@ public class Leaf extends DecisionTree{
 
 	@Override
 	public ArrayList<String> getInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> result = new ArrayList<String>();
+		result.add("Feuille de l'arbre");
+		result.add("Classe : "+ this.classe);
+		if(kb.getSamples().size()>1){
+			result.add("Il y a "+ kb.getSamples().size()+ " échantillons de la base de");
+			result.add("connaissances qui correspondent à ce noeud de l'arbre");
+		}
+		else if(kb.getSamples().size()==1){
+			result.add("Il y a "+ kb.getSamples().size()+ " échantillon de la base de");
+			result.add("connaissances qui correspond à ce noeud de l'arbre");
+		}else{
+			result.add("Il n'y a aucun échantillon de la base de");
+			result.add("connaissances qui correspond à ce noueud de l'arbre");
+		}
+		return result;
 	}
 
 

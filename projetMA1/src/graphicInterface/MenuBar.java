@@ -112,7 +112,6 @@ public class MenuBar extends JMenuBar {
 			    			
 				super("Option");
 				this.setSize(300, 300);
-			    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			    this.setLocationRelativeTo(null);
 			    panel = new JPanel();
 			    panel.setBackground(Color.white);
