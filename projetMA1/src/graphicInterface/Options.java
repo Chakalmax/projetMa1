@@ -9,4 +9,5 @@ public class Options {
 	public static GainStrategy gainStrategy = new EntropyGain();
 	public static long waitTime = 200;
 	public static boolean stop = false;
+	public static boolean running = false;
 }

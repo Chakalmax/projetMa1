@@ -1,15 +1,12 @@
 package graphicInterface;
 
+
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
@@ -19,8 +16,8 @@ import KnowledgeBase.KnowledgeBase;
 
 public class MainFrame extends JFrame{
 	
+	private static final long serialVersionUID = 1L;
 	private JSplitPane splitPaneRight;
-	private JSplitPane splitPaneLeft;
 	private JSplitPane splitPaneAll;
 	private MenuBar menuBar;
 	private KnowledgeBase kb;
@@ -62,28 +59,27 @@ public class MainFrame extends JFrame{
 		boutonPanel = new BoutonPanel(this);
 		//creation des SplitPanel
 		splitPaneRight = new JSplitPane();
-		splitPaneLeft = new JSplitPane();
 		splitPaneAll = new JSplitPane();
 		
-		
+		JPanel leftBottomPanel = new JPanel();
+		leftBottomPanel.setLayout(new BorderLayout());
+		leftBottomPanel.add(infoPanel, BorderLayout.CENTER);
+		leftBottomPanel.add(boutonPanel,BorderLayout.SOUTH);
         
         getContentPane().setLayout(new GridLayout());  
         getContentPane().add(splitPaneAll);  
         // split Pane All est dans toute la Frame et est coupé à la Verticale
 
         splitPaneRight.setOrientation(JSplitPane.VERTICAL_SPLIT);  
-        splitPaneRight.setDividerLocation(525);                    
+        splitPaneRight.setDividerLocation(325);                    
         splitPaneRight.setTopComponent(codePanel);  
-        splitPaneRight.setBottomComponent(infoPanel);          
+        splitPaneRight.setBottomComponent(leftBottomPanel);          
         
-        splitPaneLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        splitPaneLeft.setDividerLocation(650);
-        splitPaneLeft.setTopComponent(drawPanel);
-        splitPaneLeft.setBottomComponent(boutonPanel);
+        
         
         splitPaneAll.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPaneAll.setDividerLocation(800);
-        splitPaneAll.setLeftComponent(splitPaneLeft);
+        splitPaneAll.setLeftComponent(drawPanel);
         splitPaneAll.setRightComponent(splitPaneRight);
         
 
@@ -146,6 +142,7 @@ public class MainFrame extends JFrame{
         	  System.out.println("algo launched");
 			DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
 			System.out.println("algo ended");
+			Options.running = false;
 			mf.drawPanel.setDt(dtalgo);
 			
 		} catch (InterruptedException e) {
