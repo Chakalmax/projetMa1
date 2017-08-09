@@ -10,6 +10,7 @@ public class Options {
 	public static long waitTime = 200;
 	public static boolean stop = false;
 	public static boolean running = false;
+	public static boolean random = true;
 	
 	public volatile static boolean cancelled;
 	

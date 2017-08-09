@@ -1,6 +1,5 @@
 package DTL.GainStrategy;
 
-import KnowledgeBase.*;
 import java.util.ArrayList;
 
 public class EntropyGain extends Impurity implements GainStrategy {

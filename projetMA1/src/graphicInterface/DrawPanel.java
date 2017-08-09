@@ -232,7 +232,7 @@ public class DrawPanel extends JPanel{
 				drawTree(g,arr.getTarget(),g2d);
 		}else{
 			g.setColor(Color.RED);
-			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*colSize),10+(deep*rowSize), ovalWidth, ovalHeight);
+			Ellipse2D.Double node = new Ellipse2D.Double(10+(squareNumber*colSize),10+(deep*rowSize), (ovalWidth-10), (ovalHeight-10));
 			Nodes.add(node);
 			dtNodes.add((Leaf)dt);
 			g2d.draw(node);

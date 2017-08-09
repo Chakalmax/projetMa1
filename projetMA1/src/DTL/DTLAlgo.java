@@ -1,6 +1,7 @@
 package DTL;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import DTL.GainStrategy.GainStrategy;
 import DecisionTree.*;
@@ -68,7 +69,7 @@ public class DTLAlgo {
 				gainList.add(strat.getGain(kb,i));
 			else
 				gainList.add((float) 0);
-		int A = maxIndex(gainList);
+		int A = maxIndex(gainList,attIndex);
 		InnerDecisionTree tree = new InnerDecisionTree(kb,kb.getAttributeList().get(A),gainList.get(A));
 		if(kb.getAttributeList().get(A).getType() != TypeAttribute.Numerical)
 			for(AttributeValue<?> attVal : kb.getAttributeList().get(A).getPossibleAttributeValue()){
@@ -96,16 +97,29 @@ public class DTLAlgo {
 	 * @param gainList an arrayList
 	 * @return index of the max
 	 */
-	private static int maxIndex(ArrayList<Float> gainList) {
+	private static int maxIndex(ArrayList<Float> gainList,ArrayList<Integer> attIndex) {
 		int index=0;
 		float max = gainList.get(0);
 		for(int i=0;i<gainList.size();i++){
-			if(gainList.get(i)>max){
+			if(!attIndex.contains(i))
+			if(Options.random && nearlyEquals(gainList.get(i),max)){
+			Random randomGenerator = new Random(); 
+			if(randomGenerator.nextBoolean()){
+					max = gainList.get(i);
+					index =i;
+				}
+			} else 
+				if(gainList.get(i)>max){
 				max = gainList.get(i);
 				index = i;
 			}
 		}
 		return index;
+	}
+	
+	private static boolean nearlyEquals(float f1, float f2){
+		float epsilon = (float)0.00001;
+		return (f1+epsilon > f2 && f1-epsilon < f2);
 	}
 	
 	public static String[] getPseudoCode() {
@@ -118,6 +132,7 @@ public class DTLAlgo {
 	public static DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, double error, GainStrategy strat, MainFrame mainFrame) throws InterruptedException{
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
 		attIndex.add(kb.getIndexClass());
+		System.out.println("attIndex : "+attIndex);
 		mana = new DTL_Management(mainFrame.getCodePanel(),mainFrame.getInfoPanel(),mainFrame.getTreePanel());
 		firstIt = true;
 		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
@@ -183,7 +198,7 @@ public class DTLAlgo {
 				gainList.add(strat.getGain(kb,i));
 			else
 				gainList.add((float) 0);
-		int A = maxIndex(gainList);
+		int A = maxIndex(gainList,attIndex);
 		info = "Les attributs et leur gains sont: \n";
 		info = info + TabGainToInfo(gainList,kb.getAttributeList());
 		info = info + "Attribut choisi: " +kb.getAttributeList().get(A).getName();

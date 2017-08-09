@@ -1,14 +1,8 @@
 package DTL.GainStrategy;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
+
 import java.util.ArrayList;
 
-import KnowledgeBase.Attribute;
-import KnowledgeBase.AttributeValue;
-import KnowledgeBase.KnowledgeBase;
-import KnowledgeBase.Sample;
-import KnowledgeBase.TypeAttribute;
 
 public class GiniGain extends Impurity implements GainStrategy {
 
