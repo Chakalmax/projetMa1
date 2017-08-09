@@ -245,6 +245,7 @@ public class DrawPanel extends JPanel{
 	private void drawEdge(Graphics g, InnerDecisionTree dt2, int numberOfArrows, int deep) {
 		int squareNumber = currentPos[deep];
 		for(int i=0;i<numberOfArrows;i++){
+			try{
 			int squareNumberSon = currentPos[deep+1]+i;
 			int x1= 10+(squareNumber*colSize + ovalWidth/2);
 			int y1 = 10+(deep*rowSize + ovalHeight);
@@ -255,7 +256,9 @@ public class DrawPanel extends JPanel{
 			int x3 = (x1+x2)/2;
 			int y3 = (y1+y2)/2;
 			g.drawString(dt2.getArrows().get(i).getValue().toString(), x3, y3);
-
+			}catch(ArrayIndexOutOfBoundsException e){
+				// huh
+			}
 		}
 		
 	}
@@ -282,9 +285,13 @@ public class DrawPanel extends JPanel{
 
 	public void restart() {
 		this.dt = null;
+		this.kb = null;
 		hauteurMax = 1;
 		largeurMax = 1;
 		maxHeight = 1;
+		Nodes = null;
+		dtNodes = null;
+		largeurTree=1;
 		repaint();
 		
 	}

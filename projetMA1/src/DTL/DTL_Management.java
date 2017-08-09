@@ -10,12 +10,12 @@ public class DTL_Management {
 	
 	PseudoCodePanel codePanel;
 	InfoPanel infoPanel;
-	DrawPanel treePanel;
+	DrawPanel drawPanel;
 	
 	public DTL_Management(PseudoCodePanel codePanel, InfoPanel infoPanel,DrawPanel treePanel){
 		this.codePanel=codePanel;
 		this.infoPanel = infoPanel;
-		this.treePanel = treePanel;
+		this.drawPanel = treePanel;
 	}
 	
 	  public void setLineToGreen()
@@ -74,13 +74,13 @@ public class DTL_Management {
 		try {
 			Thread.sleep(Options.waitTime);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		while(Options.stop){
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}
@@ -94,13 +94,13 @@ public class DTL_Management {
 		try {
 			Thread.sleep(waitTime);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		while(Options.stop){
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}
@@ -110,11 +110,11 @@ public class DTL_Management {
 	}
 	
 	public void setTree(DecisionTree dT){
-		treePanel.setDt(dT);
+		drawPanel.setDt(dT);
 	}
 	
 	public void addTree(DecisionTree dT){
-		treePanel.addTree(dT);
+		drawPanel.addTree(dT);
 	}
 
 }

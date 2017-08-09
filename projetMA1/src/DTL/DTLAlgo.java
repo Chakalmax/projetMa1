@@ -25,7 +25,7 @@ public class DTLAlgo {
 			"retourner tree"};
 	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,2,2,2,0};
 	private static DTL_Management mana;
-	private static boolean firstIt;
+	public static boolean firstIt;
 
 	public static DecisionTree DTL_algo(KnowledgeBase kb, double error, GainStrategy strat){
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
@@ -131,7 +131,6 @@ public class DTLAlgo {
 	public static DecisionTree Init_DTL_algo_StepByStep(KnowledgeBase kb, double error, GainStrategy strat, MainFrame mainFrame) throws InterruptedException{
 		ArrayList<Integer> attIndex = new ArrayList<Integer>();
 		attIndex.add(kb.getIndexClass());
-		System.out.println("attIndex : "+attIndex);
 		mana = new DTL_Management(mainFrame.getCodePanel(),mainFrame.getInfoPanel(),mainFrame.getTreePanel());
 		firstIt = true;
 		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);

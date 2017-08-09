@@ -63,12 +63,10 @@ public class MenuBar extends JMenuBar {
 	    	File repertoireCourant = null;
 	        try {
 	            repertoireCourant = new File(".").getCanonicalFile();
-	            System.out.println("Répertoire courant : " + repertoireCourant);
 	        } catch(IOException e) {}
 	         
 	        JFileChooser dialogue = new JFileChooser(repertoireCourant);
 	        if(dialogue.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-	        System.out.println("Fichier choisi : " + dialogue.getSelectedFile());
 	    	mainFrame.setKB(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
 	        }
 	    	

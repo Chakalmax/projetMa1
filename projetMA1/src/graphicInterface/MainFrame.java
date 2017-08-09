@@ -136,21 +136,23 @@ public class MainFrame extends JFrame{
 		@Override
 		public void run()
         { 
+			Options.cancelled = false;
 			while(!Options.cancelled)
-          try {
-        	  System.out.println("algo launched");
-			DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
-			System.out.println("algo ended");
-			Options.running = false;
-			boutonPanel.changeBoutonToStart();
-			mf.drawPanel.setDt(dtalgo);
-			Options.cancelled = true;
+         	try {
+        	  Options.running = true;
+        	  DTLAlgo.firstIt = true;
+        	  DecisionTree dtalgo = DTLAlgo.Init_DTL_algo_StepByStep(kb, Options.error, Options.gainStrategy, mf);
+        	  Options.running = false;
+        	  boutonPanel.changeBoutonToStart();
+        	  boutonPanel.repaint();
+        	  mf.drawPanel.setDt(dtalgo);
+        	  Options.cancelled = true;
 			
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			System.out.println("Start Algo failed");
-		}
-			
+         	}catch(InterruptedException e){
+				e.printStackTrace();
+				System.out.println("Start Algo failed");
+			}
+			System.out.println("un thread est fini");
         }
 		
 		
@@ -159,13 +161,20 @@ public class MainFrame extends JFrame{
 	public void restartAlgo(){
 		this.thread.interrupt();
 		Options.cancelled = true;
+		Options.stop = false;
 		infoPanel.restart();
 		drawPanel.restart();
 		codePanel.restart();
-		this.startAlgo();
-		Options.cancelled= false;
 		
-		
+		this.startAlgo();	
+	}
+	
+	public void resetPanels(){
+	}
+	
+	public void HardReset(){
+		this.removeAll();
+		this.addThings();
 	}
 
 

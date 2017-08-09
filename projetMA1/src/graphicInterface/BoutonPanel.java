@@ -45,18 +45,16 @@ public class BoutonPanel extends JPanel {
 	
 	private class BoutonResume implements ActionListener{
 	    public void actionPerformed(ActionEvent arg0) {   	
-	    	System.out.println("Start");
 	    	if(Options.running)
 	    		if(Options.stop)
 	    			Options.stop=false;
-	    	System.out.println(Options.stop);
 	      }
 	    }  
+	
 	private class BoutonStart implements ActionListener {
 		public void actionPerformed(ActionEvent arg0){
 			if(mainFrame.getKB() != null)
 			if(Options.running){
-			System.out.println("start");
 			
 			int option = JOptionPane.showConfirmDialog(null, 
 			        "Voulez vous recommencer l'algo depuis le début?", 
@@ -71,7 +69,7 @@ public class BoutonPanel extends JPanel {
 				
 			}}
 			else{
-				changeBoutonToStart();
+				changeBoutonToRestart();
 				mainFrame.startAlgo();
 				Options.running = true;
 			}
@@ -84,18 +82,16 @@ public class BoutonPanel extends JPanel {
 	
 	private class BoutonStop implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
-			System.out.println("stop");
 			if(Options.running)
 				if(!Options.stop)
 					Options.stop = true;
-			System.out.println(Options.stop);
 		}
 	}
 	
 	public void changeBoutonToStart(){
 		String nom = buttonRestart.getText();
-        if (nom.equals("Start")) {
-        	buttonRestart.setText("Restart");
+        if (nom.equals("Restart")) {
+        	buttonRestart.setText("Start");
             buttonRestart.revalidate();
             buttonRestart.setOpaque(true);
             buttonRestart.setEnabled(true);
@@ -105,13 +101,16 @@ public class BoutonPanel extends JPanel {
 	
 	public void changeBoutonToRestart() {
 		String nom = buttonRestart.getText();
-		
-		if(nom.equals("Restart")){
-        	buttonRestart.setText("Start");
+		if(nom.equals("Start")){
+        	buttonRestart.setText("Restart");
             buttonRestart.revalidate();
             buttonRestart.setOpaque(true);
             buttonRestart.setEnabled(true);
             buttonRestart.revalidate();
         }
+	}
+	
+	public void restart(){
+		changeBoutonToStart();
 	}
 }
