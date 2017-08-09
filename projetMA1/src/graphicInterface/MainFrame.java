@@ -152,29 +152,27 @@ public class MainFrame extends JFrame{
 				e.printStackTrace();
 				System.out.println("Start Algo failed");
 			}
-			System.out.println("un thread est fini");
         }
 		
 		
 	}
 
 	public void restartAlgo(){
-		this.thread.interrupt();
+		//this.thread.interrupt();
+		long wait = Options.waitTime;
+		Options.waitTime = 1;
+		while(thread.isAlive()){
+			
+		}
+		Options.waitTime = wait;
 		Options.cancelled = true;
 		Options.stop = false;
-		infoPanel.restart();
+		//infoPanel.restart();
+		//drawPanel.restart();
+		//codePanel.restart();
 		drawPanel.restart();
-		codePanel.restart();
 		
 		this.startAlgo();	
-	}
-	
-	public void resetPanels(){
-	}
-	
-	public void HardReset(){
-		this.removeAll();
-		this.addThings();
 	}
 
 
