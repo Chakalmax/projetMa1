@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -158,7 +157,7 @@ public class DrawPanel extends JPanel{
 
 			public void paintComponent(Graphics g){
 				super.paintComponent(g);
-				ArrayList<String> output = dt.getInfo();
+				ArrayList<String> output = node.getInfo();
 		    	g.setFont(new Font("Dial",0,15));
 				for(int i=0;i<output.size();i++){
 					g.drawString(output.get(i), 10, 20 +25*i);

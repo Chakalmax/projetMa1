@@ -1,7 +1,6 @@
 package graphicInterface;
 
 import java.util.ArrayList;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,17 +16,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import DTL.GainStrategy.EntropyGain;
 import DTL.GainStrategy.GainStrategy;
 import DTL.GainStrategy.GiniGain;
-import DecisionTree.DecisionTree;
 
 
 
 public class GainFrame extends JFrame{
 
+
+	private static final long serialVersionUID = 1L;
 	JPanel panelBouton;
 	//Bouton for panelBouton;
 	JButton buttonOption = new JButton("Options");
@@ -308,6 +307,7 @@ public class GainFrame extends JFrame{
 		
 		private class OptionFrame extends JFrame{
 			
+			private static final long serialVersionUID = 1L;
 			JPanel panel;
 			JButton okButton;
 			JButton cancelButton;

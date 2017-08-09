@@ -116,11 +116,9 @@ public class MainFrame extends JFrame{
 	
 	private class AlgoThread extends Thread{
 		
-		MainFrame mf;
 		
 		AlgoThread(MainFrame mf){
 			super(new RunnableThread(mf));
-			this.mf = mf;
 		}
 		
 		

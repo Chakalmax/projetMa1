@@ -1,11 +1,9 @@
 package graphicInterface;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import DTL.DTLAlgo;

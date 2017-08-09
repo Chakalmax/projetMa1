@@ -1,23 +1,17 @@
 package graphicInterface;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -28,15 +22,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import DTL.DTLAlgo;
 import DTL.GainStrategy.*;
-import KnowledgeBase.KnowledgeBase;
 import tools.ParseurTxt;
 
 public class MenuBar extends JMenuBar {
 
+	
+	private static final long serialVersionUID = 1L;
 	MainFrame mainFrame;
 	public MenuBar(MainFrame mainFrame){
 		

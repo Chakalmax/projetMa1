@@ -158,7 +158,6 @@ public abstract class Impurity implements GainStrategy {
 		float giniLine1 = calculImpurityForValueNumerical(kb,attIndex,counter2d.get(0),0,attributeValue,true);
 		float pv2 = (float)sumList(counter2d.get(1))/kb.getSamples().size();
 		float giniLine2 = calculImpurityForValueNumerical(kb,attIndex,counter2d.get(1),1,attributeValue,false);
-		float tmp = pv1*giniLine1 +pv2*giniLine2;
 		return pv1*giniLine1 +pv2*giniLine2;
 	}
 
