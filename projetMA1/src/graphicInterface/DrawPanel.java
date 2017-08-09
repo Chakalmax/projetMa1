@@ -129,10 +129,8 @@ public class DrawPanel extends JPanel{
 		
 		private void addThingsInfo(){
 			this.panel = new JPanel();
-			PanelText panelText = new PanelText("hello");
-			System.out.println("Fini le textPanel");
+			PanelText panelText = new PanelText();
 			JPanel panelBouton = new JPanel();
-			System.out.println("Fini le boutounPanel");
 			panel.setLayout(new BorderLayout());
 			panel.add(panelText, BorderLayout.CENTER);
 			JButton button = new JButton("Détail");
@@ -145,9 +143,8 @@ public class DrawPanel extends JPanel{
 		private class PanelText extends JPanel{
 			
 			private static final long serialVersionUID = 1L;
-			public PanelText(String h)
+			public PanelText()
 			{
-				System.out.println(h);
 				repaint();
 			}
 

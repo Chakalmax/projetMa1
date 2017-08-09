@@ -172,7 +172,7 @@ public class InnerDecisionTree extends DecisionTree {
 			result.add("Il y a "+ kb.getSamples().size()+ " échantillon de la base de connaissances");
 			result.add("qui correspond à ce noeud de l'arbre");
 		}
-		result.add("Le gain calculé était de" + this.gain);
+		result.add("Le gain calculé était de " + this.gain);
 		return result;
 	}
 
