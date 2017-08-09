@@ -91,7 +91,6 @@ public abstract class Impurity implements GainStrategy {
 	 */
 	private float calculGainNumerical(KnowledgeBase kb, int attIndex) {
 		ArrayList<AttributeValue<Float>> possibleValue =findPossibleValueNumerical(kb,attIndex);
-		System.out.println(possibleValue);
 		ArrayList<ArrayList<ArrayList<Integer>>> multiple_counters2D = new ArrayList<ArrayList<ArrayList<Integer>>>();
 		for(int i=0;i<possibleValue.size()-1;i++){
 			multiple_counters2D.add(kb.count2DNumeric(possibleValue.get(i),attIndex));		
@@ -130,7 +129,6 @@ public abstract class Impurity implements GainStrategy {
 			float tmp_gini;
 			for(int i=1;i<multiple_counters.size();i++){
 				tmp_gini = calculImpurity2D(kb.getSamples().size(),multiple_counters.get(i));
-				System.out.println(multiple_counters.get(i) + "  " + tmp_gini + " u " + best_Gini + "   "+ multiple_counters.get(index_Best_Gini));
 				if(tmp_gini<best_Gini){
 					best_Gini = tmp_gini;
 					index_Best_Gini = i;
