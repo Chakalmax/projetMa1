@@ -8,11 +8,10 @@ import DecisionTree.*;
 import KnowledgeBase.*;
 import graphicInterface.MainFrame;
 import graphicInterface.Options;
-import graphicInterface.PseudoCodePanel;
 
 public class DTLAlgo {
 	
-	private static String [] pseudoCode = { "Si tout les attributs utilisés ou tous les échantillons sont de même classe",
+	private static String [] pseudoCode = { "Si tous les attributs utilisés ou tous les échantillons sont de même classe",
 			"retourner Feuille(classeDominante)",
 			"Sinon si aucun échantillon restant",
 			"Retourne Feuille(classeDominante_Parent)",

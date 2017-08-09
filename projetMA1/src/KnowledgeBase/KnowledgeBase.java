@@ -368,6 +368,10 @@ public class KnowledgeBase {
 		return counter;
 	}
 
+	public ArrayList<ArrayList<Integer>> count2DNumeric(AttributeValue<?> attributeValueSplit, int attIndex){
+		return count2DNumeric(attIndex, getIndexClass() ,attributeValueSplit);
+	}
+	
 	public ArrayList<ArrayList<Integer>> count2DNumeric(int attIndex, int indexClass,
 			AttributeValue<?> attributeValueSplit) {
 		ArrayList<AttributeValue<?>> possibleValueClass = attributeList.get(indexClass).getPossibleAttributeValue();

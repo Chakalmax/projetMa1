@@ -58,12 +58,13 @@ public abstract class Impurity implements GainStrategy {
 		else
 			return calculGainNonNumerical(kb,attIndex);
 	}
+	
 	@Override
 	public AttributeValue<Float> getValueBestSplit(KnowledgeBase kb, int attIndex){
 		ArrayList<AttributeValue<Float>> possibleValue =findPossibleValueNumerical(kb,attIndex);
-		ArrayList<ArrayList<Integer>> multiple_counters = new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<ArrayList<Integer>>> multiple_counters = new ArrayList<ArrayList<ArrayList<Integer>>>();
 		for(int i=0;i<possibleValue.size()-1;i++)
-			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
+			multiple_counters.add(kb.count2DNumeric(possibleValue.get(i),attIndex));
 		int indexBestSplit = find_bestSplit(kb,attIndex,multiple_counters);
 		return possibleValue.get(indexBestSplit);
 	}
@@ -90,12 +91,14 @@ public abstract class Impurity implements GainStrategy {
 	 */
 	private float calculGainNumerical(KnowledgeBase kb, int attIndex) {
 		ArrayList<AttributeValue<Float>> possibleValue =findPossibleValueNumerical(kb,attIndex);
-		ArrayList<ArrayList<Integer>> multiple_counters = new ArrayList<ArrayList<Integer>>();
-		for(int i=0;i<possibleValue.size()-1;i++)
-			multiple_counters.add(kb.countNumerical(possibleValue.get(i),attIndex));
+		System.out.println(possibleValue);
+		ArrayList<ArrayList<ArrayList<Integer>>> multiple_counters2D = new ArrayList<ArrayList<ArrayList<Integer>>>();
+		for(int i=0;i<possibleValue.size()-1;i++){
+			multiple_counters2D.add(kb.count2DNumeric(possibleValue.get(i),attIndex));		
+		}
 		ArrayList<Integer> counter1D = kb.count(kb.getIndexClass());
 		float gini1D = calculImpurity(kb.getSamples().size(),counter1D);
-		int indexBestSplit = find_bestSplit(kb,attIndex,multiple_counters);
+		int indexBestSplit = find_bestSplit(kb,attIndex,multiple_counters2D);
 		///
 		ArrayList<ArrayList<Integer>> counter2D = kb.count2DNumeric(attIndex, kb.getIndexClass(),possibleValue.get(indexBestSplit));
 		float gini2D = calculImpurity2DForNumerical(kb,attIndex,counter2D,possibleValue.get(indexBestSplit));
@@ -120,18 +123,23 @@ public abstract class Impurity implements GainStrategy {
 	 * @param multiple_counters
 	 * @return
 	 */
-	private int find_bestSplit(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<Integer>> multiple_counters) {
-		float best_Gini = 0; // it's a minimum!!
-		int index_Best_Gini =0;
-		float tmp_gini;
-		for(int i=0;i<multiple_counters.size();i++){
-			tmp_gini = calculImpurity(kb.getSamples().size(),multiple_counters.get(i));
-			if(tmp_gini<best_Gini){
-				best_Gini = tmp_gini;
-				index_Best_Gini = i;
+	private int find_bestSplit(KnowledgeBase kb, int attIndex, ArrayList<ArrayList<ArrayList<Integer>>> multiple_counters) {
+		if(multiple_counters.size() >0){
+			float best_Gini = calculImpurity2D(kb.getSamples().size(),multiple_counters.get(0));; // it's a minimum!!
+			int index_Best_Gini =0;
+			float tmp_gini;
+			for(int i=1;i<multiple_counters.size();i++){
+				tmp_gini = calculImpurity2D(kb.getSamples().size(),multiple_counters.get(i));
+				System.out.println(multiple_counters.get(i) + "  " + tmp_gini + " u " + best_Gini + "   "+ multiple_counters.get(index_Best_Gini));
+				if(tmp_gini<best_Gini){
+					best_Gini = tmp_gini;
+					index_Best_Gini = i;
+				}
 			}
+			return index_Best_Gini;
 		}
-		return index_Best_Gini;
+		return 0;
+		
 		
 	}
 
