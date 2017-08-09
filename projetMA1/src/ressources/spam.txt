@@ -1,5 +1,4 @@
 % Fichier spam
-% Test line
 % Respectez bien la structure du fichier. 
 % % pour les commentaires
 % @ pour les attributs non classe
@@ -9,8 +8,8 @@
 % Ajoutez des valeurs fictives (i.e des valeurs de nominaux qui ne sont pas dans la KB) menèrait 
 % à la création de branche inutile
 % Evitez les lignes de commentaires trop longues (pour l'affichage)
-@ addresse_connue boolean
-@ money boolean
+@ add_connue boolean
+@ argent boolean
 @ faute boolean
 @ taille_text nominal : aucun court moyen long
 @ piece_jointe boolean
