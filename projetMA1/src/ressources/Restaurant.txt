@@ -8,7 +8,7 @@
 @ Price nominal : high low medium
 @ Rain boolean
 @ Reserved boolean
-@ Type boolean
+@ Type nominal : French Thai Burger Italian
 @ Estimation nominal : 0-10 10-30 30-60 >60
 # wait boolean
 true  false false true  some high   false true  French 0-10 true

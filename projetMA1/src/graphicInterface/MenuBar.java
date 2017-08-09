@@ -74,9 +74,10 @@ public class MenuBar extends JMenuBar {
 	        } catch(IOException e) {}
 	         
 	        JFileChooser dialogue = new JFileChooser(repertoireCourant);
-	        dialogue.showOpenDialog(null);
+	        if(dialogue.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 	        System.out.println("Fichier choisi : " + dialogue.getSelectedFile());
 	    	mainFrame.setKB(ParseurTxt.readFile(dialogue.getSelectedFile().toString()));
+	        }
 	    	
 	    	
 	      
@@ -101,7 +102,7 @@ public class MenuBar extends JMenuBar {
 			private long waitTime = Options.waitTime;
 			
 			private JComboBox<Double> comboWaitTime;
-			private JComboBox<GainStrategy> comboStrat;
+			private JComboBox<String> comboStrat;
 			//private JCheckBox avanceRapide = new JCheckBox("AvanceRapide");
 			private JFormattedTextField errorField = new JFormattedTextField(NumberFormat.getPercentInstance());
 			
@@ -119,14 +120,14 @@ public class MenuBar extends JMenuBar {
 			    panel.setLayout(gl);
 			    panel.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 			    //  choisir sa strategie.
-			    comboStrat = new JComboBox<GainStrategy>();
+			    comboStrat = new JComboBox<String>();
 			    comboStrat.setPreferredSize(new Dimension(200, 20));		    
 			    JLabel label = new JLabel("Gain");			    
 			    JPanel top = new JPanel();
 			    top.add(label);
 			    top.add(comboStrat);
-			    comboStrat.addItem(new EntropyGain());
-			    comboStrat.addItem(new GiniGain());
+			    comboStrat.addItem("Entropie");
+			    comboStrat.addItem("Gini");
 			    comboStrat.addActionListener(new GainState());
 			    //panel.add(top, BorderLayout.NORTH);
 			    panel.add(top);
@@ -151,11 +152,13 @@ public class MenuBar extends JMenuBar {
 			    panel.add(mid1);
 			    //choisir le taux d'erreur.
 			    JPanel mid2 = new JPanel();
+			    JLabel errorLabel = new JLabel("Erreur acceptée");
 			    Font police = new Font("Arial", Font.BOLD, 14);
 			    errorField.setValue(new Float(error));
 			    errorField.setFont(police);
 			    errorField.setPreferredSize(new Dimension(150, 30));
 			    errorField.setForeground(Color.BLACK);
+			    mid2.add(errorLabel);
 			    mid2.add(errorField);
 			    //panel.add((mid2),BorderLayout.CENTER);
 			    panel.add(mid2);
@@ -175,8 +178,12 @@ public class MenuBar extends JMenuBar {
 			
 			class GainState implements ActionListener{
 				@Override
-				public void actionPerformed(ActionEvent e) {
-					gainStrat = (GainStrategy) comboStrat.getSelectedItem();
+				public void actionPerformed(ActionEvent e) {		
+					if(comboStrat.getSelectedItem().toString().compareToIgnoreCase("Gini")==0){
+						gainStrat = new GiniGain();
+					} else if(comboStrat.getSelectedItem().toString().compareToIgnoreCase("Entropie")==0){
+						gainStrat = new EntropyGain();
+					}
 				}
 				
 				
@@ -188,13 +195,7 @@ public class MenuBar extends JMenuBar {
 					waitTime = (long) Double.parseDouble(comboWaitTime.getSelectedItem().toString()) *1000;
 				}
 			}
-//			class AutomatiqueState implements ActionListener{
-//			    public void actionPerformed(ActionEvent e) {
-//			      System.out.println("source : " + ((JCheckBox)e.getSource()).getText() + " - état : " + ((JCheckBox)e.getSource()).isSelected());
-//			      automatique =  ((JCheckBox)e.getSource()).isSelected();
-//			    }
-//			  }
-			
+
 			private class BoutonEnd implements ActionListener{
 				public void actionPerformed(ActionEvent e)
 			      {
