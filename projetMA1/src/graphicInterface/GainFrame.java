@@ -50,7 +50,7 @@ public class GainFrame extends JFrame{
 		super("Calcul de gains");
 		this.calcul=false;
 		this.panelBouton = new JPanel();
-		this.setSize(600, 300);
+		this.setSize(500, 95);
 	    this.setLocationRelativeTo(null);
 	    addThings();
 	    this.setResizable(true);

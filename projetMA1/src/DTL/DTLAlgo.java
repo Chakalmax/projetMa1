@@ -21,7 +21,7 @@ public class DTLAlgo {
 			"Pour chaque valeur v de A faire:",
 			"sample_fils <- {e|e dans examples et e.A = valeur v}",
 			"DT_fils = DTL(samples_fils,attribute-A,examples)",
-			"ajouter DT_Fils aux fils de tree avec le marquage A = vk sur la branche",
+			"ajouter DT_fils aux fils de tree avec le marquage A = v sur la branche",
 			"retourner tree"};
 	private static int [] pseudoCodeIdentation = {0,1,0,1,0,1,1,1,2,2,2,0};
 	private static DTL_Management mana;

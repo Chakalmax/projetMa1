@@ -207,9 +207,6 @@ public class MenuBar extends JMenuBar {
 			    		Options.error = error;
 			    	Options.waitTime = waitTime;
 			        Options.gainStrategy = gainStrat;
-			       System.out.println("error ici"+ error + "error en option"+ Options.error);
-			       System.out.println("waitTime ici"+ waitTime + "waittime en option"+ Options.waitTime);
-			       System.out.println("strat ici"+ gainStrat + "strat en option"+ Options.gainStrategy);
 			        setVisible(false);
 			        dispose();
 			        
