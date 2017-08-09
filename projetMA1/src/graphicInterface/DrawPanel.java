@@ -71,7 +71,7 @@ public class DrawPanel extends JPanel{
 			click = new ClickNode();
 			this.addMouseListener(click);
 			if(currentPos.length>0)
-				largeurTree = max(currentPos);
+				largeurTree = currentPos[max(currentPos)];
 			else
 				largeurTree = 1;
 			
@@ -79,11 +79,7 @@ public class DrawPanel extends JPanel{
 	}
 	
 	public Dimension getPreferredSize() {
-		System.out.println(dt.getHeight());
-		System.out.println(largeurTree);
-		System.out.println(largeurTree*colSize);
-		System.out.println(50+dt.getHeight()*rowSize);
-        return new Dimension(largeurTree*colSize,50+dt.getHeight()*rowSize);
+        return new Dimension(largeurTree*colSize,dt.getHeight()*rowSize);
     }
 	
 	private int max(int[] currentPos) {

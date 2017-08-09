@@ -2,6 +2,7 @@ package graphicInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,11 +52,10 @@ public class ParcoursTreeFrame extends JFrame {
 		this.kb = kb;
 		this.dT = DTLAlgo.DTL_algo(kb, 0, gStrat);
 		int numberAttribute = kb.getAttributeList().size();
-		this.setSize(62*numberAttribute, 800);
+		this.setSize(65*numberAttribute, 800);;
 	    this.setLocationRelativeTo(null);
 	    addThings();
 	    pack();
-	    //this.setSize(600, 400);
 	    this.setResizable(false);
 	    this.setVisible(true);
 	}
