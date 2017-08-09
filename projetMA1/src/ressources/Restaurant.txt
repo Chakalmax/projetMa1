@@ -2,7 +2,7 @@
 % Cette KB ne contient que des attributs booléen ou nominaux.
 @ Alter boolean
 @ Bar boolean
-@ Friday_Or_Saturday boolean
+@ Fri_Or_Sat boolean
 @ Hungry boolean
 @ Patrons nominal : some full none
 @ Price nominal : high low medium
