@@ -103,6 +103,14 @@ public class MenuBar extends JMenuBar {
 				
 			    			
 				super("Option");
+				Options.stop = true;
+				this.addWindowListener(new java.awt.event.WindowAdapter() {
+				    @Override
+				    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				            Options.stop = false;     
+				    }
+				});
+				
 				this.setSize(300, 300);
 			    this.setLocationRelativeTo(null);
 			    panel = new JPanel();
@@ -140,6 +148,7 @@ public class MenuBar extends JMenuBar {
 			    for(int i=1;i<10;i++)
 			    	comboWaitTime.addItem((double)i);
 			    comboWaitTime.addActionListener(new WaitState());
+			    comboWaitTime.setSelectedItem((double)(((double)waitTime)/1000));
 			    panel.add(mid1);
 			    //choisir le taux d'erreur.
 			    JPanel mid2 = new JPanel();
@@ -183,7 +192,7 @@ public class MenuBar extends JMenuBar {
 			class WaitState implements ActionListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					waitTime = (long) Double.parseDouble(comboWaitTime.getSelectedItem().toString()) *1000;
+					waitTime = (long) (Double.parseDouble(comboWaitTime.getSelectedItem().toString()) *1000);
 				}
 			}
 
@@ -208,6 +217,7 @@ public class MenuBar extends JMenuBar {
 			    	Options.waitTime = waitTime;
 			        Options.gainStrategy = gainStrat;
 			        setVisible(false);
+			        Options.stop = false;
 			        dispose();
 			        
 			      }
