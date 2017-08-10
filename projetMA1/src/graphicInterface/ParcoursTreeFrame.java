@@ -56,7 +56,7 @@ public class ParcoursTreeFrame extends JFrame {
 	    this.setLocationRelativeTo(null);
 	    addThings();
 	    pack();
-	    this.setResizable(false);
+	    this.setResizable(true);
 	    this.setVisible(true);
 	}
 	private void addThings() {
@@ -66,8 +66,7 @@ public class ParcoursTreeFrame extends JFrame {
 		boutonPanel = new JPanel();
 		addThingsBoutonPanel();
 		//treePanel.setSize(new Dimension(treePanel.hauteurMax*treePanel.ovalHeight,treePanel.largeurMax*treePanel.ovalWidth));
-		System.out.println(treePanel.getSize());
-		scrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		//scrollPane.setPreferredSize(new Dimension(61*kb.getAttributeList().size(),150));
 		//scrollPane.setSize(61*kb.getAttributeList().size(), 600);
 		

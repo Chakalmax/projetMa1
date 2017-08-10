@@ -133,7 +133,10 @@ public class DTLAlgo {
 		attIndex.add(kb.getIndexClass());
 		mana = new DTL_Management(mainFrame.getCodePanel(),mainFrame.getInfoPanel(),mainFrame.getTreePanel());
 		firstIt = true;
-		return DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
+		DecisionTree dt = DTL_algo_StepByStep(kb,attIndex,kb,error,strat);
+		String info = "Algorithme terminé";
+		mana.changeInfoToDisplay(info);
+		return dt;
 	}
 	
 	public static DecisionTree DTL_algo_StepByStep(KnowledgeBase kb, ArrayList<Integer> attIndex,

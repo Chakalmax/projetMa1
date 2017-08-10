@@ -79,15 +79,21 @@ public class DrawPanel extends JPanel{
 	}
 	
 	public Dimension getPreferredSize() {
-        return new Dimension(largeurTree*colSize,dt.getHeight()*rowSize);
+		if(currentPos.length>0)
+			largeurTree = currentPos[max(currentPos)];
+		else
+			largeurTree = 1;
+        return new Dimension(largeurTree*colSize,dt.getHeight()*rowSize - (rowSize-ovalHeight -10));
     }
 	
 	private int max(int[] currentPos) {
 		int index =0;
 		int max = currentPos[index];
 		for(int i=1;i<currentPos.length;i++)
-			if(currentPos[i]>max)
+			if(currentPos[i]>max){
 				index = i;
+				max = currentPos[i];
+			}
 		return index;
 	}
 
