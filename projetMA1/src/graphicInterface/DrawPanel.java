@@ -254,7 +254,8 @@ public class DrawPanel extends JPanel{
 
 			int x3 = (x1+x2)/2;
 			int y3 = (y1+y2)/2;
-			g.drawString(dt2.getArrows().get(i).getValue().toString(), x3, y3);
+			g.drawString(dt2.getArrows().get(i).toString(), x3, y3);
+			
 			}catch(ArrayIndexOutOfBoundsException e){
 				// huh
 			}
