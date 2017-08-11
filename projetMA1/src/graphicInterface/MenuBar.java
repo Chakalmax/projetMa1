@@ -154,7 +154,7 @@ public class MenuBar extends JMenuBar {
 			    JPanel mid2 = new JPanel();
 			    JLabel errorLabel = new JLabel("Erreur acceptée");
 			    Font police = new Font("Arial", Font.BOLD, 14);
-			    errorField.setValue(new Float(error));
+			    errorField.setValue(new Float(error/100));
 			    errorField.setFont(police);
 			    errorField.setPreferredSize(new Dimension(150, 30));
 			    errorField.setForeground(Color.BLACK);
@@ -199,6 +199,9 @@ public class MenuBar extends JMenuBar {
 			private class BoutonEnd implements ActionListener{
 				public void actionPerformed(ActionEvent e)
 			      {
+					System.out.println(errorField.getValue());
+					System.out.println(errorField.getValue() instanceof Float);
+					System.out.println(errorField.getText());
 			    	if(errorField.getText()!=null||errorField.getText()!=""){
 			    		double tmp = error;
 			    		if(errorField.getValue() instanceof Double){
@@ -209,11 +212,12 @@ public class MenuBar extends JMenuBar {
 			    			tmpString = tmpString.substring(0, tmpString.length()-2);
 			    			tmp = Double.parseDouble(tmpString);
 			    		}
-			    		if(tmp>0 && tmp>50)
-				    		Options.error = (double) errorField.getValue();
+			    		if(tmp>0 && tmp<0.25)
+				    		Options.error = ((double) errorField.getValue())*100;
 			    		}
 			    	else
 			    		Options.error = error;
+			    	System.out.println(Options.error);
 			    	Options.waitTime = waitTime;
 			        Options.gainStrategy = gainStrat;
 			        setVisible(false);
