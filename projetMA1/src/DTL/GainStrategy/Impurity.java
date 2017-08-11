@@ -26,7 +26,7 @@ public abstract class Impurity implements GainStrategy {
 	}
 
 	
-	private float calculImpurity2D(int kbSize, ArrayList<ArrayList<Integer>> count2d) {
+	public float calculImpurity2D(int kbSize, ArrayList<ArrayList<Integer>> count2d) {
 		float impurity =0;
 		boolean firstIt = true;
 		for(int i=0;i<count2d.size();i++){
@@ -35,7 +35,7 @@ public abstract class Impurity implements GainStrategy {
 			firstIt = false;
 			float pv = (float)sumList(count2d.get(i))/kbSize;
 			detail = detail + "(" + sumList(count2d.get(i)) + "/" + kbSize+")*(";
-			float impurityLine = calculImpurityForValue(count2d.get(i),kbSize);
+			float impurityLine = calculImpurityForValue(count2d.get(i));
 			detail = detail + ")";
 			impurity = impurity + pv*impurityLine; 
 		}
@@ -44,7 +44,7 @@ public abstract class Impurity implements GainStrategy {
 
 	
 
-	private float calculImpurityForValue(ArrayList<Integer> countValue,int kbSize) {
+	private float calculImpurityForValue(ArrayList<Integer> countValue) {
 		int countValueSize = sumList(countValue);
 		return calculImpurity(countValueSize,countValue);
 	}
