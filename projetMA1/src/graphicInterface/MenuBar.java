@@ -199,9 +199,7 @@ public class MenuBar extends JMenuBar {
 			private class BoutonEnd implements ActionListener{
 				public void actionPerformed(ActionEvent e)
 			      {
-					System.out.println(errorField.getValue());
-					System.out.println(errorField.getValue() instanceof Float);
-					System.out.println(errorField.getText());
+					
 			    	if(errorField.getText()!=null||errorField.getText()!=""){
 			    		double tmp = error;
 			    		if(errorField.getValue() instanceof Double){
@@ -217,7 +215,6 @@ public class MenuBar extends JMenuBar {
 			    		}
 			    	else
 			    		Options.error = error;
-			    	System.out.println(Options.error);
 			    	Options.waitTime = waitTime;
 			        Options.gainStrategy = gainStrat;
 			        setVisible(false);
