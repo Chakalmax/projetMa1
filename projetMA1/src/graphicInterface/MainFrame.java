@@ -158,7 +158,6 @@ public class MainFrame extends JFrame{
 	}
 
 	public void restartAlgo(){
-		//this.thread.interrupt();
 		long wait = Options.waitTime;
 		Options.waitTime = 1;
 		while(thread.isAlive()){
@@ -167,9 +166,6 @@ public class MainFrame extends JFrame{
 		Options.waitTime = wait;
 		Options.cancelled = true;
 		Options.stop = false;
-		//infoPanel.restart();
-		//drawPanel.restart();
-		//codePanel.restart();
 		drawPanel.restart();
 		
 		this.startAlgo();	

@@ -96,9 +96,6 @@ public class GainFrame extends JFrame{
 	private class BoutonCompute implements ActionListener{
 		public void actionPerformed(ActionEvent arg0){
 			calcul = true;
-			System.out.println(nbClass);
-			System.out.println(nbAttVal);
-			System.out.println(strategy.getName());
 			ArrayList<Integer> count1D = createCount1D(count2D);
 			int kbSize = sumList(count1D);
 			float result = strategy.getGain(count2D,count1D,kbSize);
@@ -274,7 +271,6 @@ public class GainFrame extends JFrame{
 						}
 					}
 					count2D = count2DClone;
-					System.out.println("Count2D: "+count2D);
 					calcul = false;
 					optionFrame.setVisible(false);
 					optionFrame.dispose();
@@ -291,7 +287,6 @@ public class GainFrame extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e){
 					count2D = newCount2D;
-					System.out.println(count2D);
 					optionFrame.setVisible(false);
 					optionFrame.dispose();
 				}
@@ -344,7 +339,7 @@ public class GainFrame extends JFrame{
 			    for(int i=minAttVal; i<= maxAttVal;i++)
 			    	nbAttBox.addItem(i);
 			    nbAttBox.addActionListener(new nbAttBoxState());
-			    
+			    nbAttBox.setSelectedItem(nbAttVal);;
 			    // comboBox nbClassBox
 				
 			    nbClassBox = new JComboBox<Integer>();
@@ -356,7 +351,7 @@ public class GainFrame extends JFrame{
 			    for(int i=minClass; i<= maxClass;i++)
 			    	nbClassBox.addItem(i);
 			    nbClassBox.addActionListener(new nbClassBoxState());
-			    
+			    nbClassBox.setSelectedItem(nbClass);
 			    // combobox strategyBox
 			    
 			    strategyBox = new JComboBox<String>();
@@ -368,6 +363,10 @@ public class GainFrame extends JFrame{
 			    strategyBox.addItem("Gini");
 			    strategyBox.addItem("Entropie");
 			    strategyBox.addActionListener(new StrategyState());
+			    if(strategy instanceof GiniGain)
+			    	strategyBox.setSelectedItem("Gini");
+			    else if(strategy instanceof EntropyGain)
+			    	strategyBox.setSelectedItem("Entropie");
 			    
 			    // ajouter les combobox au panel.
 			    
@@ -427,7 +426,6 @@ public class GainFrame extends JFrame{
 					nbAttVal = tmpNbAttVal;
 					if(change){
 						count2D = createCount2D();
-						System.out.println("count2D reset:"+ count2D);
 					}
 					calcul = false;
 					optionFrame.setVisible(false);

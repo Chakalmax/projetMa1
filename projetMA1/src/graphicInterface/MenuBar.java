@@ -128,14 +128,7 @@ public class MenuBar extends JMenuBar {
 			    comboStrat.addItem("Entropie");
 			    comboStrat.addItem("Gini");
 			    comboStrat.addActionListener(new GainState());
-			    //panel.add(top, BorderLayout.NORTH);
-			    panel.add(top);
-			    // choisir avancee rapide ou pas.
-			    //JPanel mid = new JPanel();
-			   // avanceRapide.addActionListener(new AutomatiqueState());
-			   // mid.add(avanceRapide);
-			    //panel.add(mid,BorderLayout.CENTER);
-			    //panel.add(mid);
+			    panel.add(top);	
 			    // choisir le temps entre deux instructions
 			    comboWaitTime = new JComboBox<Double>();
 			    comboWaitTime.setPreferredSize(new Dimension(80,20));

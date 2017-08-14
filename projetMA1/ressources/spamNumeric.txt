@@ -9,7 +9,7 @@
 % Ajoutez des valeurs fictives (i.e des valeurs de nominaux qui ne sont pas dans la KB) menèrait 
 % à la création de branche inutile
 % Evitez les lignes de commentaires trop longues (pour l'affichage)
-@ addresse_connue boolean
+@ add_connue boolean
 @ money boolean
 @ faute boolean
 @ taille_text numerical
