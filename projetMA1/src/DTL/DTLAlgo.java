@@ -145,9 +145,9 @@ public class DTLAlgo {
 		mana.goToLine(0);
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error)){
 			if(attIndex.size() == kb.getAttributeList().size())
-				info = "Plus d'attribut restant \n";
+				info = "Plus aucun attribut restant \n";
 			else{
-				info = "Tous les échantillons sont de la même classe \n";
+				info = "Tous les échantillons sont de la même classe: \n";
 				info = info + kb.getDominantClass().toString();
 			}
 			mana.changeInfoToDisplay(info);
