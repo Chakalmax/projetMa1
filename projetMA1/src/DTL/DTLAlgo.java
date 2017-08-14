@@ -146,8 +146,10 @@ public class DTLAlgo {
 		if(attIndex.size() == kb.getAttributeList().size()||kb.AllSameClass(error)){
 			if(attIndex.size() == kb.getAttributeList().size())
 				info = "Plus d'attribut restant \n";
-			else
-				info = "Tous les attributs sont de la même classe \n";
+			else{
+				info = "Tous les échantillons sont de la même classe \n";
+				info = info + kb.getDominantClass().toString();
+			}
 			mana.changeInfoToDisplay(info);
 			mana.setLineToGreen();
 			// Donner l'info de ce qui a provoqué le true:
@@ -166,7 +168,7 @@ public class DTLAlgo {
 		mana.jumpLine(2);
 		}
 		if(kb.isEmpty()){
-			info = "Plus d'échantillon restant";
+			info = "Plus aucun échantillon restant";
 			mana.changeInfoToDisplay(info);
 			mana.setLineToGreen();
 			Leaf leaf = new Leaf(kb,parent_kb.getDominantClass());
