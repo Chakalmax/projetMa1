@@ -48,7 +48,7 @@ public class MenuBar extends JMenuBar {
 		this.add(option);
 		//
 		JMenu outils = new JMenu("outils");
-		JMenuItem parcoursGraph = new JMenuItem("Parcoureur d'arbre");
+		JMenuItem parcoursGraph = new JMenuItem("Parcours d'arbres");
 		JMenuItem calculGain = new JMenuItem("Calcul de Gain");
 		parcoursGraph.addActionListener(new TreeButton());
 		calculGain.addActionListener(new GainButton());
