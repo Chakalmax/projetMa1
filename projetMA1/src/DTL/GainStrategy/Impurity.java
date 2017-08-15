@@ -104,6 +104,7 @@ public abstract class Impurity implements GainStrategy {
 		return gini1D - gini2D;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private ArrayList<AttributeValue<Float>> findPossibleValueNumerical(KnowledgeBase kb, int attIndex){
 		ArrayList<AttributeValue<Float>> possibleValue = new ArrayList<AttributeValue<Float>>();
 		for(Sample samp: kb.getSamples())

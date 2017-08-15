@@ -34,6 +34,7 @@ public class AttributeValue<T> {
 		return value.toString();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean equals(Object ob){
 		if((this.value instanceof Boolean))

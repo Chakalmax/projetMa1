@@ -2,7 +2,6 @@ package graphicInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -130,6 +129,7 @@ public class ParcoursTreeFrame extends JFrame {
 	}
 	
 	private class BoutonVerification implements ActionListener{
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent e){
 			//treePanel.setDT(dT);
@@ -188,12 +188,14 @@ public class ParcoursTreeFrame extends JFrame {
 				showIncorrectAnswer(decision, classVal);
 		}
 
+		@SuppressWarnings("static-access")
 		private void showIncorrectAnswer(AttributeValue<?> decision, AttributeValue<?> classVal) {
 			JOptionPane jopt = new JOptionPane();
 			jopt.showMessageDialog(null, "Vous avez répondu : " + classVal + "\n" + "mais la réponse correcte est : "+ decision,"Detail",JOptionPane.INFORMATION_MESSAGE);
 			
 		}
 
+		@SuppressWarnings("static-access")
 		private void showCorrectAnswer(AttributeValue<?> decision, AttributeValue<?> classVal) {
 			JOptionPane jopt = new JOptionPane();
 			jopt.showMessageDialog(null, "Vous avez répondu : " + classVal + "\n" + "et c'est correct","Detail" , JOptionPane.INFORMATION_MESSAGE);

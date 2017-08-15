@@ -94,6 +94,7 @@ public class GainFrame extends JFrame{
 	
 	
 	private class BoutonCompute implements ActionListener{
+		@SuppressWarnings("static-access")
 		public void actionPerformed(ActionEvent arg0){
 			calcul = true;
 			ArrayList<Integer> count1D = createCount1D(count2D);
@@ -133,6 +134,7 @@ public class GainFrame extends JFrame{
 	}
 	
 	private class BoutonDetail implements ActionListener{
+		@SuppressWarnings("static-access")
 		public void actionPerformed(ActionEvent arg0){
 			//TODO
 			if(!calcul){
