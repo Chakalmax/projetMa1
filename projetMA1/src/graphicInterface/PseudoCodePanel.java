@@ -17,8 +17,8 @@ public class PseudoCodePanel extends JPanel {
 	private static Color redColor = new Color(255, 100, 100);
 	private static Color normalColor = new Color(220, 220, 200);
 	private static Color fontColor = new Color (230,220,235);
-	private static Color blackColor = new Color (0,0,0);
-	private Color highlightColor = normalColor;
+	private static Color writeColor = new Color (0,0,0);
+	private Color highlightColor;
 	private boolean isMac = System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0;
 	private int lineToHighLight = 0;
 	
@@ -28,6 +28,7 @@ public class PseudoCodePanel extends JPanel {
 		super.setBackground(fontColor);
 		this.instructions = DTLAlgo.getPseudoCode();
 		this.indentInstruction = DTLAlgo.getPseudoCodeIdentation();
+		this.highlightColor = normalColor;
 	}
 	
 	public void paintComponent(Graphics g){
@@ -55,7 +56,7 @@ public class PseudoCodePanel extends JPanel {
 	    
 	    // TOUJOURS ECRIRE APRES SURLIGNAGE
 		// Ecriture
-	    g.setColor(blackColor);
+	    g.setColor(writeColor);
 	    
 	    if(this.instructions.length == this.indentInstruction.length){
 	    	int i = 0;
